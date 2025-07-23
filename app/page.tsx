@@ -2,6 +2,7 @@ import Image from "next/image";
 import IntroText from "@/app/ui/introText";
 import Search from "@/app/ui/search";
 import Link from "next/dist/client/link";
+import RecentlyPublishedBooks from "./ui/recentlypub-books"; 
 
 export default function Home() {
   return (
@@ -23,6 +24,10 @@ export default function Home() {
       </header>
       <IntroText />
       <Search placeholder="Search..." />
+      <RecentlyPublishedBooks />
+      <footer className="">
+        
+      </footer>
     </div>
   );
 }

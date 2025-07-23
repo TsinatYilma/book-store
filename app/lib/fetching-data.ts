@@ -1,0 +1,23 @@
+import postgres from 'postgres';
+import {Book} from './definition';
+
+
+const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
+
+export async function fetchBooks() {
+  try {
+    // Artificially delay a response for demo purposes.
+    // Don't do this in production :)
+
+    console.log('Fetching book data...');
+
+    const data = await sql<Book[]>`SELECT * FROM books`;
+
+    console.log('Data fetch completed after 3 seconds.');
+
+    return data;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch book data.');
+  }
+}
