@@ -1,11 +1,11 @@
 export const books = [
-  {
-    name: "The Night Circus",
-    author: "Erin Morgenstern",
-    cover: "https://images-na.ssl-images-amazon.com/images/I/81Zg3vU9x-L.jpg",
-    rating: 5,
-    category: "Fantasy"
-  },
+ {
+  name: "The Song of Achilles",
+  author: "Madeline Miller",
+  cover: "https://m.media-amazon.com/images/I/81t2CVWEsUL._SL1500_.jpg",
+  rating: 4.7,
+  category: "Mythology"
+},
   {
     name: "Educated",
     author: "Tara Westover",
@@ -63,10 +63,14 @@ export const books = [
     category: "Historical Fiction"
   },
   {
-    name: "The Power of Now",
-    author: "Eckhart Tolle",
-    cover: "https://images-na.ssl-images-amazon.com/images/I/71XkZzJ1AFL.jpg",
-    rating: 1.5,
-    category: "Spiritual"
-  }
+  name: "The Midnight Library",
+  author: "Matt Haig",
+  cover: "https://images-na.ssl-images-amazon.com/images/I/81A-mvlo+QL.jpg",
+  rating: 4.2,
+  category: "Fiction"
+}
+
+
+
+
 ];
