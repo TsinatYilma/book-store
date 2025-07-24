@@ -10,7 +10,6 @@ export async function fetchBooks() {
     // Don't do this in production :)
 
     console.log('Fetching book data...');
-    await sql`DELETE FROM books`; // removes all rows
 
 
     const data = await sql<Book[]>`SELECT * FROM books`;
