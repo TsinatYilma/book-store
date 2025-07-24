@@ -6,7 +6,7 @@ import RecentlyPublishedBooks from "./ui/recentlypub-books";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col items-center ">
+    <div className="flex min-h-screen flex-col items-center">
       <header className="flex p-4 pl-8 pr-8 w-full justify-between items-center mb-18">
          <div className="flex gap-6">
            <Link href="/">Home</Link>
