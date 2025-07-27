@@ -15,8 +15,6 @@ export async function fetchBooks() {
     const data = await sql<Book[]>`SELECT * FROM books`;
 
 
-    console.log(data);
-
     return data;
   } catch (error) {
     console.error('Database Error:', error);

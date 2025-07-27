@@ -62,13 +62,6 @@ export const books = [
     rating: 2,
     category: "Historical Fiction"
   },
-  {
-  name: "The Midnight Library",
-  author: "Matt Haig",
-  cover: "https://images-na.ssl-images-amazon.com/images/I/81A-mvlo+QL.jpg",
-  rating: 4.2,
-  category: "Fiction"
-}
 
 
 

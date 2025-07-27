@@ -26,18 +26,21 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
-.fancyBorder{
-  border-width: 2px;
-  border-color: white;
-  border-style: solid;
+.fancyBorder {
+  border: 2px solid transparent; 
+  background:
+    linear-gradient(#000, #000) padding-box,
+    linear-gradient(to right, #238E8E 0%, #FFFFFF 30%, #FFFFFF 70%, #238E8E 100%) border-box;
 }
-
-.fancyBorder:hover {
-  border-width: 3px;
-  border-image: linear-gradient(to right, #238E8E 0%, #FFFFFF 30%, #FFFFFF 70%, #238E8E 100%);
-  border-image-slice: 1;
-  border-style: solid;
+.fancyBorderForHover{
+  border: 2px solid transparent; 
+  border-radius: 8px; 
 }
-.element::-webkit-scrollbar {
+.fancyBorderForHover:hover{
+  background:
+    linear-gradient(#000, #000) padding-box,
+    linear-gradient(to right, #238E8E 0%, #FFFFFF 30%, #FFFFFF 70%, #238E8E 100%) border-box;
+}
+.no-scrollbar::-webkit-scrollbar {
   display: none;
 }
