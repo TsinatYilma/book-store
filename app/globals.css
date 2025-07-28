@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+@theme{
+  --breakpoint-xs: 400px;
+}
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -17,6 +20,12 @@
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+@media(width >= 400px){
+  .fontSize{
+    font-size: 24px;
+  }
+  
+}
 }
 :root {
   color: #238E8E;

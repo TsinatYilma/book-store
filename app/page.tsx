@@ -12,6 +12,7 @@ export default function Home() {
       <Header/>
       <IntroText />
       <Search placeholder="Search..." />
+      <RecentlyPublishedBooks />
       <footer className="">
         
       </footer>

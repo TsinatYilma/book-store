@@ -2,6 +2,7 @@
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { useDebouncedCallback } from 'use-debounce';
+import '../globals.css'
 
 export default function Search({ placeholder }: { placeholder: string }) {
   /*
@@ -27,16 +28,16 @@ export default function Search({ placeholder }: { placeholder: string }) {
         Search
       </label>
       <input
-        className="block rounded-md py-[4px] sm:py-[6px] pl-10 text-sm outline-2 placeholder:text-gray-500 sm:max-w-[450px] md:w-[850px] focus:outline-[#0AA1A1]"
+        className="block rounded-md py-[4px] sm:py-[6px] pl-3 xs:pl-10 text-sm outline-2 placeholder:text-gray-500 w-[212px] sm:h-[34px] sm:max-w-[450px]  md:w-[850px] focus:outline-[#0AA1A1]"
         placeholder={placeholder}
         onChange={(e)=>{
           //handleSearch(e.target.value)
         }}
         //defaultValue={searchParams.get('query')?.toString()}
       />
-      <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
+      <MagnifyingGlassIcon className="absolute right-3 xs:left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
       </div>
-      <button className="hidden sm:block bg-[#0AA1A1] rounded-md  pl-2 pr-2 sm:pl-4 sm:pr-4 font-bold">Find</button>
+      <button className="hidden xs:block fancyBorder rounded-full  pl-5 pr-5  ">search</button>
     </div>
   );
 }

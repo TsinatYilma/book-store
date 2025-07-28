@@ -12,11 +12,11 @@ export default function Header(){
 
     return(
         <>
-        <header className="flex p-4  w-full h-[100px] justify-between items-center mb-18  ">
+        <header className="flex p-4  w-full h-[100px] justify-between items-center mb-12 ">
             
-            <div className="md:hidden ">
+            <div className="md:hidden flex justify-between w-full">
+              <h1 className="font-bold text-3xl">Logo</h1>
               <img src="./../menu.png" alt="menu" className="w-[40px] h-[40px] " onClick={handleMenuVisbility} />
-              
             </div>
             
              <div className="hidden md:flex gap-6 ">
@@ -27,7 +27,7 @@ export default function Header(){
              <div className="hidden md:block">
               <h1 className="text-2xl font-bold">Book Store</h1>
              </div>
-             <div className="flex gap-3 md:gap-6  items-center">
+             <div className="hidden md:flex gap-3 md:gap-6  items-center">
                <Link href="/login">Login</Link>
                <p className="font-bold text-3xl flex items-center">|</p>
                <Link className="text-[#238E8E]" href="/signup">Register</Link>

@@ -11,7 +11,7 @@ export default function Menu({menuVisible, handleMenuVisbility}:
 
     return(
         <>
-        <div className={`flex flex-col md:hidden fixed z-30 top-0 left-0 bg-black/80 min-h-screen w-[90%] transition-all  duration-700 ease-out overflow-y-auto ${menuVisible ? "translate-x-0" : "-translate-x-full"}`}>
+        <div className={`flex flex-col md:hidden fixed z-30 top-0 left-0 bg-black/80 min-h-screen w-[90%] xs:w-[50%] transition-all  duration-700 ease-out overflow-y-auto ${menuVisible ? "translate-x-0" : "-translate-x-full"}`}>
            <div className="p-5">
               <div className="flex justify-between border-b-2 border-gray-600 pb-6">
                 <h1 className="font-bold text-4xl">Logo</h1>
