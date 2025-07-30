@@ -12,7 +12,7 @@ export default function Header(){
 
     return(
         <>
-        <header className="flex p-4  w-full h-[100px] justify-between items-center mb-12 ">
+        <header className="flex p-4  w-full h-[60px] justify-between items-center">
             
             <div className="md:hidden flex justify-between w-full">
               <h1 className="font-bold text-3xl">Logo</h1>
@@ -20,8 +20,8 @@ export default function Header(){
             </div>
             
              <div className="hidden md:flex gap-6 ">
-               <Link href="/">Home</Link>
-               <Link href="/genres">Genres</Link>
+               <Link href="./">Home</Link>
+               <Link href="../pages/genre">Genres</Link>
                <Link href="/blog">Blog</Link>
              </div>
              <div className="hidden md:block">
