@@ -1,6 +1,6 @@
 
-import {Book} from '../../../../lib/definition';
-import '../../../globals.css';
+import {Book} from '@/app/lib/definition';
+import '@/app/globals.css';
 import {books} from "@/app/lib/fetching-data"
 import {handlee, gabarito} from "@/app/ui/fonts";
 import Link from "next/link";
@@ -16,14 +16,15 @@ export default function BookCategory({ params }: { params: { category: string } 
             <div className="flex flex-col lg:flex-row lg:justify-around lg:gap-8 w-full p-4 sm:w-fit">
             <div className={gabarito.className +"flex flex-col w-full lg:w-fit"}>
                 <h1 className="font-bold">{category}</h1>
-                <p className="text-[14px]">Fiction is imaginative writing that creates characters, places, and events that aren’t real but feel meaningful. It gives authors the freedom to explore emotions, ideas, and experiences in creative ways. Through stories, fiction helps readers escape into new worlds, reflect on real-life issues, and see different perspectives—even when everything in the plot is made up. It’s not just entertainment; it’s a way to understand ourselves and others more deeply</p>
+                <p className="text-[12px] max-w-[600px]">Fiction is imaginative writing that creates characters, places, and events that aren’t real but feel meaningful. It gives authors the freedom to explore emotions, ideas, and experiences in creative ways. Through stories, fiction helps readers escape into new worlds, reflect on real-life issues, and see different perspectives—even when everything in the plot is made up. It’s not just entertainment; it’s a way to understand ourselves and others more deeply</p>
+                <p className="text-[12px] font-bold my-3 ">Released tagged `${category}`</p>
                 <Catagory category={category ?? "category"}/>
            </div>
            <div className="w-fit mt-8 lg:mt-0">
              <h1 className="font-bold border-b-2 border-gray-600 pb-4 mb-4 lg:mb-1">Browse</h1>
              <div className="grid gap-2 grid-cols-2 lg:grid-cols-3 lg:mt-4 h-fit w-fit mr-auto px-4 mt-8">
                {bookGenres.map((book: string) => (
-                     <Link href={book}><p className="text-cyan-400 text-[12px]">{book}</p></Link>
+                     <Link key={book} href={book}><p className="text-cyan-400 text-[12px]">{book}</p></Link>
                ))}
              </div>
            </div>
@@ -46,12 +47,12 @@ function Catagory({category}:{category:string}){
                                     className="w-full h-[184px] object-cover"
                                 />
                             <div  className="absolute inset-0 bg-black/60 flex  items-center justify-center flex-col gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <span className="w-full flex sm:flex-col gap-3 justify-center items-center mb-6 sm:mb-10 ">
-                                    <img src="../../favorite.png" alt="" className='w-7 h-7 sm:w-10 sm:h-10' />
-                                    <span className="text-[12px] text-md pt-1 sm:pt-0 sm:text-md font-bold">{book.rating} / 5</span>
+                                <span className="w-full flex flex-col gap-3 justify-center items-center mb-6  ">
+                                    <img src="../../../../../favorite.png" alt="" className='w-7 h-7 ' />
+                                    <span className="text-[12px] text-md pt-1 font-bold">{book.rating} / 5</span>
                                 </span>
-                                <p className="text-[14px] sm:text-lg font-bold mb-3">{book.category}</p>
-                                <Link href='./' className='rounded-lg'><button className='fancyrounded-lg bg-black text-[12px] text-md py-0.5 px-2 sm:py-2 sm:px-10 '>View Detail</button></Link>
+                                <p className="text-[14px]  font-bold mb-3">{book.category}</p>
+                                <Link href='./' className='rounded-lg'><button className='fancyBorder rounded-lg bg-black text-[12px] text-md py-0.5 px-2 '>View Detail</button></Link>
                             </div>
                          </div>
                          

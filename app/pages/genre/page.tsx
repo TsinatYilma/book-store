@@ -48,7 +48,7 @@ function Category({category}:{category:string}){
                                 />
                             <div  className="absolute inset-0 bg-black/60 flex  items-center justify-center flex-col gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
                                 <span className="w-full flex sm:flex-col gap-3 justify-center items-center mb-6 sm:mb-10 ">
-                                    <img src="../../favorite.png" alt="" className='w-7 h-7 sm:w-10 sm:h-10' />
+                                    <img src="../../../favorite.png" alt="" className='w-7 h-7 sm:w-10 sm:h-10' />
                                     <span className="text-[12px] text-md pt-1 sm:pt-0 sm:text-md font-bold">{book.rating} / 5</span>
                                 </span>
                                 <p className="text-[14px] sm:text-lg font-bold mb-3">{book.category}</p>
