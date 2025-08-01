@@ -5,4 +5,5 @@ export type Book = {
     cover: string;
     rating: number;
     category: string;
+    published: number;
 };

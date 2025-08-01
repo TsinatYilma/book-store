@@ -62,7 +62,7 @@ function Category({category}:{category:string}){
                 }
                     </div>
             <div className=''>
-              <Link href={`./genre/category/${category}`} className=''><p className="ml-auto w-fit text-cyan-600">More...</p></Link>
+              <Link href={`./category/${category}`} className=''><p className="ml-auto w-fit text-cyan-600">More...</p></Link>
             </div>
         </div>
     )

@@ -3,6 +3,9 @@
 @theme{
   --breakpoint-xs: 400px;
   --breakpoint-me: 900px;
+  --font-gabarito: var(--font-gabarito)
+  --font-gantari: var(--font-gantari)
+  --font-handlee: var(--font-handlee)
 }
 :root {
   --background: #ffffff;
