@@ -22,8 +22,9 @@ export default function Home() {
      
       <MyShelf />
        <ContactUs />
-        */}
         <BookView />
+        */}
+        <Profile />
 
     </div>
   );

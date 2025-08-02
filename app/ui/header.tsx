@@ -12,7 +12,7 @@ export default function Header(){
 
     return(
         <>
-        <header className="flex p-4  w-full h-[60px] justify-between items-center">
+        <header className="flex p-4  w-full h-[60px] justify-between items-center bg-black">
             
             <div className="md:hidden flex justify-between w-full">
               <h1 className="font-bold text-3xl">Logo</h1>
