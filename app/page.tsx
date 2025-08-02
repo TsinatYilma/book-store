@@ -8,6 +8,7 @@ import BookoftheMonth from "./ui/BOTM";
 import ContactUs from "./ui/contactUS";
 import MyShelf from "./pages/Myshelf/page";
 import BookView from "./pages/BookView/page";
+import Profile from "./pages/Profile/page";
 
 
 export default function Home() {
