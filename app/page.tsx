@@ -7,22 +7,22 @@ import Header from '@/app/ui/header'
 import BookoftheMonth from "./ui/BOTM";
 import ContactUs from "./ui/contactUS";
 import MyShelf from "./pages/Myshelf/page";
+import BookView from "./pages/BookView/page";
 
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col items-center border-2 bg-black/20">
+    <div className="flex min-h-screen flex-col items-center bg-black/20">
       {/*
       <IntroText />
       <Search placeholder="Search..." />
       <RecentlyPublishedBooks />
       <BookoftheMonth />
-      
      
-      */}
       <MyShelf />
-      
        <ContactUs />
+        */}
+        <BookView />
 
     </div>
   );

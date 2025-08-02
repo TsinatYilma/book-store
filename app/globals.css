@@ -3,9 +3,10 @@
 @theme{
   --breakpoint-xs: 400px;
   --breakpoint-me: 900px;
-  --font-gabarito: var(--font-gabarito)
-  --font-gantari: var(--font-gantari)
-  --font-handlee: var(--font-handlee)
+  --font-gabarito: var(--font-gabarito);
+  --font-gantari: var(--font-gantari);
+  --font-handlee: var(--font-handlee);
+  --color-Cyan: "#0AA0A1";
 }
 :root {
   --background: #ffffff;
@@ -44,6 +45,7 @@ body {
 }
 .fancyBorder {
   border: 2px solid transparent; 
+  border-radius: 8px;
   background:
     linear-gradient(#000, #000) padding-box,
     linear-gradient(to right, #238E8E 0%, #FFFFFF 30%, #FFFFFF 70%, #238E8E 100%) border-box;

@@ -1,12 +1,13 @@
 export const Myshelf = [
-    {
-        name: "Way of Serenity",
-        author: "Jun Nakamura",
-        cover: "https://images-na.ssl-images-amazon.com/images/I/71tbalAHYCL.jpg",
-        rating: 4.5,
-        category: "Mindfulness",
-        published: 2019
+      {
+        name: "Jane Eyre",
+        author: "Charlotte Brontë",
+        cover: "https://images-na.ssl-images-amazon.com/images/I/81l3rZK4lnL.jpg",
+        rating: 4.7,
+        category: "Classic Literature",
+        published: 1847
       },
+  
       {
         name: "Soul Threads",
         author: "Ayesha Kamal",
