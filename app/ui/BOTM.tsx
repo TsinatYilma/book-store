@@ -3,8 +3,8 @@ import { gabarito, gantari } from './fonts'
 
 export default function BookoftheMonth(){
     return(
-        <div className="mt-12 flex flex-col p-2 md:p-0 md:flex-row me:w-full  me:justify-center  gap-5 me:gap-32 border">
-            <div className="w-full me:w-fit flex justify-center md:justify-start border">
+        <div className="mt-12 flex flex-col p-2 md:p-0 md:flex-row me:w-full  me:justify-center  gap-5 me:gap-32 ">
+            <div className="w-full me:w-fit flex justify-center md:justify-start ">
                 <img src="../.././BOTM.jpg" alt="BOTM" className="object-cover w-[260px] h-[400px] me:w-[350px] me:h-[480px] "/>
             </div>
             <div className="flex flex-col justify-center md:justify-start items-center md:items-start gap-3 max-w-[460px] me:max-w-[550px]">
