@@ -9,11 +9,13 @@ import ContactUs from "./ui/contactUS";
 import MyShelf from "./pages/Myshelf/page";
 import BookView from "./pages/BookView/page";
 import Profile from "./pages/Profile/page";
+import Login from '@/app/ui/login'
+import SignUp from '@/app/ui/signUp'
 
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col items-center bg-black/20">
+    <div className="flex min-h-screen flex-col justify-center items-center bg-black/20">
       {/*
       <IntroText />
       <Search placeholder="Search..." />
@@ -25,6 +27,8 @@ export default function Home() {
         <BookView />
         */}
         <Profile />
+        <SignUp/>
+        <Login/>
 
     </div>
   );
