@@ -26,6 +26,7 @@ export default function Home() {
        <ContactUs />
         <BookView />
         */}
+        <RecentlyPublishedBooks />
         <Profile />
         <SignUp/>
         <Login/>

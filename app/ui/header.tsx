@@ -20,8 +20,8 @@ export default function Header(){
             </div>
             
              <div className="hidden md:flex gap-6 ">
-               <Link href="./">Home</Link>
-               <Link href="../pages/genre">Genres</Link>
+               <Link href="/">Home</Link>
+               <Link href="/pages/genre">Genres</Link>
                <Link href="/blog">Blog</Link>
              </div>
              <div className="hidden md:block">
