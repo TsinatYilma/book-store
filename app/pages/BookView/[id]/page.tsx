@@ -8,9 +8,10 @@ interface Props {
 }
 
 
-export default function BookViewPage({ params }: Props) {
-  const book = TopRatedbooks.find(b => b.id === params.id) || books.find(b => b.id === params.id) ;
-  console.log("Book ID:", params.id);
+export default async  function BookViewPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const book = TopRatedbooks.find(b => b.id === id) || books.find(b => b.id === id);
+  console.log("Book ID:", id);
   if (!book) return <div>Book not found</div>;
 
   return (

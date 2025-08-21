@@ -14,7 +14,7 @@ export default function BookView({book}: {book: Book}){
     return (
          <div className="flex  flex-col md:flex-row mt-10  xs:max-w-[500px] xs:mx-auto sm:max-w-[650px] md:max-w-full md:mx-5 ">
             <div className="flex p-3 gap-2  w-full xs:gap-6 md:flex-col  md:items-center ">
-                <Image src={book.cover} alt="" width={120} height={200} className="w-[120px] h-[200px] md:w-[220px] md:h-[320px] " />
+                <img src={book.cover} alt="" width={120} height={200} className="w-[120px] h-[200px] md:w-[220px] md:h-[320px] " />
                 <div className="flex flex-col gap-2 min-h-full md:items-center">
                     <span className="flex order-2">
                         <StarRating />
@@ -46,7 +46,7 @@ export default function BookView({book}: {book: Book}){
                         </div>
                         <div className="flex flex-col gap-8">
                             <div className=""><p className="text-[16px] text-gray-400">
-                                A gothic masterpiece of tempestuous passions and dark secrets, Charlotte Brontë&apos;s <em>Jane Eyre</em> is edited with an introduction and notes by Stevie Davis in Penguin Classics.
+                                A gothic masterpiece of tempestuous passions and dark secrets, Charlotte Bronte&apos;s <em>Jane Eyre</em> is edited with an introduction and notes by Stevie Davis in Penguin Classics.
                                 </p>
 
                             </div>
