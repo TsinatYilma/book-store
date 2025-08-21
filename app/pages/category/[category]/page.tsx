@@ -1,15 +1,19 @@
 
 import {Book} from '@/app/lib/definition';
 import '@/app/globals.css';
-import {books} from "@/app/lib/fetching-data"
+import {topRatedbooks} from "@/app/lib/fetching-data"
+import {books, TopRatedbooks} from "@/app/lib/placeholder-data"
 import {handlee, gabarito} from "@/app/ui/fonts";
 import Link from "next/link";
 //to make it reusable for all catagories 
 const bookGenres = ['Fantasy', 'Science ', 'Romance', 'Mystery', 'Thriller', 'Horror', 'Historical', 'Adventure', 'Literary Fiction', 'Young Adult', 'Children\'s Books', 'Contemporary Fiction', 'Graphic Novels', 'Dystopian', 'Paranormal', 'Biography & Memoir', 'Self-Help', 'Health & Wellness', 'True Crime', 'History', 'Business & Finance', 'Psychology', 'Philosophy', 'Religion & Spirituality', 'Politics', 'Travel', 'Cookbooks', 'Essays & Journalism'];
+interface Props {
+  params: { category: string };
+}
 
-
-export default function BookCategory({ params }: { params: { category: string } }) {
+export default function BookCategory({ params }: Props) {
     const { category } = params;
+    console.log("Category:", category);
     return (
         <div className="w-fit mx-auto mt-5">
             <h2 className="text-2xl font-bold mt-8 mx-6 text-[#238E8E] ">Genres</h2>
@@ -35,31 +39,32 @@ export default function BookCategory({ params }: { params: { category: string } 
 }
 
 function Catagory({category}:{category:string}){
+    console.log("Category:", category);
     return (
         <div className="flex flex-wrap justify-start items-center gap-4 max-h-[566px] max-w-[600px] overflow-hidden overflow-y-auto no-scrollbar md:overflow-y-hidden  md:flex-nowrap md:overflow-x-auto  md:mx-5">
                 {
-                    books.filter((book: Book) => book.category === category).map((book: Book) => (
-                        <div key={book.name} className=" shadow-md shrink-0 w-[120px] h-[200px] ">
-                            <div key={book.name} className="relative group shadow-md fancyorHover"  >
-                                <img
-                                    src={book.cover}
-                                    alt={book.name}
-                                    className="w-full h-[184px] object-cover"
-                                />
-                            <div  className="absolute inset-0 bg-black/60 flex  items-center justify-center flex-col gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <span className="w-full flex flex-col gap-3 justify-center items-center mb-6  ">
-                                    <img src="../../../../../favorite.png" alt="" className='w-7 h-7 ' />
-                                    <span className="text-[12px] text-md pt-1 font-bold">{book.rating} / 5</span>
-                                </span>
-                                <p className="text-[14px]  font-bold mb-3">{book.category}</p>
-                                <Link href='./' className='rounded-lg'><button className='fancyBorder rounded-lg bg-black text-[12px] text-md py-0.5 px-2 '>View Detail</button></Link>
+                    TopRatedbooks.filter((book: Book) => book.category === category).map((book: Book) => (
+                        <div key={book.id} className=" shadow-md shrink-0 w-[120px] h-[200px] ">
+                            <div className="relative group shadow-md hover:fancyBorder"  >
+                                    <img
+                                        src={book.cover}
+                                        alt={book.name}
+                                        className="w-full h-[184px] object-cover"
+                                    />
+                                <div  className="absolute inset-0 bg-black/60 flex  items-center justify-center flex-col gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <span className="w-full flex flex-col gap-3 justify-center items-center mb-6  ">
+                                        <img src="../../../../../favorite.png" alt="" className='w-7 h-7 ' />
+                                        <span className="text-[12px] text-md pt-1 font-bold">{book.rating} / 5</span>
+                                    </span>
+                                    <p className="text-[14px]  font-bold mb-3">{book.category}</p>
+                                    <Link href={`../BookView/${book.id}`} className='rounded-lg'><button className='fancyBorder rounded-lg bg-black text-[12px] text-md py-0.5 px-2 '>View Detail</button></Link>
+                                </div>
                             </div>
-                         </div>
                          
                             
                         </div>
                     ))
                 }
-                    </div>
+        </div>
     )
 }

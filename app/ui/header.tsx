@@ -28,9 +28,10 @@ export default function Header(){
               <h1 className="text-2xl font-bold">Book Store</h1>
              </div>
              <div className="hidden md:flex gap-3 md:gap-6  items-center">
-               <Link href="/login">Login</Link>
+               <Link href="/pages/Myshelf">My Shelf</Link>
+               <Link href="/pages/login">Login</Link>
                <p className="font-bold text-3xl flex items-center">|</p>
-               <Link className="text-[#238E8E]" href="/signup">Register</Link>
+               <Link className="text-[#238E8E]" href="/pages/signup">Register</Link>
              </div>
              
           </header>

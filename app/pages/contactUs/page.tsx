@@ -1,7 +1,7 @@
 import '@/app/globals.css'
 import {UserIcon, PhoneIcon, EnvelopeIcon, ChatBubbleLeftIcon} from '@heroicons/react/24/outline';
 import Link from "next/dist/client/link";
-import { gabarito } from './fonts';
+import { gabarito } from '../../ui/fonts';
 export default function ContactUs(){
     return (
         <div className="font-gabarito flex flex-col items-center pt-10">

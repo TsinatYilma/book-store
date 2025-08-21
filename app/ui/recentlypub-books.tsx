@@ -3,7 +3,9 @@ import '../globals.css';
 import { fetchBooks } from '@/app/lib/fetching-data';
 import {handlee, gabarito} from "@/app/ui/fonts";
 import Link from "next/link";
-import {books, topRatedbooks} from "@/app/lib/fetching-data"
+import {topRatedbooks} from "@/app/lib/fetching-data"
+import {books} from "@/app/lib/placeholder-data";
+import { TopRatedbooks } from '@/app/lib/placeholder-data';
 
 
 
@@ -16,8 +18,9 @@ export default async function RecentlyPublishedBooks() {
             <div className="flex  overflow-hidden overflow-x-auto no-scrollbar gap-3 p-5  ">
                 {
                     books.map((book: Book) => (
-                        <div key={book.name} className=" shadow-md shrink-0 w-[120px] h-[248px] sm:w-[160px] sm:h-[300px] md:w-[220px] md:h-[400px] ">
-                            <div key={book.name} className="relative group shadow-md fancyBorderForHover"  >
+                        
+                        <div key={book.id} className=" shadow-md shrink-0 w-[120px] h-[248px] sm:w-[160px] sm:h-[300px] md:w-[220px] md:h-[400px] ">
+                            <div key={book.id} className="relative group shadow-md fancyBorderForHover"  >
                                 <img
                                     src={book.cover}
                                     alt={book.name}
@@ -29,7 +32,7 @@ export default async function RecentlyPublishedBooks() {
                                     <span className="text-[12px] text-md pt-1 sm:pt-0 sm:text-md font-bold">{book.rating} / 5</span>
                                 </span>
                                 <p className="text-[14px] sm:text-lg font-bold mb-3">{book.category}</p>
-                                <Link href='./' className='rounded-lg'><button className='fancyBorder rounded-lg bg-black text-[12px] text-md py-0.5 px-2 sm:py-2 sm:px-10 '>View Detail</button></Link>
+                                <Link href={`/pages/BookView/${book.id}`} className='rounded-lg'><button className='fancyBorder rounded-lg bg-black text-[12px] text-md py-0.5 px-2 sm:py-2 sm:px-10 '>View Detail</button></Link>
                             </div>
                          </div>
                             
@@ -44,9 +47,9 @@ export default async function RecentlyPublishedBooks() {
         <h2 className="text-2xl font-bold mb-4 text-[#238E8E] ">Top Rated</h2>
         <div className="flex  overflow-hidden overflow-x-auto no-scrollbar gap-3 p-5  ">
             {
-                topRatedbooks.map((book: Book) => (
-                    <div key={book.name} className=" shadow-md shrink-0 w-[120px] h-[248px] sm:w-[160px] sm:h-[300px] md:w-[220px] md:h-[400px] ">
-                        <div key={book.name} className="relative group shadow-md fancyBorderForHover"  >
+                TopRatedbooks.map((book: Book) => (
+                    <div key={book.id} className=" shadow-md shrink-0 w-[120px] h-[248px] sm:w-[160px] sm:h-[300px] md:w-[220px] md:h-[400px] ">
+                        <div key={book.id} className="relative group shadow-md fancyBorderForHover"  >
                             <img
                                 src={book.cover}
                                 alt={book.name}
@@ -58,7 +61,7 @@ export default async function RecentlyPublishedBooks() {
                                 <span className="text-[12px] text-md pt-1 sm:pt-0 sm:text-md font-bold">{book.rating} / 5</span>
                             </span>
                             <p className="text-[14px] sm:text-lg font-bold mb-3">{book.category}</p>
-                            <Link href='./' className='rounded-lg'><button className='fancyBorder rounded-lg bg-black text-[12px] text-md p-0.5 pl-2 sm:py-2 sm:px-10 '>View Detail</button></Link>
+                        <Link href={`/pages/BookView/${book.id}`} className='rounded-lg'><button className='fancyBorder rounded-lg bg-black text-[12px] text-md p-0.5 pl-2 sm:py-2 sm:px-10 '>View Detail</button></Link>
                         </div>
                      </div>
                         
