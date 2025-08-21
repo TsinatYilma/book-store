@@ -33,7 +33,7 @@ export default function Login(){
                     </div>
                     <div className="flex flex-col gap-2">
                         <button type='submit' className="fancyBorder w-full py-1 mt-3">Login</button>
-                        <p className="text-[12px] text-center text-gray-600">Don't have an account?.<span className="underline hover:text-[#0AA0A1]"><Link href="/pages/signup">Sign Up</Link></span></p>
+                        <p className="text-[12px] text-center text-gray-600">Don&lsquo;t have an account?.<span className="underline hover:text-[#0AA0A1]"><Link href="/pages/signup">Sign Up</Link></span></p>
                     </div>
             </form>
 

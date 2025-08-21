@@ -80,8 +80,11 @@ export default function BookView(){
                                     </div>
                                 
                             
-                                            <div className="p-3">
-                                                <p className="text-[14px] ">“‘Jane, be still; don't struggle so like a wild, frantic bird, that is rending its own plumage in its desperation. <br /><br />I am no bird; and no net ensnares me; I am a free human being, with an independent will; which I now exert to leave you. <br /> <br />”I am glad that in 1847 Charlotte Bronte made the decision to publish her novel under a male pseudonym. Currer Bell had a much better chance of being published than Charlotte Bronte and, with reviewers and readers assuming that she was in fact a male writer, allowed the novel a chance to be weighed properly without prejudice. Jane Eyre became a bestseller.</p>
+                                            <div className="p-3"><p className="text-[14px]">
+                                                    &ldquo;&lsquo;Jane, be still; don&#39;t struggle so like a wild, frantic bird, that is rending its own plumage in its desperation.<br /><br />
+                                                    I am no bird; and no net ensnares me; I am a free human being, with an independent will; which I now exert to leave you.<br /><br />
+                                                    &rdquo;I am glad that in 1847 Charlotte Bront&euml; made the decision to publish her novel under a male pseudonym. Currer Bell had a much better chance of being published than Charlotte Bront&euml;, and, with reviewers and readers assuming that she was in fact a male writer, allowed the novel a chance to be weighed properly without prejudice. <em>Jane Eyre</em> became a bestseller.
+                                                    </p>
                                             </div>
                             </div>
                             <div className="flex flex-col gap-5 border-[0.5] rounded-lg">
@@ -101,8 +104,11 @@ export default function BookView(){
                                     </div>
                                 
                             
-                                            <div className="p-3">
-                                                <p className="text-[14px] ">“‘Jane, be still; don't struggle so like a wild, frantic bird, that is rending its own plumage in its desperation. <br /><br />I am no bird; and no net ensnares me; I am a free human being, with an independent will; which I now exert to leave you. <br /> <br />”I am glad that in 1847 Charlotte Bronte made the decision to publish her novel under a male pseudonym. Currer Bell had a much better chance of being published than Charlotte Bronte and, with reviewers and readers assuming that she was in fact a male writer, allowed the novel a chance to be weighed properly without prejudice. Jane Eyre became a bestseller.</p>
+                                            <div className="p-3"><p className="text-[14px]">
+                                                    &ldquo;&lsquo;Jane, be still; don&#39;t struggle so like a wild, frantic bird, that is rending its own plumage in its desperation.<br /><br />
+                                                    I am no bird; and no net ensnares me; I am a free human being, with an independent will; which I now exert to leave you.<br /><br />
+                                                    &rdquo;I am glad that in 1847 Charlotte Bront&euml; made the decision to publish her novel under a male pseudonym. Currer Bell had a much better chance of being published than Charlotte Bront&euml;, and, with reviewers and readers assuming that she was in fact a male writer, allowed the novel a chance to be weighed properly without prejudice. <em>Jane Eyre</em> became a bestseller.
+                                                    </p>
                                             </div>
                     </div>
                     
