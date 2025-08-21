@@ -6,6 +6,7 @@ import Link from "next/link";
 import {topRatedbooks} from "@/app/lib/fetching-data"
 import {books, TopRatedbooks} from "@/app/lib/placeholder-data"
 import Search from '../../ui/searchForPages';
+import Image from 'next/image'
 const bookGenres = ['Fantasy', 'Science ', 'Romance', 'Mystery', 'Thriller', 'Horror', 'Historical', 'Adventure', 'Literary Fiction', 'Young Adult', 'Children\'s Books', 'Contemporary Fiction', 'Graphic Novels', 'Dystopian', 'Paranormal', 'Biography & Memoir', 'Self-Help', 'Health & Wellness', 'True Crime', 'History', 'Business & Finance', 'Psychology', 'Philosophy', 'Religion & Spirituality', 'Politics', 'Travel', 'Cookbooks', 'Essays & Journalism'];
 
 export default function Genre(){
