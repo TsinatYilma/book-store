@@ -41,7 +41,7 @@ export default function BookView(){
                         </div>
                         <div className="flex flex-col gap-8">
                             <div className="">
-                                <p className="text-[16px] text-gray-400">A gothic masterpiece of tempestuous passions and dark secrets, Charlotte Brontë's Jane Eyre is edited with an introduction and notes by Stevie Davis in Penguin Classics.</p>
+                                <p className="text-[16px] text-gray-400">A gothic masterpiece of tempestuous passions and dark secrets, Charlotte Brontë&lsquo;s Jane Eyre is edited with an introduction and notes by Stevie Davis in Penguin Classics.</p>
                             </div>
                             <div className="flex flex-col gap-4">
                                 <p className="text-[16px] flex gap-3"><span className="text-gray-600">First Published</span><span className="font-bold">October 18</span></p>
