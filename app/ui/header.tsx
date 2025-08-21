@@ -7,7 +7,6 @@ export default function Header(){
     const [menuVisible, setMenuVisiblity] = useState<boolean>(false)
     function handleMenuVisbility(){
     setMenuVisiblity((prevState)=>(!prevState))
-    console.log(menuVisible)
     }
 
     return(
@@ -16,7 +15,11 @@ export default function Header(){
             
             <div className="md:hidden flex justify-between w-full">
               <h1 className="font-bold text-3xl">Logo</h1>
-              <img src="./../menu.png" alt="menu" className="w-[40px] h-[40px] " onClick={handleMenuVisbility} />
+              <button onClick={handleMenuVisbility}>
+                <span className={`w-6 h-1 rounded-xs  bg-white transition-all duration-300 ease-in-out ${menuVisible ? 'opacity-0' : ''}`}/>
+                <span className={`w-4 h-1 mt-1 rounded-xs ml-auto bg-white transition-all duration-300 ease-in-out ${menuVisible ? 'opacity-0' : ''}`}/>
+                <span className={`w-2 h-1 mt-1 rounded-xs ml-auto bg-white transition-all duration-300 ease-in-out ${menuVisible ? 'opacity-0' : ''}`}/>
+              </button>
             </div>
             
              <div className="hidden md:flex gap-6 ">

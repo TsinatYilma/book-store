@@ -13,5 +13,11 @@ export default function BookViewPage({ params }: Props) {
   console.log("Book ID:", params.id);
   if (!book) return <div>Book not found</div>;
 
-  return <BookView book={book} />;
+  return (
+    <div className="flex flex-col pb-18">
+      <BookView book={book}
+      key={book.id}
+      /> 
+    </div>
+  );
 }

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "@/app/globals.css";
 import Header from './ui/header'
 
 export const metadata: Metadata = {
@@ -13,10 +13,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className='border h-min-full'
-      >
+    <html lang="en" className="">
+      <body className=' min-h-screen'>
         <Header/>
         {children}
         <footer className="mt-18 bg-black flex flex-col sm:flex-row sm:justify-around justify-center gap-8 py-10 px-5 w-full">

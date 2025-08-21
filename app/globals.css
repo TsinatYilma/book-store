@@ -25,6 +25,7 @@
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+
 @media(width >= 400px){
   .fontSize{
     font-size: 24px;
@@ -61,4 +62,23 @@ body {
 }
 .no-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+.typeWritterEffect{
+  overflow: hidden;
+  border-right: 0.15em solid;
+  white-space: nowrap;
+  margin-inline: auto;
+  letter-spacing: 0.15em;
+  animation: typing 3s steps(15) 4, blink 1s step-end infinite;
+}
+
+@keyframes typing {
+  0% { width: 0; }
+  50% { width: 16ch; }
+  100% { width: 0; }
+}
+@keyframes blink {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: currentColor; }
 }

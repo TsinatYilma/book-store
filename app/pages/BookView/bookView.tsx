@@ -6,21 +6,20 @@ import Link from "next/dist/client/link"
 import BookCard from './bookCard'
 import Myshelf  from '../Myshelf/page'
 import { useShelfStore } from '@/store/shelfStore'
+import StarRating from './starRating'
 
 
 export default function BookView({book}: {book: Book}){
     const addToShelf = useShelfStore((state) => state.addToShelf);
     return (
-         <div className="flex flex-col md:flex-row mt-10  xs:max-w-[500px] xs:mx-auto sm:max-w-[650px] md:max-w-full md:mx-5 ">
+         <div className="flex  flex-col md:flex-row mt-10  xs:max-w-[500px] xs:mx-auto sm:max-w-[650px] md:max-w-full md:mx-5 ">
             <div className="flex p-3 gap-2  w-full xs:gap-6 md:flex-col  md:items-center ">
                 <img src={book.cover} alt="" className="w-[120px] h-[200px] md:w-[220px] md:h-[320px] " />
                 <div className="flex flex-col gap-2 min-h-full md:items-center">
-                    <span className="flex order-2">{
-                            [...Array(Math.round(5))].map((_, i) =>(
-                                <StarIcon key={i} className="w-[24px] h-[24px]" />
-                            ))} 
+                    <span className="flex order-2">
+                        <StarRating />
                     </span>
-                    <p className="text-[12px] order-3">Rated.Write Review</p>
+                    <p className="text-[12px] order-3 typeWritterEffect  ">Rate the Book</p>
                     <div className="gap-4 w-fit order-1">
                         <button className="fancyBorder w-full mb-4 py-1" onClick={() =>{ console.log('Adding book:', book); addToShelf(book) }}>Add to shelf</button>
                         <button className="fancyBorder w-full py-1">Mark as read</button>
@@ -35,7 +34,7 @@ export default function BookView({book}: {book: Book}){
                             <p className="text-lg">{book.author}</p>
                             <span className="flex gap-3">
                                     <span className="flex">
-                                    { [...Array(Math.round(5))].map((_, i) =>(
+                                    { [...Array(5)].map((_, i) =>(
                                             <StarIcon key={i} className="w-[24px] h-[24px]"/>
                                         ))}
                                     </span> <span className="font-bold">{book.rating}</span>
@@ -76,7 +75,7 @@ export default function BookView({book}: {book: Book}){
                                             <div className="flex flex-col justify-start">
                                                 <h1 className="text-[14px]">Jane Eyre</h1>
                                                 <span className="flex">{
-                                                    [...Array(Math.round(5))].map((_, i) =>(
+                                                    [...Array(5)].map((_, i) =>(
                                                         <StarIcon key={i} className="w-[20px] h-[20px]" />
                                                     ))} 
                                                 </span>

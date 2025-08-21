@@ -14,7 +14,7 @@ import SignUp from '@/app/ui/signUp'
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col justify-center items-center bg-black/20 pt-30">
+    <div className="flex min-h-screen flex-col justify-center items-center bg-black/20 pt-30 ">
 
       <IntroText />
       <Search placeholder="Search..." />

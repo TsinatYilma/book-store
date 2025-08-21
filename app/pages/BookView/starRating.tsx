@@ -1,7 +1,6 @@
 "use client"
 import {useState} from 'react'
 import { StarIcon, UserIcon } from '@heroicons/react/24/outline'
-import {FaStar} from 'react-icons/fa'
 
 const StarRating = () => {
     const [rating, setRating] = useState(0)
@@ -11,7 +10,7 @@ const StarRating = () => {
     }
     return(
         <div className="flex">
-            { [...Array(Math.round(5))].map((star, i) =>{
+            { [...Array(5)].map((star, i) =>{
                             const ratingValue = i + 1
                               return  (
                               

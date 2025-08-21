@@ -7,7 +7,6 @@ export default function Menu({menuVisible, handleMenuVisbility}:
         menuVisible: boolean
         handleMenuVisbility: () => void
     }){
-        console.log("isnt it confusing!?" + menuVisible)
 
     return(
         <>

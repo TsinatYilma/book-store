@@ -4,7 +4,7 @@ import {Myshelf} from '@/app/lib/shelf'
 
 export default function BookView(){
     return (
-        <div className="flex flex-col md:flex-row mt-10  xs:max-w-[500px] xs:mx-auto sm:max-w-[650px] md:max-w-full md:mx-5 ">
+        <div className="flex border-8 flex-col min-h-screen md:flex-row mt-10  xs:max-w-[500px] xs:mx-auto sm:max-w-[650px] md:max-w-full md:mx-5 ">
             <div className="flex p-3 gap-2  w-full xs:gap-6 md:flex-col  md:items-center ">
                 <img src={Myshelf[1].cover} alt="" className="w-[120px] h-[200px] md:w-[220px] md:h-[320px] " />
                 <div className="flex flex-col gap-2 min-h-full md:items-center">
