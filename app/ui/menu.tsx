@@ -17,10 +17,10 @@ export default function Menu({menuVisible, handleMenuVisbility}:
                 <button className="flex justify-center items-center rounded-full w-8 h-8 font-bold fancyBorder border p-1" onClick={handleMenuVisbility}>x</button>
               </div>
               <div className="flex flex-col gap-3 mt-5">
-                <Link href={'./'}><h1 className="font-bold ">Home</h1></Link>
-                <Link href={'./'}><h1 className="font-bold ">Genres</h1></Link>
-                <Link href={'./'}><h1 className="font-bold ">Blog</h1></Link>
-                <Link href={'./'}><h1 className="font-bold ">Contact Us</h1></Link>
+                <Link href={'/'}><h1 className="font-bold ">Home</h1></Link>
+                <Link href={'../pages/genre'}><h1 className="font-bold ">Genres</h1></Link>
+                <Link href={'../pages/blog'}><h1 className="font-bold ">Blog</h1></Link>
+                <Link href={'../pages/contactUs'}><h1 className="font-bold ">Contact Us</h1></Link>
                 <span className="flex gap-6  items-center font-bold  mt-3"> <Link href="/login">Login</Link> <p className="font-bold text-3xl flex items-center">|</p>
                <Link className="text-[#238E8E]" href="/signup">Register</Link>
                 </span>
