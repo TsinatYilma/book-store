@@ -82,3 +82,10 @@ body {
   0%, 100% { border-color: transparent; }
   50% { border-color: currentColor; }
 }
+
+
+.DropStatus:hover .StatusDropdown,
+.DropGenre:hover .GenreDropdown,
+.DropLanguage:hover .LanguageDropdown{
+  display: flex;
+}

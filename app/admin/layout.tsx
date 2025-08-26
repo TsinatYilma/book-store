@@ -13,17 +13,17 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="">
-      <body className=' min-h-screen'>
+    
+      <div className='min-h-screen'>
        <div className="flex h-full flex-col md:flex-row mt-4">
         <div className="w-full flex-none md:w-64">
             <AdminSideNav />
         </div>
-      <div className="flex-grow p-6 md:overflow-y-auto md:p-12">
+      <div className="flex-grow md:p-10 md:pt-0">
         {children}
         </div>
     </div>
-      </body>
-    </html>
+      </div>
+   
   );
 }

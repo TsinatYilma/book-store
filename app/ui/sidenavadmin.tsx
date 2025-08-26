@@ -1,5 +1,6 @@
 import '@/app/globals.css';
 import Image from 'next/image'
+import Link from 'next/link';
 
 export default function AdminSideNav(){
     return(
@@ -10,26 +11,26 @@ export default function AdminSideNav(){
                     <Image src="/dashboard.png" width={16} height={16} alt="" className="" />
                     <h1 className="font-gabarito">Dashboard</h1>
                 </div>
-                <div className="flex flex-col justify-center items-center rounded-[10px] gap-2  border-[0.15] border-gray-700 bg-black hover:bg-white/10 w-[120px] min-h-[90px]">
+                <Link href={'/admin/user'} className="flex flex-col justify-center items-center rounded-[10px] gap-2  border-[0.15] border-gray-700 bg-black hover:bg-white/10 w-[120px] min-h-[90px]">
                     <Image src="/user.png" width={16} height={16} alt="" className="" />
                     <h1 className="font-handlee">Users</h1>
-                </div>
-                <div className="flex flex-col justify-center items-center rounded-[10px] gap-2  border-[0.15] border-gray-700 bg-black hover:bg-white/10 w-[120px] min-h-[90px]">
+                </Link>
+                <Link href={'/admin/Books'} className="flex flex-col justify-center items-center rounded-[10px] gap-2  border-[0.15] border-gray-700 bg-black hover:bg-white/10 w-[120px] min-h-[90px]">
                     <Image src="/books.png" width={16} height={16} alt="" className="" />
-                    <h1 className="">Books</h1>
-                </div>
-                <div className="flex flex-col justify-center items-center rounded-[10px] gap-2  border-[0.15] border-gray-700 bg-black hover:bg-white/10 w-[120px] min-h-[90px]">
+                    <h1 className="font-handlee">Books</h1>
+                </Link>
+                <Link href={'/admin/Genres'} className="flex flex-col justify-center items-center rounded-[10px] gap-2  border-[0.15] border-gray-700 bg-black hover:bg-white/10 w-[120px] min-h-[90px]">
                     <Image src="/genres.png" width={16} height={16} alt="" className="" />
                     <h1 className="">Genres</h1>
-                </div>
-                <div className="flex flex-col justify-center items-center rounded-[10px] gap-2  border-[0.15] border-gray-700 bg-black hover:bg-white/10 w-[120px] min-h-[90px]">
+                </Link>
+                <Link href={'/admin/Reviews'} className="flex flex-col justify-center items-center rounded-[10px] gap-2  border-[0.15] border-gray-700 bg-black hover:bg-white/10 w-[120px] min-h-[90px]">
                     <Image src="/reviews.png" width={16} height={16} alt="" className="" />
                     <h1 className="">Reviews</h1>
-                </div>
-                <div className="flex flex-col justify-center items-center rounded-[10px] gap-2  border-[0.15] border-gray-700 bg-black hover:bg-white/10 w-[120px] min-h-[90px]">
+                </Link>
+                <Link href={'/admin/Contents'} className="flex flex-col justify-center items-center rounded-[10px] gap-2  border-[0.15] border-gray-700 bg-black hover:bg-white/10 w-[120px] min-h-[90px]">
                     <Image src="/content.png" width={16} height={16} alt="" className="" />
                     <h1 className="">Contets</h1>
-                </div>
+                </Link>
             </div>
             <div className="">
                 <div className="gap-4 flex">
