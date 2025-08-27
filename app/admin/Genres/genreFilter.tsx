@@ -7,11 +7,11 @@ export default function GenresFilter({ filterVisible }: { filterVisible: boolean
     const [CreationDateDropdown, setCreationDateDropdown] = useState(false);
     function handleDropdown(type:string){
         switch(type){
-            case 'role':
+            case 'bookCount':
                 setBooksCountDropdown(!BooksCountDropdown);
                 console.log("its not me");
                 break;
-            case 'status':
+            case 'creationDate':
                 setCreationDateDropdown(!CreationDateDropdown);
                 break;
         }
@@ -45,7 +45,7 @@ export default function GenresFilter({ filterVisible }: { filterVisible: boolean
                     <div className="relative flex flex-col justify-between  border-[0.25] border-gray-400 rounded">
                         <div className="flex justify-between relative w-full p-1">
                             <h1 className="text-gray-200 text-sm">Book Count</h1>
-                            <ChevronDownIcon  className={`absolute right-3 top-1/2 z-20  h-[18px] w-[18px] -translate-y-1/2 text-gray-500 ${BooksCountDropdown ? 'rotate-180' : ''}`} onClick={() => handleDropdown('status')} />
+                            <ChevronDownIcon  className={`absolute right-3 top-1/2 z-20  h-[18px] w-[18px] -translate-y-1/2 text-gray-500 ${BooksCountDropdown ? 'rotate-180' : ''}`} onClick={() => handleDropdown('bookCount')} />
                         </div>
                         <div className={`StatusDropdown  top-[120%] left-0 right-0 peer-focus:flex flex-col bg-black z-10 p-3 gap-2 rounded shadow-lg ${BooksCountDropdown ? 'flex' : 'hidden'}`}>
                                    
@@ -75,7 +75,7 @@ export default function GenresFilter({ filterVisible }: { filterVisible: boolean
                     <div className="relative flex flex-col justify-between  border-[0.25] border-gray-400 rounded">
                         <div className="flex justify-between relative w-full">
                             <h1 className="text-gray-200 text-sm p-1">Creation Date</h1>
-                            <ChevronDownIcon  className={`absolute right-3 top-1/2 z-20  h-[18px] w-[18px] -translate-y-1/2 text-gray-500 ${CreationDateDropdown ? 'rotate-180' : ''}`} onClick={() => handleDropdown('role')} />
+                            <ChevronDownIcon  className={`absolute right-3 top-1/2 z-20  h-[18px] w-[18px] -translate-y-1/2 text-gray-500 ${CreationDateDropdown ? 'rotate-180' : ''}`} onClick={() => handleDropdown('creationDate')} />
                         </div>
                         <div className={`GenreDropdown  top-[120%] left-0 right-0 peer-focus:flex flex-col bg-black py-3 px-1 z-10 gap-2 rounded shadow-lg ${CreationDateDropdown ? 'flex' : 'hidden'}`}>
                                     

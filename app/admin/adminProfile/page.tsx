@@ -1,11 +1,18 @@
 import { UserIcon, PencilSquareIcon, PlusCircleIcon } from "@heroicons/react/24/outline" 
 
-export default function Profile(){
+export default function Page(){
     return (
         <div className="min-w-full xs:px-5">
-            <div className="flex flex-col gap-5  max-w-[1000px] mx-auto">
-                <h1 className="font-semibold text-[#0AA0A1]/80 text-[32px] mt-5 px-4 xs:px-0">My Profile</h1>
                 <div className="flex flex-col bg-black gap-8 p-4  rounded-lg">
+                    <div className="flex justify-between items-center p-2">
+                    <div className="">
+                        <h1 className="font-semibold text-[20px] text-[#0AA0A1]">Actions/Profile</h1>
+                    </div>
+                    <div className="flex gap-4 items-center ">
+
+                    <UserIcon className='h-[25px] w-[25px] text-[#0AA0A1]'/>
+                    </div>
+                    </div>
                     <div className="profil flex gap-5">
                         <UserIcon className="w-[80px] h-[80px] text-[#0AA0A1]/90 bg-blue-500/5 " />
                         <div className="flex flex-col gap-3">
@@ -22,28 +29,28 @@ export default function Profile(){
                                 <span className="">Edit</span>
                             </div>
                         </div>
-                        <div className="flex flex-col sm:flex-row sm:flex-wrap gap-5 ">
-                            <div className="flex flex-col min-w-[280px] max-w-[320px] h-[54px] sm:h-[64px] justify-between ">
+                        <div className="flex flex-col sm:flex-row sm:flex-wrap justify-between">
+                            <div className="flex flex-col min-w-[220px] max-w-[320px] h-[54px] sm:h-[64px] justify-between ">
                                 <p className="text-gray-600 text-[14px]">First Name</p>
                                 <p className="text-[16px]">Medan</p>
                             </div>
-                            <div className="flex flex-col min-w-[280px] max-w-[320px] h-[54px] sm:h-[64px]  justify-between ">
+                            <div className="flex flex-col min-w-[220px] max-w-[320px] h-[54px] sm:h-[64px]  justify-between ">
                                 <p className="text-gray-600 text-[14px]">Last Name</p>
                                 <p className="text-[16px]">Welde selasie</p>
                             </div>
-                            <div className="flex flex-col min-w-[280px] max-w-[320px] h-[54px] sm:h-[64px]  justify-between ">
+                            <div className="flex flex-col min-w-[220px] max-w-[320px] h-[54px] sm:h-[64px]  justify-between ">
                                 <p className="text-gray-600 text-[14px]">Email Address</p>
                                 <p className="text-[16px]">medan@example.com</p>
                             </div>
-                            <div className="flex flex-col min-w-[280px] max-w-[320px] h-[54px] sm:h-[64px]  justify-between ">
+                            <div className="flex flex-col min-w-[220px] max-w-[320px] h-[54px] sm:h-[64px]  justify-between ">
                                 <p className="text-gray-600 text-[14px]">Phone Number</p>
                                 <p className="text-[16px]">+251-92390402</p>
                             </div>
-                            <div className="flex flex-col min-w-[280px] max-w-[320px] h-[54px] sm:h-[64px]  justify-between ">
+                            <div className="flex flex-col min-w-[220px] max-w-[320px] h-[54px] sm:h-[64px]  justify-between ">
                                 <p className="text-gray-600 text-[14px]">Date of Birth</p>
                                 <p className="text-[16px]">January 1, 2000</p>
                             </div>
-                            <div className="flex flex-col min-w-[280px] max-w-[320px] h-[54px] sm:h-[64px]  justify-between ">
+                            <div className="flex flex-col min-w-[220px] max-w-[320px] h-[54px] sm:h-[64px]  justify-between ">
                                 <p className="text-gray-600 text-[14px]">User Role</p>
                                 <p className="text-[16px]">Member</p>
                             </div>
@@ -56,16 +63,16 @@ export default function Profile(){
                                     <span className="">Edit</span>
                                 </div>
                             </div>
-                            <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3">
-                                <div className="flex flex-col min-w-[280px] max-w-[320px] h-[54px] sm:h-[64px]  justify-between ">
+                            <div className="flex flex-col sm:flex-row sm:flex-wrap justify-between">
+                                <div className="flex flex-col min-w-[220px] max-w-[320px] h-[54px] sm:h-[64px]  justify-between ">
                                     <p className="text-gray-600 text-[14px]">Country</p>
                                     <p className="text-[16px]">Ethiopia</p>
                                 </div>
-                                <div className="flex flex-col min-w-[280px] max-w-[320px] h-[54px] sm:h-[64px]  justify-between ">
+                                <div className="flex flex-col min-w-[220px] max-w-[320px] h-[54px] sm:h-[64px]  justify-between ">
                                     <p className="text-gray-600 text-[14px]">City</p>
                                     <p className="text-[16px]">Addis Ababa</p>
                                 </div>
-                                <div className="flex flex-col min-w-[280px] max-w-[320px] h-[54px] sm:h-[64px]  justify-between ">
+                                <div className="flex flex-col min-w-[220px] max-w-[320px] h-[54px] sm:h-[64px]  justify-between ">
                                     <p className="text-gray-600 text-[14px]">Postal code</p>
                                     <p className="text-[16px]">000</p>
                                 </div>
@@ -74,13 +81,18 @@ export default function Profile(){
                     </div>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-5 ">
-                    <div className="flex flex-col bg-black px-4 py-7 flex-grow min-w-[320px] max-w-[485px] h-[210px] rounded-lg ">
+                    <div className="flex flex-col bg-black px-4 py-7 flex-grow min-w-[320px] max-w-full  rounded-lg ">
                         <div className="flex justify-between border-b-2 border-gray-700 pb-5">
                                 <h1 className="font-bold text-cyan-500 text-[18px] ">Activities</h1>
+                        </div>
+                        <div className="flex px-4 py-6 justify-between text-lg">
+                            <h1 className="text-cyan-600">Logout</h1>
+                            <h1 className="text-cyan-600">Change password</h1>
+                            <h1 className="text-[#CD2C39]">Delete Account</h1>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        
     )
 }

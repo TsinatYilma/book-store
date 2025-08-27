@@ -12,7 +12,7 @@ export default function Page(){
         setAction(!action);
     }
     return (
-        <div className="flex border h-screen overflow-y-auto flex-col lg:flex-row">
+        <div className="flex mt-10 h-screen overflow-y-auto flex-col lg:flex-row">
     <table className="table-auto text-lg text-gray-300  w-full gap-10">
       <thead>
         <tr className="bg-black-100 mb-8 text-[16px] font-bold ">

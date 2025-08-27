@@ -11,6 +11,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --color-Cyan: #0AA0A1;
 }
 
 :root inline {
@@ -24,6 +25,7 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+
   }
 
 @media(width >= 400px){

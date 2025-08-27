@@ -27,7 +27,7 @@ export default function AdminSideNav(){
                     <Image src="/reviews.png" width={16} height={16} alt="" className="" />
                     <h1 className="">Reviews</h1>
                 </Link>
-                <Link href={'/admin/Contents'} className="flex flex-col justify-center items-center rounded-[10px] gap-2  border-[0.15] border-gray-700 bg-black hover:bg-white/10 w-[120px] min-h-[90px]">
+                <Link href={'/admin/contents'} className="flex flex-col justify-center items-center rounded-[10px] gap-2  border-[0.15] border-gray-700 bg-black hover:bg-white/10 w-[120px] min-h-[90px]">
                     <Image src="/content.png" width={16} height={16} alt="" className="" />
                     <h1 className="">Contets</h1>
                 </Link>
@@ -38,18 +38,18 @@ export default function AdminSideNav(){
                     <h1 className="text-lg font-gabarito font-bold">Settings & Reports</h1>
                 </div>
                 <div className='p-3 ml-2 border-l-[0.5] border-gray-600'>
-                    <div className="border-[0.15] border-gray-700 h-[30px] px-3 gap-3 text-sm font-light rounded mb-3 flex items-center">
+                    <Link href={'/admin/websiteSetting'} className="border-[0.15] border-gray-700 h-[30px] px-3 gap-3 text-sm font-light rounded mb-3 flex items-center">
                         <Image src="/settings.png" width={14} height={14}  alt="where is it" className="" />
                         <h1 className="">Website Setting</h1>
-                    </div>
-                    <div className="border-[0.15] border-gray-700 h-[30px] px-3 gap-3 text-sm font-light rounded mb-3 flex items-center">
+                    </Link>
+                    <Link href={'/admin/ActivityLogs'} className="border-[0.15] border-gray-700 h-[30px] px-3 gap-3 text-sm font-light rounded mb-3 flex items-center">
                         <Image src="/activity.png" width={14} height={14} alt="" className="" />
                         <h1 className="">Activity Logs</h1>
-                    </div>
-                    <div className="border-[0.15] border-gray-700 h-[30px] px-3 gap-3 text-sm font-light rounded mb-3 flex items-center">
+                    </Link>
+                    <Link href={'/admin/websiteAnalytics'} className="border-[0.15] border-gray-700 h-[30px] px-3 gap-3 text-sm font-light rounded mb-3 flex items-center">
                         <Image src="/analytics.png" width={14} height={14} alt="" className="" />
                         <h1 className="">Analytics</h1>
-                    </div>
+                    </Link>
                 </div>
             </div>
             <div className="">
@@ -58,14 +58,14 @@ export default function AdminSideNav(){
                     <h1 className="text-lg font-gabarito font-bold">Actions</h1>
                 </div>
                 <div className="p-3 ml-2 border-l-[0.5] border-gray-600">
-                    <div className="border-[0.15] border-gray-700 h-[30px] px-3 gap-3 text-sm font-light rounded mb-3 flex items-center">
+                    <Link href={'/admin/adminProfile'} className="border-[0.15] border-gray-700 h-[30px] px-3 gap-3 text-sm font-light rounded mb-3 flex items-center">
                         <Image src="/password.png" width={14} height={14} alt="" className="" />
                         <h1 className="">Profile</h1>
-                    </div>
-                    <div className="border-[0.15] border-gray-700 h-[30px] px-3 gap-3 text-sm font-light rounded mb-3 flex items-center ">
+                    </Link>
+                    <Link href={'/admin/Logout'} className="border-[0.15] border-gray-700 h-[30px] px-3 gap-3 text-sm font-light rounded mb-3 flex items-center ">
                         <Image src="/logout.png" width={14} height={14} alt="" className="" />
                         <h1 className="">LogOut</h1>
-                    </div>
+                    </Link>
                 </div>
             </div>
         </div>

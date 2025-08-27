@@ -43,7 +43,7 @@ export default function Page({ placeholder }: { placeholder: string }) {
                 </div>
               </td>
               <td className="px-4 py-2 ">
-                <div className="flex gap-2 h-full my-auto justify-center items-center ">
+                <div className="flex gap-2 h-full my-auto justify-center items-center">
                     <PencilIcon className='w-[20px] h-[20px]' />
                     <TrashIcon className='w-[20px] h-[20px]' />
                     <EyeIcon className='w-[20px] h-[20px]' />
