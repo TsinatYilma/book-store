@@ -14,12 +14,12 @@ export default function AdminLayout({
 }>) {
   return (
     
-      <div className='min-h-screen'>
-       <div className="flex h-full flex-col md:flex-row mt-4">
+      <div className='min-h-screen bg-black/50'>
+       <div className="flex h-full flex-col md:flex-row mt-4 gap-10 p-2">
         <div className="w-full flex-none md:w-64">
             <AdminSideNav />
         </div>
-      <div className="flex-grow md:p-10 md:pt-0">
+        <div className="flex-grow  bg-black">
         {children}
         </div>
     </div>

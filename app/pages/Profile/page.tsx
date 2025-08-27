@@ -78,6 +78,11 @@ export default function Profile(){
                         <div className="flex justify-between border-b-2 border-gray-700 pb-5">
                                 <h1 className="font-bold text-cyan-500 text-[18px] ">Activities</h1>
                         </div>
+                        <div className="flex  px-4 py-6 gap-2 text-lg">
+                            <h1 className="text-cyan-600">Logout</h1>
+                            <h1 className="text-cyan-600">Change password</h1>
+                            <h1 className="text-[#CD2C39]">Delete Account</h1>
+                        </div>
                     </div>
                 </div>
             </div>

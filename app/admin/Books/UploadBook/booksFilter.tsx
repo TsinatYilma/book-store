@@ -215,7 +215,7 @@ export default function Filter({ filterVisible }: { filterVisible: boolean }) {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                        </div>
                     </div>
                 </div>
     )

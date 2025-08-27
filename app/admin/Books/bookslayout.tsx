@@ -7,7 +7,7 @@ import Link from 'next/link'
 import Filter from './UploadBook/booksFilter'
 
 
-export default function BooksLayout(){
+export default function BookLayout(){
     const [filterVisible, setFilterVisible] = useState(false);
     function handleFilter(){
         setFilterVisible(prev=>!prev);

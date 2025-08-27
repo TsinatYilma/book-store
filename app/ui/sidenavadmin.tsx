@@ -7,10 +7,10 @@ export default function AdminSideNav(){
         <div className="flex flex-col pl-3 ">
             <h1 className="text-4xl font-semibold">Logo</h1>
             <div className="grid grid-cols-2 gap-3 my-8 font-gantari">
-                <div className="flex flex-col justify-center items-center rounded-[10px] gap-2  border-[0.15] border-gray-700 bg-black hover:bg-white/10 w-[120px] min-h-[90px]">
+                <Link href={'/admin'} className="flex flex-col justify-center items-center rounded-[10px] gap-2  border-[0.15] border-gray-700 bg-black hover:bg-white/10 w-[120px] min-h-[90px]">
                     <Image src="/dashboard.png" width={16} height={16} alt="" className="" />
-                    <h1 className="font-gabarito">Dashboard</h1>
-                </div>
+                    <h1 className="font-handlee">Dashboard</h1>
+                </Link>
                 <Link href={'/admin/user'} className="flex flex-col justify-center items-center rounded-[10px] gap-2  border-[0.15] border-gray-700 bg-black hover:bg-white/10 w-[120px] min-h-[90px]">
                     <Image src="/user.png" width={16} height={16} alt="" className="" />
                     <h1 className="font-handlee">Users</h1>
@@ -21,15 +21,15 @@ export default function AdminSideNav(){
                 </Link>
                 <Link href={'/admin/Genres'} className="flex flex-col justify-center items-center rounded-[10px] gap-2  border-[0.15] border-gray-700 bg-black hover:bg-white/10 w-[120px] min-h-[90px]">
                     <Image src="/genres.png" width={16} height={16} alt="" className="" />
-                    <h1 className="">Genres</h1>
+                    <h1 className="font-handlee">Genres</h1>
                 </Link>
                 <Link href={'/admin/Reviews'} className="flex flex-col justify-center items-center rounded-[10px] gap-2  border-[0.15] border-gray-700 bg-black hover:bg-white/10 w-[120px] min-h-[90px]">
                     <Image src="/reviews.png" width={16} height={16} alt="" className="" />
-                    <h1 className="">Reviews</h1>
+                    <h1 className="font-handlee">Reviews</h1>
                 </Link>
                 <Link href={'/admin/contents'} className="flex flex-col justify-center items-center rounded-[10px] gap-2  border-[0.15] border-gray-700 bg-black hover:bg-white/10 w-[120px] min-h-[90px]">
                     <Image src="/content.png" width={16} height={16} alt="" className="" />
-                    <h1 className="">Contets</h1>
+                    <h1 className="font-handlee">Contets</h1>
                 </Link>
             </div>
             <div className="">

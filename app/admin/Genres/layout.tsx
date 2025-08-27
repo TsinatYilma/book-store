@@ -13,7 +13,7 @@ export default function GenreLayout({
   children: React.ReactNode;
 }>) {
   return (
-       <div className="flex h-full flex-col  border">
+       <div className="flex h-full flex-col ">
          <GenresLayout/>
         <div className="flex-grow ">
             {children}
