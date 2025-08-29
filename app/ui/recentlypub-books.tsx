@@ -15,6 +15,7 @@ export default async function RecentlyPublishedBooks() {
         <div className="flex flex-col w-full  mt-14 m-5 p-4 ">
             <div className={gabarito.className +"flex flex-col w-full  mt-14  "}>
             <h2 className="text-2xl font-bold mb-4 text-[#238E8E] ">Recently Published</h2>
+            
             <div className="flex  overflow-hidden overflow-x-auto no-scrollbar gap-3 p-5  ">
                 {
                     books.map((book: Book) => (
