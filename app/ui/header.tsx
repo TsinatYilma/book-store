@@ -2,13 +2,23 @@
 import {useState} from 'react'
 import Link from "next/dist/client/link"
 import Menu from "@/app/ui/menu"
+import { authClient } from '../lib/auth-client'
+import { ChevronDownIcon } from 'lucide-react'
+import { useUIStore } from '@/store/heading'
 
-export default function Header(){
+export default function Header({user}:{user: string}){
+    const head = useUIStore((state)=>(state.isProfileOpen))
+    console.log(head)
+    const { data: session, error } = authClient.useSession()
+    
+    
+    console.log(user)
     const [menuVisible, setMenuVisiblity] = useState<boolean>(false)
+   
     function handleMenuVisbility(){
     setMenuVisiblity((prevState)=>(!prevState))
     }
-
+    
     return(
         <>
         <header className="flex p-4  w-full h-[60px] justify-between items-center bg-black">
@@ -31,10 +41,12 @@ export default function Header(){
               <h1 className="text-2xl font-bold">Book Store</h1>
              </div>
              <div className="hidden md:flex gap-3 md:gap-6  items-center">
-               <Link href="/pages/Myshelf">My Shelf</Link>
-               <Link href="/pages/login">Login</Link>
+               <Link href="/pages/contactUs">Contact Us</Link>
+               {(user) ? <Link href={"/pages/Myshelf"}>My shelf</Link> :<Link href="/pages/login">Login</Link>}
                <p className="font-bold text-3xl flex items-center">|</p>
-               <Link className="text-[#238E8E]" href="/pages/signup">Register</Link>
+               {(user) ? 
+               <Link className='text-cyan-400' href={"/pages/Profile"}>{user}</Link> :
+               <Link className='text-cyan-400' href="/pages/signup">Register</Link>}
              </div>
              
           </header>
