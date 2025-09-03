@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
 import Header from './ui/header'
-import HeaderSession from "./ui/headerSession";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="">
       <body className=' min-h-screen'>
-        <HeaderSession />
+        <Header />
         {children}
         <footer className="mt-18 bg-black flex flex-col sm:flex-row sm:justify-around justify-center gap-8 py-10 px-5 w-full">
         <div className="flex justify-center  sm:order-2 ">

@@ -1,8 +1,19 @@
-import { auth } from "./auth"; // path to your Better Auth server instance
-import { headers } from "next/headers";
- 
+"use client"
+import { useEffect } from "react";
+import { useSession } from "@/app/lib/auth-client";
+import { useAuthStore } from "@/store/heading";
+import { authClient } from "@/app/lib/auth-client" // import the auth client
+const { 
+        data: session, 
+        isPending, //loading state
+        error, //error object
+        refetch //refetch the session
+    } =  authClient.useSession()
 
-export async function GetSession(){
-  return await auth.api.getSession({
-    headers: await headers() // you need to pass the headers object.
-})}
+
+useEffect(() => {
+  const { data: session } = useSession();
+  if (session?.user) {
+    useAuthStore.getState().setUser(session.user);
+  }
+}, [session]);

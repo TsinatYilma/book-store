@@ -1,14 +1,15 @@
 "use client"
+import { useEffect, useState } from "react"
 import { UserIcon, PencilSquareIcon, PlusCircleIcon } from "@heroicons/react/24/outline" 
 import { authClient } from "@/app/lib/auth-client"
 import { useRouter } from "next/navigation"
 
-export default function Profile(){
+export default  function Profile(){
     const router = useRouter()
-    const { data: session, error } = authClient.useSession()
+    const [name, setUserName] = useState("");
+    const { data: session, isPending, error } = authClient.useSession();
     const user = session?.user
-    
-    console.log(user)
+     
     const  signOut = async() => {
       await authClient.signOut()
       router.push('/')

@@ -1,12 +1,18 @@
-// store/uiStore.ts
-import { create } from 'zustand';
-
-type UIState = {
-  isProfileOpen: boolean;
-  toggleProfile: () => void;
+import { create } from "zustand";
+export type AuthUser = {
+  id: string;
+  email: string;
+  name: string;
+  image?: string | null;
+  emailVerified?: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
 };
-
-export const useUIStore = create<UIState>((set, get) => ({
-  isProfileOpen: false,
-  toggleProfile: () => set({ isProfileOpen: !get().isProfileOpen }),
+type AuthState = {
+  user: AuthUser | null;
+  setUser: (user: AuthUser | null) => void;
+};
+export const useAuthStore = create<AuthState>((set) => ({
+  user: null,
+  setUser: (user) => set({ user }),
 }));

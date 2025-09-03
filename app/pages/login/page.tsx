@@ -9,7 +9,7 @@ import { authClient } from "@/app/lib/auth-client"
 import {signIn, signUp} from "@/server/users"
 import { z } from "zod"
 import {Loader2} from 'lucide-react' 
-import { useUIStore } from "@/store/heading"
+import { useAuthStore } from "@/store/heading"
 
  
 const formSchema = z.object({
@@ -17,7 +17,6 @@ const formSchema = z.object({
   password: z.string().min(8)
 })
 export default function Login(){
-    const config = useUIStore((state)=>(state.toggleProfile))
     const router = useRouter()
     const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -35,11 +34,10 @@ export default function Login(){
  
   // 2. Define a submit handler.
   async  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("even me!")
     const result = await signIn(values.email, values.password)
     if (result.success) {
-        config
      router.push("/")
+     
     }
     
   }
