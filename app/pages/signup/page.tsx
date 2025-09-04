@@ -9,10 +9,9 @@ import {signIn, signUp} from "@/server/users"
 import { z } from "zod"
 
  
-const formSchema = z
-  .object({
+const formSchema = z.object({
     email: z.string().email(),
-    name: z.string().min(1),
+    name: z.string().min(10),
     password: z.string().min(8),
     confirmPassword: z.string().min(8),
   })
@@ -37,7 +36,6 @@ export default function SignUp(){
     if (result.success) {
      router.push("/")
     }
-    
   }
     return(
         <div className="flex min-h-screen flex-col justify-center items-center bg-black/2">
@@ -101,8 +99,6 @@ export default function SignUp(){
                             <button type='submit' className="fancyBorder w-full py-1 mt-3">Sign Up</button>
                             <p className="text-[12px] text-center text-gray-600">Already have an account?.<span className="underline hover:text-[#0AA0A1]"><Link href="/pages/login">Login</Link></span></p>
                         </div>
-                        
-                        
                 </form>
 
             </div>

@@ -34,8 +34,9 @@ export default function Login(){
  
   // 2. Define a submit handler.
   async  function onSubmit(values: z.infer<typeof formSchema>) {
-    const result = await signIn(values.email, values.password)
-    if (result.success) {
+    const result = await authClient.signIn.email({email: values.email, password: values.password})
+    if (result.data) {
+      router.refresh()
      router.push("/")
      
     }

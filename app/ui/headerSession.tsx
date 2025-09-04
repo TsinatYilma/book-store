@@ -3,15 +3,10 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function HeaderSession(){
-    const [name, setUserName] = useState("");
-            const { data: session, isPending, error } = authClient.useSession();
-            const user = session?.user
-            useEffect(() => {
-                if (user && user?.name !== name) {
-                  setUserName(session.user.name);
-                }
+    const { data: session, isPending, error } = authClient.useSession();
+    const user = session?.user
+    console.log(user)
     
-            }, [user?.name]);
 
     return(
         <div className="">
@@ -27,7 +22,7 @@ export default function HeaderSession(){
                       <Link href="/pages/Myshelf">My shelf</Link>
                       <p className="font-bold text-3xl flex items-center">|</p>
                       <Link className="text-cyan-400" href="/pages/Profile">
-                        {name}
+                        {user.name}
                       </Link>
                     </div>
                   ) : (
