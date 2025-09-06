@@ -33,7 +33,7 @@ export default async function RecentlyPublishedBooks() {
                                     <span className="text-[12px] text-md pt-1 sm:pt-0 sm:text-md font-bold">{book.rating} / 5</span>
                                 </span>
                                 <p className="text-[14px] sm:text-lg font-bold mb-3">{book.category}</p>
-                                <Link href={`/pages/BookView/${book.id}`} className='rounded-lg'><button className='fancyBorder rounded-lg bg-black text-[12px] text-md py-0.5 px-2 sm:py-2 sm:px-10 '>View Detail</button></Link>
+                                <Link href={`/pages/BookView/${book.id}`} className='fancyBorder rounded-lg bg-black text-[12px] text-md p-0.5 pl-2 sm:py-2 sm:px-10 '>View Detail</Link>
                             </div>
                          </div>
                             
@@ -62,7 +62,7 @@ export default async function RecentlyPublishedBooks() {
                                 <span className="text-[12px] text-md pt-1 sm:pt-0 sm:text-md font-bold">{book.rating} / 5</span>
                             </span>
                             <p className="text-[14px] sm:text-lg font-bold mb-3">{book.category}</p>
-                        <Link href={`/pages/BookView/${book.id}`} className='rounded-lg'><button className='fancyBorder rounded-lg bg-black text-[12px] text-md p-0.5 pl-2 sm:py-2 sm:px-10 '>View Detail</button></Link>
+                        <Link href={`/pages/BookView/${book.id}`} className='fancyBorder rounded-lg bg-black text-[12px] text-md p-0.5 pl-2 sm:py-2 sm:px-10 '>View Detail</Link>
                         </div>
                      </div>
                         

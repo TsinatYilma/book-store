@@ -7,6 +7,10 @@ import { EnvelopeIcon , EyeSlashIcon, UserIcon, } from '@heroicons/react/24/outl
 import Link from "next/dist/client/link"
 import {signIn, signUp} from "@/server/users"
 import { z } from "zod"
+import {useState} from "react"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import {Loader2} from 'lucide-react'
 
  
 const formSchema = z.object({
@@ -20,6 +24,8 @@ const formSchema = z.object({
     path: ["confirmPassword"],
   })
 export default function SignUp(){
+    const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
     const router = useRouter()
     const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -31,11 +37,13 @@ export default function SignUp(){
  
   // 2. Define a submit handler.
   async  function onSubmit(values: z.infer<typeof formSchema>) {
+    setLoading(true)
     console.log("even me!")
     const result = await signUp(values.email, values.password, values.name)
     if (result.success) {
      router.push("/")
     }
+    setLoading(false)
   }
     return(
         <div className="flex min-h-screen flex-col justify-center items-center bg-black/2">
@@ -71,24 +79,28 @@ export default function SignUp(){
                         <input
                             className=" block w-full py-[6px] rounded-md pl-10 text-sm outline-2 focus:outline-cyan-500 placeholder:text-gray-500 font-bold"
                             id="password"
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             placeholder="Enter password"
                             {...form.register("password")}
                             required
                             minLength={6}
                         />
-                        <EyeSlashIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 " />
+                        <span className="absolute left-3 top-1/2 -translate-y-1/2 cursor-pointer" onClick={() => setShowPassword(!showPassword)}>
+                            <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} className="h-[18px] w-[18px] text-gray-500 " />
+                        </span>
                         </div>
                         <div className="relative">
                         <input
                             className={`block w-full py-[6px] rounded-md pl-10 text-sm outline-2 focus:outline-cyan-500 ${form.formState.errors.confirmPassword && ('focus:outline-red-500')} placeholder:text-gray-500 font-bold`}
                             id="confirmPassword"
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             placeholder="Confirm password"
                             {...form.register("confirmPassword")}
                             required
                             />
-                            <EyeSlashIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 " />
+                            <span className="absolute left-3 top-1/2 -translate-y-1/2 cursor-pointer" onClick={() => setShowPassword(!showPassword)}>
+                                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} className="h-[18px] w-[18px] text-gray-500 " />
+                            </span>
                         </div>
                         {form.formState.errors.confirmPassword && (
                             <span className="text-cyan-500 text-sm">
@@ -96,7 +108,7 @@ export default function SignUp(){
                             </span>
                             )}
                         <div className="flex flex-col gap-2">
-                            <button type='submit' className="fancyBorder w-full py-1 mt-3">Sign Up</button>
+                            <button type='submit' className="fancyBorder w-full py-1 mt-3 flex justify-center">{loading ? <Loader2 className="animate-spin h-5 w-5" /> : "Sign Up"}</button>
                             <p className="text-[12px] text-center text-gray-600">Already have an account?.<span className="underline hover:text-[#0AA0A1]"><Link href="/pages/login">Login</Link></span></p>
                         </div>
                 </form>
