@@ -14,9 +14,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="">
-      <body className=' min-h-screen'>
+      <body className='min-h-screen flex flex-col'>
         <Header />
-        {children}
+        <main className="flex-grow">
+          {children}
+        </main>
         <footer className="mt-18 bg-black flex flex-col sm:flex-row sm:justify-around justify-center gap-8 py-10 px-5 w-full">
         <div className="flex justify-center  sm:order-2 ">
           <img src="/favicon.ico" alt="Logo" className="w-20 h-20"/>

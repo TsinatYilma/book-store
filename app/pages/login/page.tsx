@@ -10,7 +10,6 @@ import { authClient } from "@/app/lib/auth-client"
 import {signIn, signUp} from "@/server/users"
 import { z } from "zod"
 import {Loader2} from 'lucide-react' 
-import { useAuthStore } from "@/store/heading"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 

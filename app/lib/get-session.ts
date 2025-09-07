@@ -1,7 +1,7 @@
 "use client"
 import { useEffect } from "react";
 import { useSession } from "@/app/lib/auth-client";
-import { useAuthStore } from "@/store/heading";
+import { useAuthStore } from "@/store/session";
 import { authClient } from "@/app/lib/auth-client" // import the auth client
 const { 
         data: session, 

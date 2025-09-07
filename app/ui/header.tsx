@@ -4,12 +4,10 @@ import Link from "next/dist/client/link"
 import Menu from "@/app/ui/menu"
 import { authClient } from '../lib/auth-client'
 import { ChevronDownIcon } from 'lucide-react'
-import { useAuthStore } from '@/store/heading'
+
 import HeaderSession from './headerSession'
 
 export default function Header(){
-    
-    
     const [menuVisible, setMenuVisiblity] = useState<boolean>(false)
    
     function handleMenuVisbility(){

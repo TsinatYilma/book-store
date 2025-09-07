@@ -9,7 +9,7 @@ export default function HeaderSession(){
     
 
     return(
-        <div className="">
+           <div className="">
                {isPending ? 
                  <div className="hidden md:flex gap-3 md:gap-6  items-center">
                   <div className="animate-pulse bg-gray-300 rounded border w-full blur-sm" >My shelf</div>
@@ -35,6 +35,6 @@ export default function HeaderSession(){
                     </div>
                   )
                   }
-             </div>
+           </div>
     )
 }
