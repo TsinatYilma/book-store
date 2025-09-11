@@ -5,10 +5,24 @@ import {schema} from "@/db/schema"
 import { nextCookies } from "better-auth/next-js"; // your drizzle instance
 import { cache } from "react";
 import { headers } from "next/headers";
+import {Resend} from "resend"
+import ForgotPassword from "../pages/forgotPassword/forgot-password";
+import ForgotPasswordEmail from "../pages/forgotPassword/resetPassword";
+
+const resend = new Resend(process.env.RESEND_API_KEY as string)
+
  
 export const auth = betterAuth({
     emailAndPassword: {
     enabled: true, 
+    sendResetPassword: async ({user, url}) => {
+        await resend.emails.send({ 
+          from: "onboarding@resend.dev",
+          to: user.email,
+          subject: "Reset your password",
+          react: ForgotPasswordEmail({username: user.name, resetUrl: url, userEmail: user.email}),
+        });
+      },
   }, 
   socialProviders: {
         google: { 
