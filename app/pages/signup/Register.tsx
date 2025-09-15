@@ -11,6 +11,8 @@ import {useState} from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import {Loader2} from 'lucide-react'
+import { useAuthOverlay } from '@/app/LayoutContext/OverlayContext';
+import { authClient } from "@/app/lib/auth-client"
 
  
 const formSchema = z.object({
@@ -24,6 +26,7 @@ const formSchema = z.object({
     path: ["confirmPassword"],
   })
 export default function SignUp(){
+    const { isVisible, hide, mode } = useAuthOverlay();
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const router = useRouter()
@@ -37,17 +40,21 @@ export default function SignUp(){
  
   // 2. Define a submit handler.
   async  function onSubmit(values: z.infer<typeof formSchema>) {
-    setLoading(true)
-    console.log("even me!")
-    const result = await signUp(values.email, values.password, values.name)
-    if (result.success) {
-     router.push("/")
+      setLoading(true)
+      const result = await authClient.signUp.email({name: values.name, email: values.email, password: values.password})
+      if (result.data) {
+        router.refresh()
+        router.push("/")
+        hide()
+      }
+      
+      setLoading(false)
+      
     }
-    setLoading(false)
-  }
     return(
         <div className="flex min-h-screen flex-col justify-center items-center bg-black/2">
-            <div className="font-gantari min-w-[280px] sm:min-w-[355px] flex flex-col items-center gap-5 bg-gradient-to-tr from-black to-[#0AA0A1]/40 px-6 sm:px-8 py-10 rounded-lg border-[0.25]">
+            <div className="relative font-gantari min-w-[280px] sm:min-w-[355px] flex flex-col items-center gap-5 bg-gradient-to-tr from-black to-[#0AA0A1]/40 px-6 sm:px-8 py-10 rounded-lg border-[0.25]">
+                <button onClick={hide} className="absolute top-2 right-4 text-2xl text-white hover:text-red-600">✕</button>
                 <h1 className="font-gabarito font-semibold text-[#0AA0A1] text-2xl ">Sign Up</h1>
                 <form onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col w-full gap-5 '>
 

@@ -1,8 +1,10 @@
 import { authClient } from "../lib/auth-client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useAuthOverlay } from '@/app/LayoutContext/OverlayContext';
 
 export default function HeaderSession(){
+   const { showLogin, showSignup } = useAuthOverlay();
     const { data: session, isPending, error } = authClient.useSession();
     const user = session?.user
     console.log(user)
@@ -27,11 +29,11 @@ export default function HeaderSession(){
                     </div>
                   ) : (
                     <div className="hidden md:flex gap-3 md:gap-6  items-center">
-                      <Link href="/pages/login">Login</Link>
+                      <button onClick={showLogin}>Login</button>
                       <p className="font-bold text-3xl flex items-center">|</p>
-                      <Link className="text-cyan-400" href="/pages/signup">
+                      <button className="text-cyan-400" onClick={showSignup}>
                         Register
-                      </Link>
+                      </button>
                     </div>
                   )
                   }

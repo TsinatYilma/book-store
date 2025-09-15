@@ -12,6 +12,7 @@ import { z } from "zod"
 import {Loader2} from 'lucide-react' 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { useAuthOverlay } from '@/app/LayoutContext/OverlayContext';
 
  
 const formSchema = z.object({
@@ -19,6 +20,7 @@ const formSchema = z.object({
   password: z.string().min(8)
 })
 export default function Login(){
+  const { isVisible, hide, mode } = useAuthOverlay();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
@@ -44,15 +46,18 @@ export default function Login(){
     const result = await authClient.signIn.email({email: values.email, password: values.password})
     if (result.data) {
       router.refresh()
-     router.push("/")
+      router.push("/")
+      hide()
     }
+    
     setLoading(false)
     
   }
 
     return(
     <div className="flex min-h-screen flex-col justify-center items-center bg-black/20">
-        <div className="font-gantari min-w-[280px] sm:min-w-[355px] flex flex-col items-center gap-5 bg-gradient-to-tr from-black-800 to-[#0AA0A1]/40 px-6 sm:px-8 py-10 rounded-lg border-[0.25]">
+        <div className="relative font-gantari min-w-[280px] sm:min-w-[355px] flex flex-col items-center gap-5 bg-gradient-to-tr from-black-800 to-[#0AA0A1]/40 px-6 sm:px-8 py-10 rounded-lg border-[0.25]">
+            <button onClick={hide} className="absolute top-2 right-4 text-2xl text-white hover:text-red-600">✕</button>
             <h1 className="font-gabarito font-semibold text-[#0AA0A1] text-2xl ">Login</h1>
             <form action="" onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col w-full gap-5'>
                     <div className="flex flex-col gap-3">
