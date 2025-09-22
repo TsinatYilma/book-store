@@ -10,7 +10,7 @@ import BookView from "./pages/BookView/[id]/page";
 import Profile from "./pages/Profile/page";
 import Login from '@/app/ui/login'
 import SignUp from '@/app/ui/signUp'
-
+import "@/app/globals.css"
 
 export default function Home() {
   return (

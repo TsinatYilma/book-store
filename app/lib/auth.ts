@@ -1,8 +1,8 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "@/db/drizzle";
-import {schema} from "@/db/schema"
-import { nextCookies } from "better-auth/next-js"; // your drizzle instance
+import {schema} from "@/db/schema";
+import { nextCookies } from "better-auth/next-js"; 
 import { cache } from "react";
 import { headers } from "next/headers";
 import {Resend} from "resend"
@@ -41,4 +41,4 @@ export const getSession = cache(async () => {
       return await auth.api.getSession({
          headers: await headers()
      })
- })
+ });

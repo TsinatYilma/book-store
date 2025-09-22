@@ -11,6 +11,7 @@ export default function Header(){
     const [menuVisible, setMenuVisiblity] = useState<boolean>(false)
    
     function handleMenuVisbility(){
+      console.log("onClick")
     setMenuVisiblity((prevState)=>(!prevState))
     }
     
@@ -28,9 +29,11 @@ export default function Header(){
             </div>
             
              <div className="hidden md:flex gap-6 ">
-               <Link href="/">Home</Link>
-               <Link href="/pages/genre">Genres</Link>
-               <Link href="/blog">Blog</Link>
+             <Link href="/">
+  <span onClick={handleMenuVisbility}>Home</span>
+</Link>
+               <Link href="/pages/genre" onClick={handleMenuVisbility}>Genres</Link>
+               <Link href="/blog" onClick={handleMenuVisbility}>Blog</Link>
              </div>
              <div className="hidden md:block">
               <h1 className="text-2xl font-bold">Book Store</h1>

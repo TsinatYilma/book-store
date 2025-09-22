@@ -1,7 +1,7 @@
 import {Book} from '../lib/definition';
 import '../globals.css';
 import { fetchBooks } from '@/app/lib/fetching-data';
-import {handlee, gabarito} from "@/app/ui/fonts";
+
 import Link from "next/link";
 import {topRatedbooks} from "@/app/lib/fetching-data"
 import {books} from "@/app/lib/placeholder-data";
@@ -13,7 +13,7 @@ export default async function RecentlyPublishedBooks() {
     
     return (
         <div className="flex flex-col w-full  mt-14 m-5 p-4 ">
-            <div className={gabarito.className +"flex flex-col w-full  mt-14  "}>
+            <div className={"font-gabarito flex flex-col w-full  mt-14  "}>
             <h2 className="text-2xl font-bold mb-4 text-[#238E8E] ">Recently Published</h2>
             
             <div className="flex  overflow-hidden overflow-x-auto no-scrollbar gap-3 p-5  ">
@@ -38,13 +38,13 @@ export default async function RecentlyPublishedBooks() {
                          </div>
                             
                             <h3 className="text-md font-bold ">{book.name}</h3>
-                            <p className="text-[13px] text-grey-300">by <span className={handlee.className + 'text-[#238E8E] '}>{book.author}</span> </p>
+                            <p className="text-[13px] text-grey-300">by <span className={'font-handlee text-[#238E8E] '}>{book.author}</span> </p>
                         </div>
                     ))
                 }
             </div>
         </div>
-        <div className={gabarito.className +"flex flex-col w-full  mt-14"}>
+        <div className={"font-gabarito flex flex-col w-full  mt-14"}>
         <h2 className="text-2xl font-bold mb-4 text-[#238E8E] ">Top Rated</h2>
         <div className="flex  overflow-hidden overflow-x-auto no-scrollbar gap-3 p-5  ">
             {
@@ -67,7 +67,7 @@ export default async function RecentlyPublishedBooks() {
                      </div>
                         
                         <h3 className="text-md font-bold ">{book.name}</h3>
-                        <p className="text-[13px] text-grey-300">by <span className={handlee.className + 'text-[#238E8E] '}>{book.author}</span> </p>
+                        <p className="text-[13px] text-grey-300">by <span className={'font-handlee text-[#238E8E] '}>{book.author}</span> </p>
                     </div>
                 ))
             }

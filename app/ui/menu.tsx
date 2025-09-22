@@ -10,7 +10,7 @@ export default function Menu({menuVisible, handleMenuVisbility}:
 
     return(
         <>
-        <div className={`flex flex-col md:hidden fixed z-30 top-0 left-0 bg-black/80 min-h-screen w-[90%] xs:w-[50%] transition-all  duration-700 ease-out overflow-y-auto ${menuVisible ? "translate-x-0" : "-translate-x-full"}`}>
+        <div className={`flex flex-col md:hidden fixed z-30 top-0 left-0 bg-black/80 min-h-screen w-[90%] xs:w-[70%] transition-all  duration-700 ease-out overflow-y-auto ${menuVisible ? "translate-x-0" : "-translate-x-full"}`}>
            <div className="p-5">
               <div className="flex justify-between border-b-2 border-gray-600 pb-6">
                 <h1 className="font-bold text-4xl">Logo</h1>
@@ -21,8 +21,8 @@ export default function Menu({menuVisible, handleMenuVisbility}:
                 <Link href={'../pages/genre'}><h1 className="font-bold ">Genres</h1></Link>
                 <Link href={'../pages/blog'}><h1 className="font-bold ">Blog</h1></Link>
                 <Link href={'../pages/contactUs'}><h1 className="font-bold ">Contact Us</h1></Link>
-                <span className="flex gap-6  items-center font-bold  mt-3"> <Link href="/login">Login</Link> <p className="font-bold text-3xl flex items-center">|</p>
-               <Link className="text-[#238E8E]" href="/signup">Register</Link>
+                <span className="flex gap-6  items-center font-bold  mt-3"> <Link href="/pages/login">Login</Link> <p className="font-bold text-3xl flex items-center">|</p>
+               <Link className="text-[#238E8E]" href="/pages/signup">Register</Link>
                 </span>
               </div>
             </div> 
