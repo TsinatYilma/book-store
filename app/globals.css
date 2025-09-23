@@ -1,4 +1,5 @@
 @import "tailwindcss";
+
 @font-face {
   font-family: 'Gabarito';
   src: url('/fonts/gabarito/Gabarito-Regular.ttf') format('truetype');
@@ -24,11 +25,7 @@
 @theme {
   --breakpoint-xs: 400px;
   --breakpoint-me: 900px;
-  --font-gabarito: 'Gabarito', sans-serif;
-  --font-gantari: 'Gantari', sans-serif;
-  --font-handlee: 'Handlee', cursive;
   --color-Cyan: '#0AA0A1';
-  --font-display: 'Gabarito', 'Gantari', sans-serif;
 }
 :root {
   --background: #ffffff;
