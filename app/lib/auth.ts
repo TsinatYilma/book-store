@@ -24,6 +24,16 @@ export const auth = betterAuth({
         });
       },
   }, 
+  cookie: {
+    name: 'session',
+    options: {
+      path: '/',
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 60 * 60, // 1 hour
+    },
+  },
   socialProviders: {
         google: { 
             clientId: process.env.GOOGLE_CLIENT_ID as string, 
@@ -37,8 +47,3 @@ export const auth = betterAuth({
     plugins: [nextCookies()]
 });
 
-export const getSession = cache(async () => {
-      return await auth.api.getSession({
-         headers: await headers()
-     })
- });

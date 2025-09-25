@@ -12,10 +12,8 @@ export default function MyShelf(){
     const removeFromShelf = useShelfStore((state) => state.removeFromShelf);
 
     useEffect(() => {
-    console.log('Shelf updated:', shelf);
   }, [shelf]);
-
-    console.log("this is Myshelf", shelf);
+  
     return(
         <div className="w-full  flex flex-col justify-center mx-auto ">
             <h1 className="font-bold text-2xl my-14 ml-2 sm:ml-10 text-cyan-600">My Shelf</h1>
