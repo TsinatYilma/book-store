@@ -1,31 +1,36 @@
-@import "tailwindcss";
 
 @font-face {
   font-family: 'Gabarito';
-  src: url('/fonts/gabarito/Gabarito-Regular.ttf') format('truetype');
+  src: url('/font/gabarito/Gabarito-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Gantari';
-  src: url('/fonts/gantari/Gantari-Regular.ttf') format('truetype');
+  src: url('/font/gantari/Gantari-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Handlee';
-  src: url('/fonts/handlee/Handlee-Regular.ttf') format('truetype');
+  src: url('/font/handlee/Handlee-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
+
 }
 
+@import "tailwindcss";
 
-@theme {
+@theme{
   --breakpoint-xs: 400px;
   --breakpoint-me: 900px;
   --color-Cyan: '#0AA0A1';
+  --font-gabarito: Gabarito;
+  --font-gantari: Gantari;
+  --font-handlee: Handlee, "sans-serif";
+  --font-display: 'Gabarito', 'Gantari', 'Handlee', sans-serif;
 }
 :root {
   --background: #ffffff;

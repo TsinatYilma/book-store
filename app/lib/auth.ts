@@ -13,6 +13,12 @@ const resend = new Resend(process.env.RESEND_API_KEY as string)
 
  
 export const auth = betterAuth({
+    session: {
+      cookieCache: {
+          enabled: true,
+          maxAge: 5 * 60 // Cache duration in seconds
+      }
+    },
     emailAndPassword: {
     enabled: true, 
     sendResetPassword: async ({user, url}) => {

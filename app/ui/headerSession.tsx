@@ -13,14 +13,14 @@ export default function HeaderSession(){
     return(
            <div className="">
                {isPending ? 
-                 <div className="hidden md:flex gap-3 md:gap-6  items-center">
+                 <div className="hidden md:flex gap-3 md:gap-6  items-center font-gantari text-lg">
                   <div className="animate-pulse bg-gray-300 rounded border w-full blur-sm" >My shelf</div>
                     <p className="font-bold text-3xl flex items-center">|</p>
                   <div className="animate-pulse bg-gray-300 rounded border w-full blur-sm" >My shelf</div>
                  </div>
                     :
                user ? (
-                    <div className="hidden md:flex gap-3 md:gap-6  items-center">
+                    <div className="hidden md:flex gap-3 md:gap-6  items-center font-gantari text-lg">
                       <Link href="/pages/Myshelf">My shelf</Link>
                       <p className="font-bold text-3xl flex items-center">|</p>
                       <Link className="text-cyan-400" href="/pages/Profile">
@@ -28,7 +28,7 @@ export default function HeaderSession(){
                       </Link>
                     </div>
                   ) : (
-                    <div className="hidden md:flex gap-3 md:gap-6  items-center">
+                    <div className="hidden md:flex gap-3 md:gap-6  items-center font-gantari text-lg">
                       <button onClick={showLogin}>Login</button>
                       <p className="font-bold text-3xl flex items-center">|</p>
                       <button className="text-cyan-400" onClick={showSignup}>

@@ -28,10 +28,10 @@ export default function Header(){
               </button>
             </div>
             
-             <div className="hidden md:flex gap-6 ">
+             <div className="hidden md:flex gap-6 font-gantari">
              <Link href="/">
-  <span onClick={handleMenuVisbility}>Home</span>
-</Link>
+              <span onClick={handleMenuVisbility}>Home</span>
+            </Link>
                <Link href="/pages/genre" onClick={handleMenuVisbility}>Genres</Link>
                <Link href="/blog" onClick={handleMenuVisbility}>Blog</Link>
              </div>
