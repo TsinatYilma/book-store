@@ -3,9 +3,6 @@ import "@/app/globals.css";
 import Header from './ui/header';
 import { AuthOverlayProvider } from '@/app/LayoutContext/OverlayContext';
 import AuthOverlay from '@/app/ui/AuthOverlay';
-import VantaWrapper from "./VantaWrapper";
-import VantaTrunk from "./VantaWrapper";
-
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,11 +21,9 @@ export default function RootLayout({
         <AuthOverlayProvider>
           <Header />
           <AuthOverlay /> 
-          
-            <main className="flex-grow">
-              {children}
-            </main>
-          
+          <main className="flex-grow">
+            {children}
+          </main>
           <footer className="mt-18 bg-black flex flex-col sm:flex-row sm:justify-around justify-center gap-8 py-10 px-5 w-full">
             <div className="flex justify-center  sm:order-2 ">
               <img src="/favicon.ico" alt="Logo" className="w-20 h-20"/>
