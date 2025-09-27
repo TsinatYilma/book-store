@@ -11,16 +11,17 @@ import Profile from "./pages/Profile/page";
 import Login from '@/app/ui/login'
 import SignUp from '@/app/ui/signUp'
 import "@/app/globals.css"
+import VantaTopology from "./VantaWrapper";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col justify-center items-center bg-black/20 pt-30 ">
-
-      <IntroText />
-      <Search placeholder="Search..." />
+    <div className="flex min-h-screen  flex-col justify-center items-center bg-black">
+      <VantaTopology>
+        <IntroText />
+        <Search placeholder="Search..." />
+      </VantaTopology>
       <RecentlyPublishedBooks />
       <BookoftheMonth />
-
     </div>
   );
 }
