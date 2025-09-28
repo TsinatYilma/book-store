@@ -58,6 +58,17 @@ export default function BookView({book}: {book: Book}){
                             </div>
                         </div>
                 </div>
+                <div className="flex gap-5 py-5 border-b border-gray-600">
+                    <div className="hover:fancyBorder">
+                        <button className="py-1 px-3 rounded  bg-black border border-gray-500 focus:bg-blue-950">Description</button>
+                    </div>
+                    <div className="py-1 px-3">
+                        Reviews
+                    </div>
+                    <div className="py-1 px-3">
+                        Author
+                    </div>
+                </div>
                 <div className="flex flex-col gap-5 ">
                     <h1 className="font-bold text-3xl text-[#0AA0A1]">Rating & Reviews</h1>
                     <form action="post" className='flex flex-col gap-4'>
