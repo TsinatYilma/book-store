@@ -11,7 +11,7 @@ export default function BookViewCatagory(){
     console.log(activeDetail)
     return (
         <div className="px-3 md:px-20">
-            <div className="flex gap-2 xs:gap-5 py-10 border-b border-gray-600 mb-20 max-w-[600px]">
+            <div className="flex gap-2 xs:gap-5 py-10 border-b border-gray-600 mb-10 max-w-[600px]">
                    <div >
                         <button onClick={() => setActiveDetail("description")} className={`py-1 px-3 rounded  bg-black border ${activeDetail=='description' ? "fancyBorder": "border-gray-500 "}`} >Description</button>
                    </div>
@@ -20,7 +20,7 @@ export default function BookViewCatagory(){
                    </div>
                 </div>
                 
-                <div className="flex flex-col gap-5">
+            <div className={`flex-col gap-5 ${activeDetail=="reviews" ? "flex" :"hidden"}`}>
                     <h1 className="text-[20px] ">Comminuty Review</h1>
                     <p className="text-gray-600">Displaying 1&#8211;10 of 150 reviews</p>
                     <div className="flex flex-col gap-5  rounded-lg ">
@@ -110,7 +110,24 @@ export default function BookViewCatagory(){
 
                     </div>
                 </div>
-                <div className="">
+                <div  className={`flex-col gap-5 ${activeDetail=="description" ? "flex" :"hidden"}`}>
+                   <div className="">
+                     <p className="text-[16px] max-w-[800px] text-gray-500">
+                        In a world teetering between memory and myth, Echoes of the Forgotten invites readers into a hauntingly beautiful landscape where time folds in on itself and truth is a fragile thread. The story follows Lira, a solitary archivist in a crumbling city where history is rewritten daily and the past is traded like currency. When she stumbles upon a forbidden manuscript that contradicts everything she’s ever known, Lira is thrust into a dangerous unraveling — one that pits her against the ruling Council and forces her to question the very nature of reality. As she journeys through hidden libraries, dreamlike ruins, and the minds of those who remember too much, the novel explores themes of identity, rebellion, and the cost of forgetting. With lyrical prose and a slow-burning intensity, the book paints a vivid portrait of a society obsessed with control and a woman determined to break free. The characters are deeply flawed yet achingly human, their relationships marked by longing, betrayal, and moments of unexpected tenderness. At its core, Echoes of the Forgotten is a meditation on memory — how it shapes us, how it can be weaponized, and how reclaiming it might be the most radical act of all. Perfect for fans of speculative fiction with emotional depth, this novel lingers long after the final page, whispering questions about who we are when our stories are no longer our own.
+                     </p>
+                   </div>
+                   <div className="">
+                     <h1 className="text-2xl text-gray-400">Table of Content</h1>
+                     <div className="px-3 flex flex-col gap-5">
+                        <p className=""><span className="">1</span>. The Silence Protocol</p>
+                        <p className=""><span className="">2</span>. The Forgotten Name</p>
+                        <p className=""><span className="">3</span>. The Mirror Room</p>
+                        <p className=""><span className="">4</span>. The Archivist Rebellion</p>
+                        <p className=""><span className="">5</span>. The City Beneath</p>
+                        <p className=""><span className="">6</span>. The Memory War</p>
+                        <p className=""><span className="">7</span>. The Archive of Ashes</p>
+                     </div>
+                   </div>
 
                 </div>
         </div>
