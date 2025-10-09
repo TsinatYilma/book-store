@@ -11,11 +11,19 @@ import Profile from "./pages/Profile/page";
 import Login from '@/app/ui/login'
 import SignUp from '@/app/ui/signUp'
 import "@/app/globals.css"
+import Script from 'next/script';
 
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col justify-center items-center bg-black/20 pt-30 ">
-
+       <Script
+        src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"
+        strategy="beforeInteractive"
+      />
+      <Script
+        src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"
+        strategy="beforeInteractive"
+      />
       <IntroText />
       <Search placeholder="Search..." />
       <RecentlyPublishedBooks />
