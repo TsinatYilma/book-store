@@ -4,7 +4,7 @@ import VantaBackground from './VantaBg';
 export default function IntroText() {
   return (
     <div className={"font-gabarito flex flex-col justify-center w-full mb-8"}>
-      <VantaBackground />
+      
        <h1 className="text-[18px] xs:text-[24px] mb-3 sm:text-[32px] md:text-[40px] lg:text-[64px] mx-auto w-fit text-center font-extrabold tracking-[0em] leading-[1.2] text-transparent "
   style={{
     background: 'linear-gradient(to right, #238E8E 0%, #FFFFFF 30%, #FFFFFF 70%, #238E8E 100%)',
