@@ -8,6 +8,7 @@ export type Book = {
     category: string;
     published: number;
 };
+
 export type User = {
     id: string;
     name: string;

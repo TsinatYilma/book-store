@@ -24,6 +24,7 @@ export default function Login(){
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
+  const [signInFail, setsignInFail] = useState(false)
     const router = useRouter()
     const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -48,7 +49,10 @@ export default function Login(){
       router.refresh()
       router.push("/")
       hide()
+    }else{
+      setsignInFail(true)
     }
+    
     
     setLoading(false)
     
@@ -93,6 +97,9 @@ export default function Login(){
                               <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} className="h-[18px] w-[18px] text-gray-500 " />
                           </span>
                       </div>
+                    </div>
+                    <div className={`text-start ${signInFail? 'block' : 'hidden'}`}>
+                      <p className="text-sm text-red-400">failed to sign in! <br />Invalid email or unauthorized access.</p>
                     </div>
                     
                     <div className="flex flex-col gap-2">

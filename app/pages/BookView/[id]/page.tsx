@@ -15,7 +15,7 @@ export default async  function BookViewPage({ params }: { params: Promise<{ id: 
   if (!book) return <div>Book not found</div>;
 
   return (
-    <div className="flex flex-col pb-18">
+    <div className="flex flex-col pb-18 border">
       <BookView book={book}
       key={book.id}
       /> 

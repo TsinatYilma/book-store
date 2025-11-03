@@ -13,7 +13,7 @@ import BookViewCatagory from './bookViewCatagory'
 export default function BookView({book}: {book: Book}){
     const addToShelf = useShelfStore((state) => state.addToShelf);
     return (
-         <div className="flex flex-col gap-10">
+         <div className="flex flex-col gap-10 ">
              <div className="flex  flex-col md:flex-row mt-10  xs:max-w-[500px] xs:mx-auto sm:max-w-[650px] md:max-w-full  md:mx-5  ">
                 <div className="flex p-3 gap-2 w-full xs:gap-6 md:flex-col md:max-w-[500px]  md:items-center md:left-10  ">
                     <img src={book.cover} alt="" width={120} height={200} className="w-[120px] h-[200px] md:w-[220px] md:h-[320px] " />
@@ -26,7 +26,7 @@ export default function BookView({book}: {book: Book}){
                             <button className="fancyBorder w-full mb-4 py-1" onClick={() =>{ console.log('Adding book:', book); addToShelf(book) }}>Add to shelf</button>
                             <button className="fancyBorder w-full py-1">Mark as read</button>
                         </div>
-                    </div>
+                </div>
                 </div>
                 <div className="flex flex-col font-gantari p-3 gap-8  md:max-w-[800px]">
                     <div className="flex flex-col gap-8">
