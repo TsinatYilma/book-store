@@ -39,18 +39,29 @@ export default function SignUp(){
   })
  
   // 2. Define a submit handler.
-  async  function onSubmit(values: z.infer<typeof formSchema>) {
-      setLoading(true)
-      const result = await authClient.signUp.email({name: values.name, email: values.email, password: values.password})
-      if (result.data) {
-        router.refresh()
-        router.push("/")
-        hide()
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setLoading(true);
+  
+    try {
+      const result = await authClient.signUp.email({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+      });
+      console.log('Signup result:', result);
+
+      if (result?.data) {
+        router.refresh();
+        router.push('/');
+        hide();
       }
-      
-      setLoading(false)
-      
+    } catch (error) {
+      console.error('Signup failed:', error);
+    } finally {
+      setLoading(false);
     }
+  }
+  
     return(
         <div className="flex min-h-screen flex-col justify-center items-center bg-black/2">
             <div className="relative font-gantari min-w-[280px] sm:min-w-[355px] flex flex-col items-center gap-5 bg-gradient-to-tr from-black to-[#0AA0A1]/40 px-6 sm:px-8 py-10 rounded-lg border-[0.25]">

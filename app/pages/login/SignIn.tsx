@@ -52,8 +52,6 @@ export default function Login(){
     }else{
       setsignInFail(true)
     }
-    
-    
     setLoading(false)
     
   }
