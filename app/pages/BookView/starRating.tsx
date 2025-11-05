@@ -1,13 +1,41 @@
 "use client"
 import {useState} from 'react'
 import { StarIcon, UserIcon } from '@heroicons/react/24/outline'
+import { authClient } from "@/app/lib/auth-client"
 
 const StarRating = () => {
     const [rating, setRating] = useState(0)
     const [hover, setHover] = useState(0)
+    const { data: session, isPending, error } = authClient.useSession();
+
     function handleRating(value:number){
         setRating(()=>(value))
+        submitRating(value, "a1b2c3d4-e5f6-7890-abcd-1234567890ef");
+
     }
+    async function submitRating(value: number, bookId: string) {
+      const session = await authClient.getSession();
+      const userId = session?.data?.user?.id;
+    
+      if (!userId) {
+        console.error('User not authenticated');
+        return;
+      }
+    
+      await fetch(`http://localhost:3000/api/ratings/books/${bookId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          rateValue: value,
+          bookId: bookId,
+          userId: userId
+
+        }),
+        credentials: 'include',
+      });
+    }
+    
+      
     return(
         <div className="flex">
             { [...Array(5)].map((star, i) =>{
