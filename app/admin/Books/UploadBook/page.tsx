@@ -11,92 +11,130 @@ import { Fullscreen, X } from "lucide-react";
 
 
 const bookSchema = z.object({
-    publisher:  z.preprocess(
-      (val) => typeof val === "string" ? val.split(",").map(s => s.trim()) : val,
-      z.array(z.string().min(6))
-    ) as z.ZodType<string[], any >,
-    name: z.string().min(10),
-    Author: z.preprocess(
-      (val) => typeof val === "string" ? val.split(",").map(s => s.trim()) : val,
-      z.array(z.string().min(6))
-    ) as z.ZodType<string[], any >,
-    
-    translation: z.preprocess(
-      (val) => typeof val === "string" ? val.split(",").map(s => s.trim()) : val,
-      z.array(z.string().min(6))
-    ) as z.ZodType<string[], any>,
-    
-    editionNumbers: z.coerce.number() as z.ZodType<number, any>,
-    description: z.string().min(100),
-    isbn: z.string().optional(),
-    summary: z.string().optional(),
-    firstPublishedDate: z.string().date(),
-    genres: z.array(z.string()),
-    language: z.preprocess(
-      (val) => typeof val === "string" ? val.split(",").map(s => s.trim()) : val,
-      z.array(z.string())
-    ) as z.ZodType<string[], any >,
-    statusId: z.string(),
-    chapterName: z.string(),
-    chapterNum: z.string(),
-    image: z.any()
-  })
+  publisher:  z.preprocess(
+    (val) => typeof val === "string" ? val.split(",").map(s => s.trim()) : val,
+    z.array(z.string().min(6))
+  ) as z.ZodType<string[], any >,
+  name: z.string().min(10),
+  Author: z.preprocess(
+    (val) => typeof val === "string" ? val.split(",").map(s => s.trim()) : val,
+    z.array(z.string().min(6))
+  ) as z.ZodType<string[], any >,
+  
+  translation: z.preprocess(
+    (val) => typeof val === "string" ? val.split(",").map(s => s.trim()) : val,
+    z.array(z.string().min(6))
+  ) as z.ZodType<string[], any>,
+  
+  editionNumbers: z.coerce.number() as z.ZodType<number, any>,
+  description: z.string().min(50),
+  isbn: z.string().optional(),
+  summary: z.string().optional(),
+  firstPublishedDate: z.string().date(),
+  genres: z.array(z.string()),
+  language: z.preprocess(
+    (val) => typeof val === "string" ? val.split(",").map(s => s.trim()) : val,
+    z.array(z.string())
+  ) as z.ZodType<string[], any >,
+  statusId: z.string(),
+  chapterName: z.string(),
+  chapterNum: z.string(),
+  image: z.any()
+})
 
 export default function Page() {
-    const [chapter, setChapter]=useState<number>(2)
-    function handleAddChapter(pok:number){
-      setChapter(chapter + pok)
-      
-    }
-    const [language, setlanguage]=useState<string>('')
-    function handleAddlanguage(lang:string){
-      console.log("am the one")
-      console.log(lang)
-      setlanguage(lang);
-      form.setValue("genres", [lang]);
-    }
-    const [publication, setPublication]=useState<string>('')
-    const statusMap = {
-      "Published": "uuid-for-published",
-      "To be published": "uuid-for-to-be-published",
-    };
-    const handlePublicationStatus = (label: keyof typeof statusMap) => {
-      const id = statusMap[label];
-      setPublication(label); // for display
-      form.setValue("statusId", id); // for submission
-    };
+  const [chapter, setChapter]=useState<number>(2)
+  function handleAddChapter(pok:number){
+    setChapter(chapter + pok)
     
-    const [genre, setGenre]=useState<string>('')
-    function handleGenre(genre:string){
-      console.log("this is from genre")
-      setGenre(genre);
-      form.setValue("genres", [genre]);
-    }
-    //published date
-    const [date, setDate] = useState('');
-    const [error, setError] = useState<boolean>(true);
-    function checkdate(date: string) {
-        const dateRegex = /^(0?[1-9]|1[0-2])\/(0?[1-9]|[12][0-9]|3[01])\/(20\d{2})$/;
-        const match = date.match(dateRegex);
-        if (!match) {
-            console.log("the divat")
-            console.log(error)
-            return false;
-        }
-        const today = new Date();
-        const year = parseInt(match[3])
-        if (year > today.getFullYear()) {
-            console.log("the year")
-            return false;
-        } else {
-            return true;
-        }
-    }
+  }
+  const [language, setlanguage]=useState<string>('')
+  function handleAddlanguage(lang:string){
+    console.log("am the one")
+    console.log(lang)
+    setlanguage(lang);
+    form.setValue("genres", [lang]);
+  }
+  const [publication, setPublication]=useState<string>('')
+  const statusMap = {
+    "Published": "uuid-for-published",
+    "To be published": "uuid-for-to-be-published",
+  };
+  const handlePublicationStatus = (label: keyof typeof statusMap) => {
+    const id = statusMap[label];
+    setPublication(label); // for display
+    form.setValue("statusId", id); // for submission
+  };
+  
+  const [genre, setGenre]=useState<string>('')
+  function handleGenre(genre:string){
+    console.log("this is from genre")
+    setGenre(genre);
+    form.setValue("genres", [genre]);
+  }
+  //published date
+  const [date, setDate] = useState('');
+  const [error, setError] = useState<boolean>(true);
+  function checkdate(date: string) {
+      const dateRegex = /^(0?[1-9]|1[0-2])\/(0?[1-9]|[12][0-9]|3[01])\/(20\d{2})$/;
+      const match = date.match(dateRegex);
+      if (!match) {
+          console.log("the divat")
+          console.log(error)
+          return false;
+      }
+      const today = new Date();
+      const year = parseInt(match[3])
+      if (year > today.getFullYear()) {
+          console.log("the year")
+          return false;
+      } else {
+          return true;
+      }
+  }
 
-    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const input  = e.target.value;
-    setDate(input);
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+  const input  = e.target.value;
+  setDate(input);
+      }
+      
+    const form = useForm<z.infer<typeof bookSchema>>({
+      resolver: zodResolver(bookSchema),
+    });
+
+    async  function onSubmit(formData: z.infer<typeof bookSchema>) {
+      console.log("i am here");
+      try {
+        const { publisher, name, Author, translation, editionNumbers, description, isbn, summary, firstPublishedDate, genres, language, statusId, chapterName, chapterNum, image } = formData;
+    
+        const payload = new FormData();
+        const imageFile = image instanceof FileList ? image[0] : image;
+        if (!imageFile) {
+          console.error("No image file provided");
+          return;
         }
+        payload.append("image", imageFile);
+    
+        const bookDto = { publisher, name, Author, translation, editionNumbers, description, isbn, summary, firstPublishedDate, genres, language, statusId, chapterName, chapterNum };
+
+        payload.append("createBookDto", JSON.stringify(bookDto));
+
+        const response = await fetch("http://localhost:3000/books/addbook", {
+          method: "POST",
+          body: payload,
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          console.log("✅ Book uploaded successfully:", result);
+        } else {
+          console.error("❌ Upload failed:", result);
+        }
+      } catch (error) {
+        console.error("🚨 Error submitting book:", error);
+      }
+    };
 
       const fileInputRef = useRef<HTMLInputElement>(null);
       const [bookImage, setBookImage] = useState('')
@@ -112,22 +150,18 @@ export default function Page() {
           setBookImage(previewUrl)
           // You can now use previewUrl to show the image
           console.log("Preview URL:", previewUrl);
+          form.setValue("image", previewUrl )
         }
       };
-     
-      const form = useForm<z.infer<typeof bookSchema>>({
-        resolver: zodResolver(bookSchema),
-      });
-  
-      async  function onSubmit(values: z.infer<typeof bookSchema>) {
-        console.log(values)
-        
-      }
+    
     return(
        <div className="flex flex-col h-full px-3 py-8">
        <form
         className="flex flex-col h-full"
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={(e) => {
+          e.preventDefault();
+          form.handleSubmit(onSubmit)(e); // <-- this executes the handler
+        }}
       >
 
         <div className="flex flex-col h-full ">
@@ -141,7 +175,10 @@ export default function Page() {
                     <input
                       type="file"
                       accept="image/*"
-                      ref={fileInputRef}
+                      ref={(e) => {
+                        form.register("image").ref(e); // connect to RHF
+                        fileInputRef.current = e;      // keep your custom ref
+                      }}
                       onChange={handleFileChange}
                       style={{ display: "none" }}
                     />
@@ -152,7 +189,7 @@ export default function Page() {
                             <input {...form.register("name")} type="text" id="name" placeholder="Book name" className="w-[285px] h-[30px] border-1 border-white rounded pl-3 "/>
                             <input {...form.register("Author")} type="text" id="Author" placeholder="Authors name(separate them with comma)" className="w-[285px] h-[30px] border-1 border-white rounded pl-3 "/>
                             <input {...form.register("translation")} type="text" id="translation" placeholder="Translation(optional)" className="w-[285px] h-[30px] border-1 border-white rounded pl-3 "/>
-                            <input {...form.register("editionNumbers")} type="text" id="editionNumbers" placeholder="How many editionNumbers are there(optional)" className="w-[285px] h-[30px] border-1 border-white rounded pl-3 "/>
+                            <input {...form.register("editionNumbers")} type="text" id="editionNumbers" placeholder="How many editionNumberss are there(optional)" className="w-[285px] h-[30px] border-1 border-white rounded pl-3 "/>
                         </div>
                         <div className="min-h-full ">
                             <textarea {...form.register("description")} id="description" placeholder="Book Description" className="w-[285px] h-full border-1 border-white rounded pl-3 " />
@@ -166,7 +203,7 @@ export default function Page() {
           <div className="flex gap-10 mt-8  h-fit">
                 <div >
                         <div className="grid grid-cols-2 gap-2">
-                            <input {...form.register("publisher")} type="text" id="publisher" placeholder="Publisher"  className="w-[285px] h-[30px] border-1 border-white rounded pl-3 "/>
+                            <input {...form.register("publisher")} type="text" id="publisher" placeholder="Publicher"  className="w-[285px] h-[30px] border-1 border-white rounded pl-3 "/>
                             <input {...form.register("isbn")} type="text" id="isbn" placeholder="isbn(optional)" className="w-[285px] h-[30px] border-1 border-white rounded pl-3 "/>
                             <div className="relative">
                                <input {...form.register("firstPublishedDate")} type="date" id="firstPublishedDate" placeholder="MM/DD/YYYY" value={date} onChange={handleChange} className={`w-[285px] h-[30px] border-[1px] rounded pl-3 ${error? 'border-white':'border-red-500' } `}/>
