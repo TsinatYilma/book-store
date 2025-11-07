@@ -114,15 +114,21 @@ export default function Page() {
           return;
         }
         payload.append("image", imageFile);
-    
         const bookDto = { publisher, name, Author, translation, editionNumbers, description, isbn, summary, firstPublishedDate, genres, language, statusId, chapterName, chapterNum };
-
-        payload.append("createBookDto", JSON.stringify(bookDto));
-
-        const response = await fetch("http://localhost:3000/books/addbook", {
-          method: "POST",
-          body: payload,
+        // Append each field individually
+        Object.entries(bookDto).forEach(([key, value]) => {
+          if (Array.isArray(value)) {
+            value.forEach((v) => payload.append(key, v));
+          } else {
+            payload.append(key, String(value));
+          }
         });
+
+const response = await fetch("http://localhost:3000/api/books/addbook", {
+  method: "POST",
+  body: payload,
+});
+
 
         const result = await response.json();
 
@@ -145,12 +151,13 @@ export default function Page() {
     
       const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
+        console.log("the image file", file)
         if (file) {
           const previewUrl = URL.createObjectURL(file);
           setBookImage(previewUrl)
           // You can now use previewUrl to show the image
           console.log("Preview URL:", previewUrl);
-          form.setValue("image", previewUrl )
+          form.setValue("image", file )
         }
       };
     
