@@ -1,104 +1,208 @@
 "use client"
 import "@/app/globals.css";
 import { z } from "zod"
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import Image from "next/image";
 import {ChevronDownIcon, PlusCircleIcon, CalendarDateRangeIcon  } from '@heroicons/react/24/outline';
 import Link from "next/link";
+import { Fullscreen, X } from "lucide-react";
+
 
 const bookSchema = z.object({
-    publisher: z.string(),
-    bookName: z.string().min(10),
-    Author: z.string().min(8),
-    translation: z.string().min(8),
-    edition: z.number(),
-    BookDesc: z.string().min(100),
-    ISBN: z.string(),
-    DateofPublication: z.string(),
-    genres: z.string(),
-    Language: z.string(),
-    status: z.string(),
-    chapterName: z.string(),
-    chapterNumber: z.string(),
-  })
+  publisher:  z.preprocess(
+    (val) => typeof val === "string" ? val.split(",").map(s => s.trim()) : val,
+    z.array(z.string().min(6))
+  ) as z.ZodType<string[], any >,
+  name: z.string().min(10),
+  Author: z.preprocess(
+    (val) => typeof val === "string" ? val.split(",").map(s => s.trim()) : val,
+    z.array(z.string().min(6))
+  ) as z.ZodType<string[], any >,
+  
+  translation: z.preprocess(
+    (val) => typeof val === "string" ? val.split(",").map(s => s.trim()) : val,
+    z.array(z.string().min(6))
+  ) as z.ZodType<string[], any>,
+  
+  editionNumbers: z.coerce.number() as z.ZodType<number, any>,
+  description: z.string().min(50),
+  isbn: z.string().optional(),
+  summary: z.string().optional(),
+  firstPublishedDate: z.string().date(),
+  genres: z.array(z.string()),
+  language: z.preprocess(
+    (val) => typeof val === "string" ? val.split(",").map(s => s.trim()) : val,
+    z.array(z.string())
+  ) as z.ZodType<string[], any >,
+  statusId: z.string(),
+  chapterName: z.string(),
+  chapterNum: z.string(),
+  image: z.any()
+})
 
 export default function Page() {
-    const [chapter, setChapter]=useState<number>(2)
-    function handleAddChapter(pok:number){
-      setChapter(chapter + pok)
-    }
-    const [language, setLanguage]=useState<string>('')
-    function handleAddLanguage(lang:string){
-      console.log("am the one")
-      setLanguage(lang);
-    }
-    const [publication, setPublication]=useState<string>('')
-    function handlePublication(pub:string){
-      setPublication(pub);
-    }
-    const [genre, setGenre]=useState<string>('')
-    function handleGenre(genre:string){
-      console.log("no am the one")
-      setGenre(genre);
-    }
-    //published date
-    const [date, setDate] = useState('');
-    const [error, setError] = useState<boolean>(true);
-    function checkdate(date: string) {
-        const dateRegex = /^(0?[1-9]|1[0-2])\/(0?[1-9]|[12][0-9]|3[01])\/(20\d{2})$/;
-        const match = date.match(dateRegex);
-        if (!match) {
-            console.log("the divat")
-            console.log(error)
-            return false;
-        }
-        const today = new Date();
-        const year = parseInt(match[3])
-        if (year > today.getFullYear()) {
-            console.log("the year")
-            return false;
-        } else {
-            return true;
-        }
-    }
+  const [chapter, setChapter]=useState<number>(2)
+  function handleAddChapter(pok:number){
+    setChapter(chapter + pok)
+    
+  }
+  const [language, setlanguage]=useState<string>('')
+  function handleAddlanguage(lang:string){
+    console.log("am the one")
+    console.log(lang)
+    setlanguage(lang);
+    form.setValue("genres", [lang]);
+  }
+  const [publication, setPublication]=useState<string>('')
+  const statusMap = {
+    "Published": "uuid-for-published",
+    "To be published": "uuid-for-to-be-published",
+  };
+  const handlePublicationStatus = (label: keyof typeof statusMap) => {
+    const id = statusMap[label];
+    setPublication(label); // for display
+    form.setValue("statusId", id); // for submission
+  };
+  
+  const [genre, setGenre]=useState<string>('')
+  function handleGenre(genre:string){
+    console.log("this is from genre")
+    setGenre(genre);
+    form.setValue("genres", [genre]);
+  }
+  //published date
+  const [date, setDate] = useState('');
+  const [error, setError] = useState<boolean>(true);
+  function checkdate(date: string) {
+      const dateRegex = /^(0?[1-9]|1[0-2])\/(0?[1-9]|[12][0-9]|3[01])\/(20\d{2})$/;
+      const match = date.match(dateRegex);
+      if (!match) {
+          console.log("the divat")
+          console.log(error)
+          return false;
+      }
+      const today = new Date();
+      const year = parseInt(match[3])
+      if (year > today.getFullYear()) {
+          console.log("the year")
+          return false;
+      } else {
+          return true;
+      }
+  }
 
-    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const input  = e.target.value;
-    setDate(input);
-    }
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+  const input  = e.target.value;
+  setDate(input);
+      }
+      
     const form = useForm<z.infer<typeof bookSchema>>({
       resolver: zodResolver(bookSchema),
     });
-    async  function onSubmit(values: z.infer<typeof bookSchema>) {
-        console.log(values)
-        
+
+    async  function onSubmit(formData: z.infer<typeof bookSchema>) {
+      console.log("i am here");
+      try {
+        const { publisher, name, Author, translation, editionNumbers, description, isbn, summary, firstPublishedDate, genres, language, statusId, chapterName, chapterNum, image } = formData;
+    
+        const payload = new FormData();
+        const imageFile = image instanceof FileList ? image[0] : image;
+        if (!imageFile) {
+          console.error("No image file provided");
+          return;
+        }
+        payload.append("image", imageFile);
+        const bookDto = { publisher, name, Author, translation, editionNumbers, description, isbn, summary, firstPublishedDate, genres, language, statusId, chapterName, chapterNum };
+        // Append each field individually
+        Object.entries(bookDto).forEach(([key, value]) => {
+          if (Array.isArray(value)) {
+            value.forEach((v) => payload.append(key, v));
+          } else {
+            payload.append(key, String(value));
+          }
+        });
+
+
+
+        const response = await fetch("http://localhost:3000/api/books/addbook", {
+          method: "POST",
+          body: payload,
+          credentials: "include",
+        });
+ 
+
+        const result = await response.json();
+
+        if (response.ok) {
+          console.log("✅ Book uploaded successfully:", result);
+        } else {
+          console.error("❌ Upload failed:", result);
+        }
+      } catch (error) {
+        console.error("🚨 Error submitting book:", error);
       }
+    };
+
+      const fileInputRef = useRef<HTMLInputElement>(null);
+      const [bookImage, setBookImage] = useState('')
+
+      const handleImageClick = () => {
+        fileInputRef.current?.click();
+      };
+    
+      const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        console.log("the image file", file)
+        if (file) {
+          const previewUrl = URL.createObjectURL(file);
+          setBookImage(previewUrl)
+          // You can now use previewUrl to show the image
+          console.log("Preview URL:", previewUrl);
+          form.setValue("image", file )
+        }
+      };
     
     return(
        <div className="flex flex-col h-full px-3 py-8">
-        <form   className="flex flex-col h-full" onSubmit={(e) => {
-            e.preventDefault();
-            form.handleSubmit(onSubmit)
-            // your logic here
-          }}>
+       <form
+        className="flex flex-col h-full"
+        onSubmit={(e) => {
+          e.preventDefault();
+          form.handleSubmit(onSubmit)(e); // <-- this executes the handler
+        }}
+      >
+
         <div className="flex flex-col h-full ">
           <h1 className="font-semibold text-2xl text-white">Basic Information</h1>
           <div className="flex gap-10 mt-8  h-fit">
-                <div className="w-[120px] h-[150] bg-white flex justify-center items-center">
-                    <Image src={'/upload.png'} alt="" width={20} height={20}  />
+                <div onClick={handleImageClick} className="w-[120px] h-[150] bg-white flex justify-center items-center">
+                    <Image src={'/upload.png'} className={`${bookImage ? 'hidden' : 'block'}`} alt="" width={20} height={20}  />
+                    {bookImage && (
+                      <img src={bookImage} alt="" className="w-full h-full"/>
+                    )}
+                    <input
+                      type="file"
+                      accept="image/*"
+                      ref={(e) => {
+                        form.register("image").ref(e); // connect to RHF
+                        fileInputRef.current = e;      // keep your custom ref
+                      }}
+                      onChange={handleFileChange}
+                      style={{ display: "none" }}
+                    />
                 </div>
                 <div >
                     <div className="flex text-sm  gap-10 flex-col lg:flex-row">
                         <div className="flex flex-col gap-2">
-                            <input {...form.register("bookName")} type="text" id="bookName" placeholder="Book name" className="w-[285px] h-[30px] border-1 border-white rounded pl-3 "/>
+                            <input {...form.register("name")} type="text" id="name" placeholder="Book name" className="w-[285px] h-[30px] border-1 border-white rounded pl-3 "/>
                             <input {...form.register("Author")} type="text" id="Author" placeholder="Authors name(separate them with comma)" className="w-[285px] h-[30px] border-1 border-white rounded pl-3 "/>
                             <input {...form.register("translation")} type="text" id="translation" placeholder="Translation(optional)" className="w-[285px] h-[30px] border-1 border-white rounded pl-3 "/>
-                            <input {...form.register("edition")} type="text" id="edition" placeholder="How many editions are there(optional)" className="w-[285px] h-[30px] border-1 border-white rounded pl-3 "/>
+                            <input {...form.register("editionNumbers")} type="text" id="editionNumbers" placeholder="How many editionNumberss are there(optional)" className="w-[285px] h-[30px] border-1 border-white rounded pl-3 "/>
                         </div>
                         <div className="min-h-full ">
-                            <textarea id="BookDesc" placeholder="Book Description" className="w-[285px] h-full border-1 border-white rounded pl-3 " />
+                            <textarea {...form.register("description")} id="description" placeholder="Book Description" className="w-[285px] h-full border-1 border-white rounded pl-3 " />
                         </div>
                     </div>
                 </div>
@@ -110,46 +214,46 @@ export default function Page() {
                 <div >
                         <div className="grid grid-cols-2 gap-2">
                             <input {...form.register("publisher")} type="text" id="publisher" placeholder="Publicher"  className="w-[285px] h-[30px] border-1 border-white rounded pl-3 "/>
-                            <input {...form.register("ISBN")} type="text" id="ISBN" placeholder="ISBN(optional)" className="w-[285px] h-[30px] border-1 border-white rounded pl-3 "/>
+                            <input {...form.register("isbn")} type="text" id="isbn" placeholder="isbn(optional)" className="w-[285px] h-[30px] border-1 border-white rounded pl-3 "/>
                             <div className="relative">
-                               <input {...form.register("DateofPublication")} type="text" id="DateofPublication" placeholder="MM/DD/YYYY" value={date} onChange={handleChange} className={`w-[285px] h-[30px] border-[1px] rounded pl-3 ${error? 'border-white':'border-red-500' } `}/>
+                               <input {...form.register("firstPublishedDate")} type="date" id="firstPublishedDate" placeholder="MM/DD/YYYY" value={date} onChange={handleChange} className={`w-[285px] h-[30px] border-[1px] rounded pl-3 ${error? 'border-white':'border-red-500' } `}/>
                                <CalendarDateRangeIcon  className="absolute right-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500"  />
                             </div>
-                            <div className="relative DropGenre">
-                              <input {...form.register("genres")} type="text" id="genres" placeholder="Genres" value={genre} readOnly className="w-[285px] peer h-[30px] text-sm border-1 border-white rounded pl-3 "/>
+                            <div className="relative DropGenre"> 
+                              <input {...form.register("genres")} type="text" id="genre" placeholder="Genres" value={genre} readOnly className="w-[285px] peer h-[30px] text-sm border-1 border-white rounded pl-3 "/>
                               <ChevronDownIcon  className="absolute right-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
-                              <div className="GenreDropdown absolute top-[120%] border w-[285px] hidden peer-focus:flex flex-col bg-black z-10 p-3 gap-2 rounded shadow-lg">
+                              <div className="GenreDropdown absolute top-[120%] border w-[285px] hidden peer-focus:flex flex-col bg-black z-100 p-3 gap-2 rounded shadow-lg">
                                     <div className="flex items-center gap-2">
                                         <label htmlFor={'classics'} className="w-3 h-3 relative  cursor-pointer">
-                                          <input  type="radio" id='classics'  name="genre"  className="hidden peer" onChange={()=>handleGenre("Classics")}/>
+                                          <input  type="radio" id='classics'  name="genres"  className="hidden peer" onChange={()=>handleGenre("Classics")}/>
                                           <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "   />
                                         </label>
                                         <p className="text-sm">Classics</p>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <label htmlFor={'fiction'} className="w-3 h-3 relative  cursor-pointer">
-                                          <input type="radio" id='fiction'  name="genre"  className="hidden peer" onChange={()=>handleGenre("Fiction")}/>
+                                          <input type="radio" id='fiction'  name="genres"  className="hidden peer" onChange={()=>handleGenre("Literature")}/>
                                           <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "   />
                                         </label>
                                         <p className="text-sm">Fiction</p>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <label htmlFor={'litrature'} className="w-3 h-3 relative  cursor-pointer">
-                                          <input  type="radio" id='litrature'  name="genre"  className="hidden peer" onChange={()=>handleGenre("Literature")}  />
+                                          <input  type="radio" id='litrature'  name="genres"  className="hidden peer" onChange={()=>handleGenre("Literature")}  />
                                           <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "  />
                                         </label>
                                         <p className="text-sm">Litrature</p>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <label htmlFor={'thriller'} className="w-3 h-3 relative  cursor-pointer">
-                                          <input  type="radio" id='thriller'  name="genre"  className="hidden peer" onChange={()=>handleGenre("Thriller")} />
+                                          <input  type="radio" id='thriller'  name="genres"  className="hidden peer" onChange={()=>handleGenre("Thriller")} />
                                           <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "   />
                                         </label>
                                         <p className="text-sm">Thriller</p>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <label htmlFor={'history'} className="w-3 h-3 relative  cursor-pointer">
-                                          <input  type="radio" id='history'  name="genre"  className="hidden peer" onChange={()=>handleGenre("History")} />
+                                          <input  type="radio" id='history'  name="genres"  className="hidden peer" onChange={()=>handleGenre("History")} />
                                           <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "  />
                                         </label>
                                         <p className="text-sm">History</p>
@@ -164,43 +268,43 @@ export default function Page() {
        <div className="flex flex-col h-full my-5">
           <h1 className="font-semibold text-[20px]">Additional Details</h1>
           <div className="flex gap-10 mt-8  h-fit">
-                <div >
+                    <div >
                         <div className="grid grid-cols-2 gap-2">
-                            <div className="relative DropLanguage">
-                                <input {...form.register("Language")} type="text" placeholder="Languages" value={language} readOnly className="w-[285px] h-[30px] text-sm border-1 border-white rounded pl-3 peer"/>
+                            <div className="relative Droplanguage">
+                                <input {...form.register("language")} type="text"  placeholder="languages" value={language} readOnly className="peer w-[285px] h-[30px] text-sm border-1 border-white rounded pl-3 "/>
                                 <ChevronDownIcon  className=" absolute right-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
-                                <div className="LanguageDropdown absolute top-[120%] border w-[285px] hidden peer-focus:flex flex-col bg-black p-3 gap-2 rounded shadow-lg">
+                                <div className="languageDropdown absolute top-[120%] border w-[285px] hidden peer-focus:flex flex-col bg-black p-3 gap-2 rounded shadow-lg">
                                     <div className="flex items-center gap-2">
                                         <label htmlFor={'amh'} className="w-3 h-3 relative  cursor-pointer">
-                                          <input  type="radio" id='amh'  name="Language"  className="hidden peer" onChange={()=>handleAddLanguage("Amharic")}/>
+                                          <input  type="radio" id='amh'  name="language"  className="hidden peer" onChange={()=>handleAddlanguage("Amharic")}/>
                                           <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "   />
                                         </label>
                                         <p className="text-sm">Amharic</p>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <label htmlFor={'eng'} className="w-3 h-3 relative  cursor-pointer">
-                                          <input  type="radio" id='eng'  name="Language"  className="hidden peer" onChange={()=>handleAddLanguage("English")}/>
+                                          <input  type="radio" id='eng'  name="language"  className="hidden peer" onChange={()=>handleAddlanguage("English")}/>
                                           <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "   />
                                         </label>
                                         <p className="text-sm">English</p>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <label htmlFor={'orm'} className="w-3 h-3 relative  cursor-pointer">
-                                          <input  type="radio" id='orm'  name="Language"  className="hidden peer" onChange={()=>handleAddLanguage("Affan Oromo")}  />
+                                          <input  type="radio" id='orm'  name="language"  className="hidden peer" onChange={()=>handleAddlanguage("Affan Oromo")}  />
                                           <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "  />
                                         </label>
                                         <p className="text-sm">Affan Oromo</p>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <label htmlFor={'tig'} className="w-3 h-3 relative  cursor-pointer">
-                                          <input type="radio" id='tig'  name="Language"  className="hidden peer" onChange={()=>handleAddLanguage("Tigregna")} />
+                                          <input type="radio" id='tig'  name="language"  className="hidden peer" onChange={()=>handleAddlanguage("Tigregna")} />
                                           <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "   />
                                         </label>
                                         <p className="text-sm">Tigregna</p>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <label htmlFor={'arab'} className="w-3 h-3 relative  cursor-pointer">
-                                          <input type="radio" id='arab'  name="Language"  className="hidden peer" onChange={()=>handleAddLanguage("Geez")} />
+                                          <input type="radio" id='arab'  name="language"  className="hidden peer" onChange={()=>handleAddlanguage("Geez")} />
                                           <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "  />
                                         </label>
                                         <p className="text-sm">Geez</p>
@@ -208,19 +312,19 @@ export default function Page() {
                                 </div>
                             </div>
                             <div className="relative DropStatus">
-                                <input {...form.register("status")} type="text" placeholder="status" value={publication} readOnly className="peer w-[285px] h-[30px] text-sm border-1 border-white rounded pl-3 "/>
+                                <input {...form.register("statusId")} type="text" placeholder="statusId" value={publication} readOnly className="peer w-[285px] h-[30px] text-sm border-1 border-white rounded pl-3 "/>
                                 <ChevronDownIcon  className=" absolute right-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
                                 <div className="StatusDropdown absolute top-[120%] border w-[285px] hidden flex-col bg-black p-3 gap-2 rounded shadow-lg peer-focus:flex">
                                     <div className="flex items-center gap-2">
                                         <label htmlFor={'pub'} className="w-3 h-3 relative  cursor-pointer">
-                                          <input  type="radio" id='pub'  name="publication"  className="hidden peer" onChange={()=>handlePublication("Published")}/>
+                                          <input  type="radio" id='pub'  name="publication"  className="hidden peer" onChange={()=>handlePublicationStatus("Published")}/>
                                           <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 " />
                                         </label>
                                         <p className="text-sm">Published</p>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <label htmlFor={'tobepub'} className="w-3 h-3 relative  cursor-pointer">
-                                          <input type="radio" id='tobepub'  name="publication"  className="hidden peer" onChange={()=>handlePublication("To be published")}/>
+                                          <input type="radio" id='tobepub'  name="publication"  className="hidden peer" onChange={()=>handlePublicationStatus("To be published")}/>
                                           <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white  peer-checked:bg-cyan-500" />
                                         </label>
                                         <p className="text-sm ">To be published</p>
@@ -239,7 +343,7 @@ export default function Page() {
                         <div className="flex flex-col gap-2">
                             {[...Array(chapter)].map((index)=>(
                                  <div key={index} className="flex items-center gap-2">
-                                    <input {...form.register("chapterNumber")} type="text" placeholder="Chapter Number" className="w-[285px] text-sm h-[30px] border-1 border-white rounded pl-3 "/>
+                                    <input {...form.register("chapterNum")} type="text" placeholder="Chapter Number" className="w-[285px] text-sm h-[30px] border-1 border-white rounded pl-3 "/>
                                     <input {...form.register("chapterName")} type="text" placeholder="Chapter Name" className="w-[285px] text-sm h-[30px] border-1 border-white rounded pl-3 "/>
                                     <p className="text-white px-2 w-fit font-semibold  border-1 border-white rounded" onClick={()=>handleAddChapter(-1)}>_</p>
                                  </div>
@@ -254,7 +358,7 @@ export default function Page() {
                         </button>
             </div>
        </div>
-              <button type="submit" className="mt-6 fancyBorder max-w-full flex-grow mx-30">Submit</button>
+              <button type="submit" className="mt-6 fancyBorder max-w-full flex-grow mx-30" >Submit</button>
         </form>
        </div>
     )
