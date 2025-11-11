@@ -7,9 +7,18 @@ import {topRatedbooks} from "@/app/lib/fetching-data"
 import {books} from "@/app/lib/placeholder-data";
 import { TopRatedbooks } from '@/app/lib/placeholder-data';
 
+async function getBooks() {
+    const res = await fetch('http://localhost:3000/api/books', {
+      cache: 'no-store' // always get fresh data
+    });
+    if (!res.ok) throw new Error('Failed to fetch books');
+    return res.json();
+  }
 
-
+  
 export default async function RecentlyPublishedBooks() {
+
+    const books: Book[] = await getBooks();
     
     return (
         <div className="flex flex-col w-full  mt-14 m-5 p-4 ">
@@ -18,7 +27,7 @@ export default async function RecentlyPublishedBooks() {
             
             <div className="flex  overflow-hidden overflow-x-auto no-scrollbar gap-3 p-5  ">
                 {
-                    books.map((book: Book) => (
+                    (books ?? []).map((book: Book) => (
                         
                         <div key={book.id} className=" shadow-md shrink-0 w-[120px] h-[248px] sm:w-[160px] sm:h-[300px] md:w-[220px] md:h-[400px] ">
                             <div key={book.id} className="relative group shadow-md fancyBorderForHover"  >

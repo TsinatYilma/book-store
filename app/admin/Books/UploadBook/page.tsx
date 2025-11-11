@@ -13,21 +13,21 @@ import { Fullscreen, X } from "lucide-react";
 const bookSchema = z.object({
   publisher:  z.preprocess(
     (val) => typeof val === "string" ? val.split(",").map(s => s.trim()) : val,
-    z.array(z.string().min(6))
+    z.array(z.string().min(1))
   ) as z.ZodType<string[], any >,
   name: z.string().min(10),
   Author: z.preprocess(
     (val) => typeof val === "string" ? val.split(",").map(s => s.trim()) : val,
-    z.array(z.string().min(6))
+    z.array(z.string().min(1))
   ) as z.ZodType<string[], any >,
   
   translation: z.preprocess(
     (val) => typeof val === "string" ? val.split(",").map(s => s.trim()) : val,
-    z.array(z.string().min(6))
+    z.array(z.string().min(1))
   ) as z.ZodType<string[], any>,
   
   editionNumbers: z.coerce.number() as z.ZodType<number, any>,
-  description: z.string().min(50),
+  description: z.string().min(5),
   isbn: z.string().optional(),
   summary: z.string().optional(),
   firstPublishedDate: z.string().date(),
