@@ -3,7 +3,7 @@ export type Book = {
     id: string
     name: string;
     author: string;
-    cover: string;
+    image: string;
     rating: number;
     category: string;
     published: number;

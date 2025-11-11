@@ -9,16 +9,26 @@ import { TopRatedbooks } from '@/app/lib/placeholder-data';
 
 async function getBooks() {
     const res = await fetch('http://localhost:3000/api/books', {
-      cache: 'no-store' // always get fresh data
+      method: "GET",
+      credentials: "include",
+      cache: 'no-store', // always get fresh data
+      
     });
-    if (!res.ok) throw new Error('Failed to fetch books');
-    return res.json();
+  
+    if (!res.ok) {
+      console.error("Failed to fetch books", res.status, res.statusText);
+      return [];
+    }
+  
+    const data = await res.json();
+    return data;
   }
 
   
 export default async function RecentlyPublishedBooks() {
 
-    const books: Book[] = await getBooks();
+    const books = await getBooks();
+    console.log("the books:", books);
     
     return (
         <div className="flex flex-col w-full  mt-14 m-5 p-4 ">
@@ -32,7 +42,7 @@ export default async function RecentlyPublishedBooks() {
                         <div key={book.id} className=" shadow-md shrink-0 w-[120px] h-[248px] sm:w-[160px] sm:h-[300px] md:w-[220px] md:h-[400px] ">
                             <div key={book.id} className="relative group shadow-md fancyBorderForHover"  >
                                 <img
-                                    src={book.cover}
+                                    src={book.image}
                                     alt={book.name}
                                     className="w-full h-[184px] sm:h-[234px] md:h-[350px] sm:w-full  object-cover"
                                 />
@@ -61,7 +71,7 @@ export default async function RecentlyPublishedBooks() {
                     <div key={book.id} className=" shadow-md shrink-0 w-[120px] h-[248px] sm:w-[160px] sm:h-[300px] md:w-[220px] md:h-[400px] ">
                         <div key={book.id} className="relative group shadow-md fancyBorderForHover"  >
                             <img
-                                src={book.cover}
+                                src={book.image}
                                 alt={book.name}
                                 className="w-full h-[184px] sm:h-[234px] md:h-[350px] sm:w-full  object-cover"
                             />
