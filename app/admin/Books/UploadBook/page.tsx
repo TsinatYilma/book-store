@@ -36,7 +36,7 @@ const bookSchema = z.object({
     (val) => typeof val === "string" ? val.split(",").map(s => s.trim()) : val,
     z.array(z.string())
   ) as z.ZodType<string[], any >,
-  statusId: z.string(),
+  statusName: z.string(),
   chapterName: z.string(),
   chapterNum: z.string(),
   image: z.any()
@@ -56,15 +56,15 @@ export default function Page() {
     form.setValue("genres", [lang]);
   }
   const [publication, setPublication]=useState<string>('')
-  const statusMap = {
-    "Published": "uuid-for-published",
-    "To be published": "uuid-for-to-be-published",
-  };
-  const handlePublicationStatus = (label: keyof typeof statusMap) => {
-    const id = statusMap[label];
-    setPublication(label); // for display
-    form.setValue("statusId", id); // for submission
-  };
+
+// Remove the UUID map entirely
+// const statusMap = { ... };
+
+const handlePublicationStatus = (label: string) => {
+  setPublication(label);           // for display
+  form.setValue("statusName", label); // send label to backend
+  console.log("Status label:", label);
+};
   
   const [genre, setGenre]=useState<string>('')
   function handleGenre(genre:string){
@@ -105,7 +105,7 @@ export default function Page() {
     async  function onSubmit(formData: z.infer<typeof bookSchema>) {
       console.log("i am here");
       try {
-        const { publisher, name, Author, translation, editionNumbers, description, isbn, summary, firstPublishedDate, genres, language, statusId, chapterName, chapterNum, image } = formData;
+        const { publisher, name, Author, translation, editionNumbers, description, isbn, summary, firstPublishedDate, genres, language, statusName, chapterName, chapterNum, image } = formData;
     
         const payload = new FormData();
         const imageFile = image instanceof FileList ? image[0] : image;
@@ -114,7 +114,7 @@ export default function Page() {
           return;
         }
         payload.append("image", imageFile);
-        const bookDto = { publisher, name, Author, translation, editionNumbers, description, isbn, summary, firstPublishedDate, genres, language, statusId, chapterName, chapterNum };
+        const bookDto = { publisher, name, Author, translation, editionNumbers, description, isbn, summary, firstPublishedDate, genres, language, statusName, chapterName, chapterNum };
         // Append each field individually
         Object.entries(bookDto).forEach(([key, value]) => {
           if (Array.isArray(value)) {
@@ -312,7 +312,7 @@ export default function Page() {
                                 </div>
                             </div>
                             <div className="relative DropStatus">
-                                <input {...form.register("statusId")} type="text" placeholder="statusId" value={publication} readOnly className="peer w-[285px] h-[30px] text-sm border-1 border-white rounded pl-3 "/>
+                                <input {...form.register("statusName")} type="text" placeholder="statusId" value={publication} readOnly className="peer w-[285px] h-[30px] text-sm border-1 border-white rounded pl-3 "/>
                                 <ChevronDownIcon  className=" absolute right-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
                                 <div className="StatusDropdown absolute top-[120%] border w-[285px] hidden flex-col bg-black p-3 gap-2 rounded shadow-lg peer-focus:flex">
                                     <div className="flex items-center gap-2">
