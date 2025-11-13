@@ -12,17 +12,17 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 
 const bookSchema = z.object({
-  publisher:  z.preprocess(
+  publishers:  z.preprocess(
     (val) => typeof val === "string" ? val.split(",").map(s => s.trim()) : val,
     z.array(z.string().min(1))
   ) as z.ZodType<string[], any >,
   name: z.string().min(1),
-  Author: z.preprocess(
+  authors: z.preprocess(
     (val) => typeof val === "string" ? val.split(",").map(s => s.trim()) : val,
     z.array(z.string().min(1))
   ) as z.ZodType<string[], any >,
   
-  translation: z.preprocess(
+  translators: z.preprocess(
     (val) => typeof val === "string" ? val.split(",").map(s => s.trim()) : val,
     z.array(z.string().min(1))
   ) as z.ZodType<string[], any>,
@@ -126,7 +126,7 @@ const handlePublicationStatus = (label: string) => {
     async  function onSubmit(formData: z.infer<typeof bookSchema>) {
       console.log("i am here");
       
-        const { publisher, name, Author, translation, editionNumbers, description, isbn, summary, firstPublishedDate, genres, languages, statusName, chapterName, chapterNum, image } = formData;
+        const { publishers, name, authors, translators, editionNumbers, description, isbn, summary, firstPublishedDate, genres, languages, statusName, chapterName, chapterNum, image } = formData;
     
         const payload = new FormData();
         const imageFile = image instanceof FileList ? image[0] : image;
@@ -135,11 +135,11 @@ const handlePublicationStatus = (label: string) => {
           return;
         }
         payload.append("image", imageFile);
-        const bookDto = { publisher, name, Author, translation, editionNumbers, description, isbn, summary, firstPublishedDate, genres, languages, statusName, chapterName, chapterNum };
+        const bookDto = { publishers, name, authors, translators, editionNumbers, description, isbn, summary, firstPublishedDate, genres, languages, statusName, chapterName, chapterNum };
         // Append each field individually
         Object.entries(bookDto).forEach(([key, value]) => {
           if (Array.isArray(value)) {
-            value.forEach((v) => payload.append(key, v));
+            payload.append(key, JSON.stringify(value));
           } else {
             payload.append(key, String(value));
           }
@@ -203,8 +203,8 @@ const handlePublicationStatus = (label: string) => {
                     <div className="flex text-sm  gap-10 flex-col lg:flex-row">
                         <div className="flex flex-col gap-2">
                             <input {...form.register("name")} type="text" id="name" placeholder="Book name" className="w-[285px] h-[30px] border-1 border-white rounded pl-3 "/>
-                            <input {...form.register("Author")} type="text" id="Author" placeholder="Authors name(separate them with comma)" className="w-[285px] h-[30px] border-1 border-white rounded pl-3 "/>
-                            <input {...form.register("translation")} type="text" id="translation" placeholder="Translation(optional)" className="w-[285px] h-[30px] border-1 border-white rounded pl-3 "/>
+                            <input {...form.register("authors")} type="text" id="authors" placeholder="authorss name(separate them with comma)" className="w-[285px] h-[30px] border-1 border-white rounded pl-3 "/>
+                            <input {...form.register("translators")} type="text" id="translators" placeholder="Translation(optional)" className="w-[285px] h-[30px] border-1 border-white rounded pl-3 "/>
                             <input {...form.register("editionNumbers")} type="text" id="editionNumbers" placeholder="How many editionNumberss are there(optional)" className="w-[285px] h-[30px] border-1 border-white rounded pl-3 "/>
                         </div>
                         <div className="min-h-full ">
@@ -219,7 +219,7 @@ const handlePublicationStatus = (label: string) => {
           <div className="flex gap-10 mt-8  h-fit">
                 <div >
                         <div className="grid grid-cols-2 gap-2">
-                            <input {...form.register("publisher")} type="text" id="publisher" placeholder="Publicher"  className="w-[285px] h-[30px] border-1 border-white rounded pl-3 "/>
+                            <input {...form.register("publishers")} type="text" id="publishers" placeholder="Publicher"  className="w-[285px] h-[30px] border-1 border-white rounded pl-3 "/>
                             <input {...form.register("isbn")} type="text" id="isbn" placeholder="isbn(optional)" className="w-[285px] h-[30px] border-1 border-white rounded pl-3 "/>
                             <div className="relative">
                                <input {...form.register("firstPublishedDate")} type="date" id="firstPublishedDate" placeholder="MM/DD/YYYY" value={date} onChange={handleChange} className={`w-[285px] h-[30px] border-[1px] rounded pl-3 ${error? 'border-white':'border-red-500' } `}/>
