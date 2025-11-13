@@ -2,12 +2,24 @@ import { authClient } from "../lib/auth-client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useAuthOverlay } from '@/app/LayoutContext/OverlayContext';
+import {getServerSession} from '@/app/lib/auth-client'
+
 
 export default function HeaderSession(){
    const { showLogin, showSignup } = useAuthOverlay();
-    const { data: session, isPending, error } = authClient.useSession();
-    const user = session?.user
-    console.log(user)
+   const [session, setSession] = useState<null | {
+    user: any;
+    session: any;
+  }>(null);
+
+   // Fetch session once on mount
+   useEffect(() => {
+    getServerSession().then((res) => {
+       setSession(res.data);
+     });
+   }, []);
+ 
+   const user = session?.user;
     
 
     return(
