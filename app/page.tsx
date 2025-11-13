@@ -12,6 +12,7 @@ import Login from '@/app/ui/login'
 import SignUp from '@/app/ui/signUp'
 import "@/app/globals.css"
 import Script from 'next/script';
+import Providers from './queryProvider'
 
 export default function Home() {
   return (
@@ -26,7 +27,8 @@ export default function Home() {
       />
       <IntroText />
       <Search placeholder="Search..." />
-      <RecentlyPublishedBooks />
+      <Providers><RecentlyPublishedBooks /></Providers>
+      
       <BookoftheMonth />
 
     </div>

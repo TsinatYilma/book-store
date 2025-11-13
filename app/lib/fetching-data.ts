@@ -10,7 +10,6 @@ export async function fetchBooks() {
     
       const res = await fetch('http://localhost:3000/api/books', {
         method: "GET",
-        credentials: "include",
         cache: 'no-store', // always get fresh data
         
       });

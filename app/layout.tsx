@@ -22,7 +22,7 @@ export default function RootLayout({
           <Header />
           <AuthOverlay /> 
           <main className="flex-grow">
-            <Providers>{children}</Providers>
+            {children}
           </main>
           <footer className="mt-18 bg-black flex flex-col sm:flex-row sm:justify-around justify-center gap-8 py-10 px-5 w-full">
             <div className="flex justify-center  sm:order-2 ">

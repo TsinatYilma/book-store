@@ -12,13 +12,7 @@ export default function HeaderSession(){
 
     return(
            <div className="">
-               {isPending ? 
-                 <div className="hidden md:flex gap-3 md:gap-6  items-center font-gantari text-lg">
-                  <div className="animate-pulse bg-gray-300 rounded border w-full blur-sm" >My shelf</div>
-                    <p className="font-bold text-3xl flex items-center">|</p>
-                  <div className="animate-pulse bg-gray-300 rounded border w-full blur-sm" >My shelf</div>
-                 </div>
-                    :
+            {
                user ? (
                     <div className="hidden md:flex gap-3 md:gap-6  items-center font-gantari text-lg">
                       <Link href="/pages/Myshelf">My shelf</Link>

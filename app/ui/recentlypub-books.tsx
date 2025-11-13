@@ -16,6 +16,7 @@ export default  function RecentlyPublishedBooks() {
     const { data: books, isLoading, error } = useQuery({
         queryKey: ['books'],
         queryFn: fetchBooks,
+        refetchOnWindowFocus: false,
       });
       
     
