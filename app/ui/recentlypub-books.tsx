@@ -5,20 +5,14 @@ import '../globals.css';
 import { fetchBooks } from '@/app/lib/fetching-data';
 
 import Link from "next/link";
-import {topRatedbooks} from "@/app/lib/fetching-data"
-import {books} from "@/app/lib/placeholder-data";
+import {topRatedbooks, books} from "@/app/lib/fetching-data"
 import { TopRatedbooks } from '@/app/lib/placeholder-data';
 
 
   
 export default  function RecentlyPublishedBooks() {
 
-    const { data: books, isLoading, error } = useQuery({
-        queryKey: ['books'],
-        queryFn: fetchBooks,
-        refetchOnWindowFocus: false,
-      });
-      
+   
     
     return (
         <div className="flex flex-col w-full  mt-14 m-5 p-4 ">

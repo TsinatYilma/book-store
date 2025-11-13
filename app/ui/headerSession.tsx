@@ -2,29 +2,23 @@ import { authClient } from "../lib/auth-client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useAuthOverlay } from '@/app/LayoutContext/OverlayContext';
-import {getServerSession} from '@/app/lib/auth-client'
-
 
 export default function HeaderSession(){
    const { showLogin, showSignup } = useAuthOverlay();
-   const [session, setSession] = useState<null | {
-    user: any;
-    session: any;
-  }>(null);
-
-   // Fetch session once on mount
-   useEffect(() => {
-    getServerSession().then((res) => {
-       setSession(res.data);
-     });
-   }, []);
- 
-   const user = session?.user;
+    const { data: session, isPending, error } = authClient.useSession();
+    const user = session?.user
+    console.log(user)
     
 
     return(
            <div className="">
-            {
+               {isPending ? 
+                 <div className="hidden md:flex gap-3 md:gap-6  items-center font-gantari text-lg">
+                  <div className="animate-pulse bg-gray-300 rounded border w-full blur-sm" >My shelf</div>
+                    <p className="font-bold text-3xl flex items-center">|</p>
+                  <div className="animate-pulse bg-gray-300 rounded border w-full blur-sm" >My shelf</div>
+                 </div>
+                    :
                user ? (
                     <div className="hidden md:flex gap-3 md:gap-6  items-center font-gantari text-lg">
                       <Link href="/pages/Myshelf">My shelf</Link>
