@@ -4,13 +4,12 @@ import {Book} from './definition';
 
 
 export async function fetchBooks() {
-  try {
     // Artificially delay a response for demo purposes.
     // Don't do this in production :)
     console.log('am i even trying')
     
       const res = await fetch('http://localhost:3000/api/books', {
-        method: "POST",
+        method: "GET",
         credentials: "include",
         cache: 'no-store', // always get fresh data
         
@@ -21,16 +20,10 @@ export async function fetchBooks() {
         return [];
       }
     
-      const data = await res.json();
-      console.log("the books:", data)
+      const data =  res.json();
+      console.log("✅ Books fetched:", data);
       return data;
-    
-    
-  } catch (error) {
-
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch book data.');
-  }
+   
 }
 
 const book = await fetchBooks()

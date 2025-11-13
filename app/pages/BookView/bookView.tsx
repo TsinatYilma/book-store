@@ -13,13 +13,13 @@ import BookViewCatagory from './bookViewCatagory'
 export default function BookView({book}: {book: Book}){
     const addToShelf = useShelfStore((state) => state.addToShelf);
     return (
-         <div className="flex flex-col gap-10 ">
-             <div className="flex  flex-col md:flex-row mt-10  xs:max-w-[500px] xs:mx-auto sm:max-w-[650px] md:max-w-full  md:mx-5  ">
+         <div className="container ">
+             <div className="flex flex-col md:flex-row mt-10  xs:max-w-[500px] xs:mx-auto sm:max-w-[650px] md:max-w-full  md:mx-5  ">
                 <div className="flex p-3 gap-2 w-full xs:gap-6 md:flex-col md:max-w-[500px]  md:items-center md:left-10  ">
-                    <img src={book.cover} alt="" width={120} height={200} className="w-[120px] h-[200px] md:w-[220px] md:h-[320px] " />
+                    <img src={book.image} alt="" width={120} height={200} className="w-[120px] h-[200px] md:w-[220px] md:h-[320px] " />
                     <div className="flex flex-col gap-2 min-h-full md:items-center">
                         <span className="flex order-2">
-                            <StarRating />
+                          <StarRating />
                         </span>
                         <p className="text-[12px] order-3 typeWritterEffect  ">Rate the Book</p>
                         <div className="gap-4 w-fit order-1">

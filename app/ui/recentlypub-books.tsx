@@ -1,4 +1,6 @@
-import {Book} from '../lib/definition';
+'use client';
+import { useQuery } from '@tanstack/react-query';
+import {Book, fetchBook} from '../lib/definition';
 import '../globals.css';
 import { fetchBooks } from '@/app/lib/fetching-data';
 
@@ -7,28 +9,15 @@ import {topRatedbooks} from "@/app/lib/fetching-data"
 import {books} from "@/app/lib/placeholder-data";
 import { TopRatedbooks } from '@/app/lib/placeholder-data';
 
-async function getBooks() {
-    const res = await fetch('http://localhost:3000/api/books', {
-      method: "GET",
-      credentials: "include",
-      cache: 'no-store', // always get fresh data
+
+  
+export default  function RecentlyPublishedBooks() {
+
+    const { data: books, isLoading, error } = useQuery({
+        queryKey: ['books'],
+        queryFn: fetchBooks,
+      });
       
-    });
-  
-    if (!res.ok) {
-      console.error("Failed to fetch books", res.status, res.statusText);
-      return [];
-    }
-  
-    const data = await res.json();
-    return data;
-  }
-
-  
-export default async function RecentlyPublishedBooks() {
-
-    const books = await getBooks();
-    console.log("the books:", books);
     
     return (
         <div className="flex flex-col w-full  mt-14 m-5 p-4 ">
@@ -37,7 +26,7 @@ export default async function RecentlyPublishedBooks() {
             
             <div className="flex  overflow-hidden overflow-x-auto no-scrollbar gap-3 p-5  ">
                 {
-                    (books ?? []).map((book: Book) => (
+                    (books ?? []).map((book: fetchBook) => (
                         
                         <div key={book.id} className=" shadow-md shrink-0 w-[120px] h-[248px] sm:w-[160px] sm:h-[300px] md:w-[220px] md:h-[400px] ">
                             <div key={book.id} className="relative group shadow-md fancyBorderForHover"  >
@@ -57,7 +46,7 @@ export default async function RecentlyPublishedBooks() {
                          </div>
                             
                             <h3 className="text-md font-bold ">{book.name}</h3>
-                            <p className="text-[13px] text-grey-300">by <span className={'font-handlee text-[#238E8E] '}>{book.author}</span> </p>
+                            <p className="text-[13px] text-grey-300">by <span className={'font-handlee text-[#238E8E] '}>{book.authors[0].name}</span> </p>
                         </div>
                     ))
                 }

@@ -8,6 +8,19 @@ export type Book = {
     category: string;
     published: number;
 };
+type Author = {
+    id: string;
+    name: string;
+  };
+export type fetchBook = {
+    id: string
+    name: string;
+    authors: Author[];
+    image: string;
+    rating: number;
+    category: string;
+    published: number;
+};
 
 export type User = {
     id: string;

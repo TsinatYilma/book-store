@@ -112,6 +112,7 @@ body {
 
 .DropStatus:hover .StatusDropdown,
 .DropGenre:hover .GenreDropdown,
-.Droplanguage:hover .languageDropdown{
+.Droplanguages:hover .languagesDropdown{
   display: flex;
 }
+

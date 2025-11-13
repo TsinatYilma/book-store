@@ -8,6 +8,7 @@ import Image from "next/image";
 import {ChevronDownIcon, PlusCircleIcon, CalendarDateRangeIcon  } from '@heroicons/react/24/outline';
 import Link from "next/link";
 import { Fullscreen, X } from "lucide-react";
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 
 const bookSchema = z.object({
@@ -15,7 +16,7 @@ const bookSchema = z.object({
     (val) => typeof val === "string" ? val.split(",").map(s => s.trim()) : val,
     z.array(z.string().min(1))
   ) as z.ZodType<string[], any >,
-  name: z.string().min(10),
+  name: z.string().min(1),
   Author: z.preprocess(
     (val) => typeof val === "string" ? val.split(",").map(s => s.trim()) : val,
     z.array(z.string().min(1))
@@ -32,7 +33,7 @@ const bookSchema = z.object({
   summary: z.string().optional(),
   firstPublishedDate: z.string().date(),
   genres: z.array(z.string()),
-  language: z.preprocess(
+  languages: z.preprocess(
     (val) => typeof val === "string" ? val.split(",").map(s => s.trim()) : val,
     z.array(z.string())
   ) as z.ZodType<string[], any >,
@@ -43,16 +44,19 @@ const bookSchema = z.object({
 })
 
 export default function Page() {
+  
+  const queryClient = useQueryClient()
+
   const [chapter, setChapter]=useState<number>(2)
   function handleAddChapter(pok:number){
     setChapter(chapter + pok)
     
   }
-  const [language, setlanguage]=useState<string>('')
-  function handleAddlanguage(lang:string){
+  const [languages, setlanguages]=useState<string>('')
+  function handleAddlanguages(lang:string){
     console.log("am the one")
     console.log(lang)
-    setlanguage(lang);
+    setlanguages(lang);
     form.setValue("genres", [lang]);
   }
   const [publication, setPublication]=useState<string>('')
@@ -101,11 +105,28 @@ const handlePublicationStatus = (label: string) => {
     const form = useForm<z.infer<typeof bookSchema>>({
       resolver: zodResolver(bookSchema),
     });
+    const mutation = useMutation({
+      mutationFn: async (payload: FormData) => {
+        const res = await fetch('http://localhost:3000/api/books/addbook', {
+          method: 'POST',
+          body: payload,
+          credentials: 'include',
+        })
+        if (!res.ok) throw new Error('Failed to upload book')
+        return res.json()
+      },
+      onSuccess: (data) => {
+        console.log('✅ Book uploaded successfully:', data)
+        queryClient.invalidateQueries({ queryKey: ['books'] })
+      },
+      onError: (error) => console.error('❌ Upload failed:', error),
+    })
+
 
     async  function onSubmit(formData: z.infer<typeof bookSchema>) {
       console.log("i am here");
-      try {
-        const { publisher, name, Author, translation, editionNumbers, description, isbn, summary, firstPublishedDate, genres, language, statusName, chapterName, chapterNum, image } = formData;
+      
+        const { publisher, name, Author, translation, editionNumbers, description, isbn, summary, firstPublishedDate, genres, languages, statusName, chapterName, chapterNum, image } = formData;
     
         const payload = new FormData();
         const imageFile = image instanceof FileList ? image[0] : image;
@@ -114,7 +135,7 @@ const handlePublicationStatus = (label: string) => {
           return;
         }
         payload.append("image", imageFile);
-        const bookDto = { publisher, name, Author, translation, editionNumbers, description, isbn, summary, firstPublishedDate, genres, language, statusName, chapterName, chapterNum };
+        const bookDto = { publisher, name, Author, translation, editionNumbers, description, isbn, summary, firstPublishedDate, genres, languages, statusName, chapterName, chapterNum };
         // Append each field individually
         Object.entries(bookDto).forEach(([key, value]) => {
           if (Array.isArray(value)) {
@@ -126,24 +147,9 @@ const handlePublicationStatus = (label: string) => {
 
 
 
-        const response = await fetch("http://localhost:3000/api/books/addbook", {
-          method: "POST",
-          body: payload,
-          credentials: "include",
-        });
- 
-
-        const result = await response.json();
-
-        if (response.ok) {
-          console.log("✅ Book uploaded successfully:", result);
-        } else {
-          console.error("❌ Upload failed:", result);
-        }
-      } catch (error) {
-        console.error("🚨 Error submitting book:", error);
-      }
-    };
+        mutation.mutate(payload)
+    
+  }
 
       const fileInputRef = useRef<HTMLInputElement>(null);
       const [bookImage, setBookImage] = useState('')
@@ -270,41 +276,41 @@ const handlePublicationStatus = (label: string) => {
           <div className="flex gap-10 mt-8  h-fit">
                     <div >
                         <div className="grid grid-cols-2 gap-2">
-                            <div className="relative Droplanguage">
-                                <input {...form.register("language")} type="text"  placeholder="languages" value={language} readOnly className="peer w-[285px] h-[30px] text-sm border-1 border-white rounded pl-3 "/>
+                            <div className="relative Droplanguages">
+                                <input {...form.register("languages")} type="text"  placeholder="languagess" value={languages} readOnly className="peer w-[285px] h-[30px] text-sm border-1 border-white rounded pl-3 "/>
                                 <ChevronDownIcon  className=" absolute right-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
-                                <div className="languageDropdown absolute top-[120%] border w-[285px] hidden peer-focus:flex flex-col bg-black p-3 gap-2 rounded shadow-lg">
+                                <div className="languagesDropdown absolute top-[120%] border w-[285px] hidden peer-focus:flex flex-col bg-black p-3 gap-2 rounded shadow-lg">
                                     <div className="flex items-center gap-2">
                                         <label htmlFor={'amh'} className="w-3 h-3 relative  cursor-pointer">
-                                          <input  type="radio" id='amh'  name="language"  className="hidden peer" onChange={()=>handleAddlanguage("Amharic")}/>
+                                          <input  type="radio" id='amh'  name="languages"  className="hidden peer" onChange={()=>handleAddlanguages("Amharic")}/>
                                           <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "   />
                                         </label>
                                         <p className="text-sm">Amharic</p>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <label htmlFor={'eng'} className="w-3 h-3 relative  cursor-pointer">
-                                          <input  type="radio" id='eng'  name="language"  className="hidden peer" onChange={()=>handleAddlanguage("English")}/>
+                                          <input  type="radio" id='eng'  name="languages"  className="hidden peer" onChange={()=>handleAddlanguages("English")}/>
                                           <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "   />
                                         </label>
                                         <p className="text-sm">English</p>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <label htmlFor={'orm'} className="w-3 h-3 relative  cursor-pointer">
-                                          <input  type="radio" id='orm'  name="language"  className="hidden peer" onChange={()=>handleAddlanguage("Affan Oromo")}  />
+                                          <input  type="radio" id='orm'  name="languages"  className="hidden peer" onChange={()=>handleAddlanguages("Affan Oromo")}  />
                                           <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "  />
                                         </label>
                                         <p className="text-sm">Affan Oromo</p>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <label htmlFor={'tig'} className="w-3 h-3 relative  cursor-pointer">
-                                          <input type="radio" id='tig'  name="language"  className="hidden peer" onChange={()=>handleAddlanguage("Tigregna")} />
+                                          <input type="radio" id='tig'  name="languages"  className="hidden peer" onChange={()=>handleAddlanguages("Tigregna")} />
                                           <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "   />
                                         </label>
                                         <p className="text-sm">Tigregna</p>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <label htmlFor={'arab'} className="w-3 h-3 relative  cursor-pointer">
-                                          <input type="radio" id='arab'  name="language"  className="hidden peer" onChange={()=>handleAddlanguage("Geez")} />
+                                          <input type="radio" id='arab'  name="languages"  className="hidden peer" onChange={()=>handleAddlanguages("Geez")} />
                                           <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "  />
                                         </label>
                                         <p className="text-sm">Geez</p>
@@ -358,7 +364,9 @@ const handlePublicationStatus = (label: string) => {
                         </button>
             </div>
        </div>
-              <button type="submit" className="mt-6 fancyBorder max-w-full flex-grow mx-30" >Submit</button>
+              <button type="submit" className="mt-6 fancyBorder max-w-full flex-grow mx-30">
+          Submit
+        </button>
         </form>
        </div>
     )
