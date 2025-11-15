@@ -63,19 +63,36 @@ export default function Page() {
           return json.genres;
         },
       });
+
     
       if (isLoading) return <p>Loading genres...</p>;
       if (error) return <p>Error loading genres</p>;
-      
+      const deleteGenreMutation = useMutation({
+        mutationFn: async (id: string) => {
+          const res = await fetch(`http://localhost:3000/api/genres/${id}`, {
+            method: 'DELETE',
+          });
+          if (!res.ok) throw new Error('Failed to delete genre');
+          return res.json();
+        },
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['genres'] });
+        },
+      });
+    
+      function handleGenreDelete(id: string) {
+        deleteGenreMutation.mutate(id);
+      }
+
     return (
         <div className="flex flex-col px-3">
-            <div className='flex flex-wrap gap-2 justify-center'>
+            <div className='flex flex-wrap gap-2 justify-start'>
                 {
                     genres.map((genre :{ id: string; name: string; description?: string }) => (
                         <div key={genre.id} className="border-[0.25px] border-gray-400 p-2 rounded-[8px] flex items-center justify-between w-[217px]">
                             <p className="text-[16px]">{genre.name}</p>
                             <div className="flex gap-1">
-                            <TrashIcon className="h-4 w-4 text-gray-500" />
+                            <TrashIcon onClick={()=>handleGenreDelete(genre.id)} className="h-4 w-4 text-gray-500" />
                             <PencilIcon className="h-4 w-4 text-gray-500" />
                             </div>
                         </div>

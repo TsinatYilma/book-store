@@ -9,6 +9,8 @@ import {ChevronDownIcon, PlusCircleIcon, CalendarDateRangeIcon  } from '@heroico
 import Link from "next/link";
 import { Fullscreen, X } from "lucide-react";
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query';
+import { Book } from "@/app/lib/definition";
 
 
 const bookSchema = z.object({
@@ -42,6 +44,12 @@ const bookSchema = z.object({
   chapterNum: z.string(),
   image: z.any()
 })
+export interface Genre {
+        id: string;           
+        name: string;              
+        description?: string;      
+        books: Book[];             
+}
 
 export default function Page() {
   
@@ -170,6 +178,19 @@ const handlePublicationStatus = (label: string) => {
           form.setValue("image", file )
         }
       };
+
+      //fetching the genres
+      const { data: genres } = useQuery({
+        
+        queryKey: ['genres'],
+        queryFn: async () => {
+          console.log("i have started")
+          const res = await fetch('http://localhost:3000/api/genres/allgenres');
+          const json = await res.json();
+          return json.genres; 
+        },
+        
+      });
     
     return(
        <div className="flex flex-col h-full px-3 py-8">
@@ -230,41 +251,16 @@ const handlePublicationStatus = (label: string) => {
                               <input {...form.register("genres")} type="text" id="genres" placeholder="Genres" value={genre} readOnly className="w-[285px] peer h-[30px] text-sm border-1 border-white rounded pl-3 "/>
                               <ChevronDownIcon  className="absolute right-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
                               <div className="GenreDropdown absolute top-[120%] border w-[285px] hidden peer-focus:flex flex-col bg-black z-100 p-3 gap-2 rounded shadow-lg">
-                                  <div className="flex items-center gap-2">
-                                        <label htmlFor={'clasi'} className="w-3 h-3 relative  cursor-pointer">
-                                          <input  type="radio" id='clasi'  name="genres"  className="hidden peer" onChange={()=>handleGenre("Classics")}  />
-                                          <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "  />
-                                        </label>
-                                        <p className="text-sm">Classics</p>
+                                 { genres?.map((genre: Genre )=>{
+                                     <div key={genre.id} className="flex items-center gap-2">
+                                      <label htmlFor={genre.name} className="w-3 h-3 relative  cursor-pointer">
+                                        <input  type="radio" id={`${genre.name}`}  name="genres"  className="hidden peer" onChange={()=>handleGenre(`${genre.name}`)}  />
+                                        <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "  />
+                                      </label>
+                                      <p className="text-sm">{genre.name}</p>
                                     </div>
-                                    <div className="flex items-center gap-2">
-                                        <label htmlFor={'fic'} className="w-3 h-3 relative  cursor-pointer">
-                                          <input  type="radio" id='fic'  name="genres"  className="hidden peer" onChange={()=>handleGenre("Fiction")}  />
-                                          <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "  />
-                                        </label>
-                                        <p className="text-sm">Fiction</p>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                        <label htmlFor={'lit'} className="w-3 h-3 relative  cursor-pointer">
-                                          <input  type="radio" id='lit'  name="genres"  className="hidden peer" onChange={()=>handleGenre("Literature")}  />
-                                          <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "  />
-                                        </label>
-                                        <p className="text-sm">Litrature</p>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                        <label htmlFor={'liter'} className="w-3 h-3 relative  cursor-pointer">
-                                          <input  type="radio" id='liter'  name="genres"  className="hidden peer" onChange={()=>handleGenre("Thriller")}  />
-                                          <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "  />
-                                        </label>
-                                        <p className="text-sm">Thriller</p>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                        <label htmlFor={'his'} className="w-3 h-3 relative  cursor-pointer">
-                                          <input  type="radio" id='his'  name="genres"  className="hidden peer" onChange={()=>handleGenre("History")}  />
-                                          <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "  />
-                                        </label>
-                                        <p className="text-sm">History</p>
-                                    </div>
+                                 })  
+                                    }
                                 </div>
                             </div>
                         </div>

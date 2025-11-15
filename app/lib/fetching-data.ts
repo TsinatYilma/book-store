@@ -1,5 +1,6 @@
 import postgres from 'postgres';
 import {Book} from './definition';
+import { Genre } from './definition';
 
 
 
@@ -40,7 +41,6 @@ export async function fetchBookDetail({bookId}: { bookId: string } ) {
   
     const res = await fetch(`http://localhost:3000/api/books/${bookId}`, {
       method: "GET",
-      cache: 'no-store', // always get fresh data
       
     });
   
@@ -52,5 +52,25 @@ export async function fetchBookDetail({bookId}: { bookId: string } ) {
     const data =  res.json();
     console.log("✅ Books fetched:", data);
     return data;
+ 
+}
+
+export async function fetchAllGenres({genres}: { genres: Genre } ) {
+  // Artificially delay a response for demo purposes.
+  // Don't do this in production :)
+  console.log('am i trying to fetch the genres')
+  
+    const res = await fetch(`http://localhost:3000/api/genres/allgenres`, {
+      method: "GET",
+    });
+  
+    if (!res.ok) {
+      console.error("Failed to fetch books", res.status, res.statusText);
+      return [];
+    }
+  
+    const data = await res.json();
+    console.log("✅ Books fetched:", data);
+    return data.genres;
  
 }

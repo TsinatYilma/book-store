@@ -1,13 +1,5 @@
 
-export type Book = {
-    id: string
-    name: string;
-    author: string;
-    image: string;
-    rating: number;
-    category: string;
-    published: number;
-};
+
 type Author = {
     id: string;
     name: string;
@@ -104,3 +96,31 @@ export interface bookDetail {
     reviewsAndRatings: ReviewAndRating[];
     averageRating: number;
   }
+
+  
+export type Book = {
+  id: string;
+  image: string;
+  name: string;
+  description: string;
+  summary?: string | null;
+  editionNumbers: number;
+  isbn?: string | null;
+  firstPublishedDate: string; // parse to Date if needed
+  statusId: string;
+
+  authors: Authors[];
+  genres: Genre[];
+  translators: Translator[];
+  publishers: Publisher[];
+  languages: Language[];
+  toc: TOC[];
+  reviewsAndRatings: ReviewAndRating[];
+  averageRating: number;
+}
+export interface Genre {
+  id: string;           
+  name: string;              
+  description?: string;      
+  books: Book[];             
+}
