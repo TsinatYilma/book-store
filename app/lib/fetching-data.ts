@@ -6,7 +6,7 @@ import {Book} from './definition';
 export async function fetchBooks() {
     // Artificially delay a response for demo purposes.
     // Don't do this in production :)
-    console.log('am i even trying')
+    console.log('am i trying to fetch the book detail')
     
       const res = await fetch('http://localhost:3000/api/books', {
         method: "GET",
@@ -31,3 +31,26 @@ const topRatedbook = await fetchBooks()
 export const books = book
 export const topRatedbooks = topRatedbook
 
+//fetch book detail
+
+export async function fetchBookDetail({bookId}: { bookId: string } ) {
+  // Artificially delay a response for demo purposes.
+  // Don't do this in production :)
+  console.log('am i trying to fetch the BookDetail')
+  
+    const res = await fetch(`http://localhost:3000/api/books/${bookId}`, {
+      method: "GET",
+      cache: 'no-store', // always get fresh data
+      
+    });
+  
+    if (!res.ok) {
+      console.error("Failed to fetch books", res.status, res.statusText);
+      return [];
+    }
+  
+    const data =  res.json();
+    console.log("✅ Books fetched:", data);
+    return data;
+ 
+}

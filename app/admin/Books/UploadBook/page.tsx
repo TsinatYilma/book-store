@@ -57,7 +57,7 @@ export default function Page() {
     console.log("am the one")
     console.log(lang)
     setlanguages(lang);
-    form.setValue("genres", [lang]);
+    form.setValue("languages", [lang]);
   }
   const [publication, setPublication]=useState<string>('')
 
@@ -72,8 +72,9 @@ const handlePublicationStatus = (label: string) => {
   
   const [genre, setGenre]=useState<string>('')
   function handleGenre(genre:string){
-    console.log("this is from genre")
+    
     setGenre(genre);
+    console.log("this is from genre", genre)
     form.setValue("genres", [genre]);
   }
   //published date
@@ -226,40 +227,40 @@ const handlePublicationStatus = (label: string) => {
                                <CalendarDateRangeIcon  className="absolute right-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500"  />
                             </div>
                             <div className="relative DropGenre"> 
-                              <input {...form.register("genres")} type="text" id="genre" placeholder="Genres" value={genre} readOnly className="w-[285px] peer h-[30px] text-sm border-1 border-white rounded pl-3 "/>
+                              <input {...form.register("genres")} type="text" id="genres" placeholder="Genres" value={genre} readOnly className="w-[285px] peer h-[30px] text-sm border-1 border-white rounded pl-3 "/>
                               <ChevronDownIcon  className="absolute right-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
                               <div className="GenreDropdown absolute top-[120%] border w-[285px] hidden peer-focus:flex flex-col bg-black z-100 p-3 gap-2 rounded shadow-lg">
-                                    <div className="flex items-center gap-2">
-                                        <label htmlFor={'classics'} className="w-3 h-3 relative  cursor-pointer">
-                                          <input  type="radio" id='classics'  name="genres"  className="hidden peer" onChange={()=>handleGenre("Classics")}/>
-                                          <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "   />
+                                  <div className="flex items-center gap-2">
+                                        <label htmlFor={'clasi'} className="w-3 h-3 relative  cursor-pointer">
+                                          <input  type="radio" id='clasi'  name="genres"  className="hidden peer" onChange={()=>handleGenre("Classics")}  />
+                                          <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "  />
                                         </label>
                                         <p className="text-sm">Classics</p>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <label htmlFor={'fiction'} className="w-3 h-3 relative  cursor-pointer">
-                                          <input type="radio" id='fiction'  name="genres"  className="hidden peer" onChange={()=>handleGenre("Literature")}/>
-                                          <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "   />
+                                        <label htmlFor={'fic'} className="w-3 h-3 relative  cursor-pointer">
+                                          <input  type="radio" id='fic'  name="genres"  className="hidden peer" onChange={()=>handleGenre("Fiction")}  />
+                                          <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "  />
                                         </label>
                                         <p className="text-sm">Fiction</p>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <label htmlFor={'litrature'} className="w-3 h-3 relative  cursor-pointer">
-                                          <input  type="radio" id='litrature'  name="genres"  className="hidden peer" onChange={()=>handleGenre("Literature")}  />
+                                        <label htmlFor={'lit'} className="w-3 h-3 relative  cursor-pointer">
+                                          <input  type="radio" id='lit'  name="genres"  className="hidden peer" onChange={()=>handleGenre("Literature")}  />
                                           <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "  />
                                         </label>
                                         <p className="text-sm">Litrature</p>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <label htmlFor={'thriller'} className="w-3 h-3 relative  cursor-pointer">
-                                          <input  type="radio" id='thriller'  name="genres"  className="hidden peer" onChange={()=>handleGenre("Thriller")} />
-                                          <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "   />
+                                        <label htmlFor={'liter'} className="w-3 h-3 relative  cursor-pointer">
+                                          <input  type="radio" id='liter'  name="genres"  className="hidden peer" onChange={()=>handleGenre("Thriller")}  />
+                                          <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "  />
                                         </label>
                                         <p className="text-sm">Thriller</p>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <label htmlFor={'history'} className="w-3 h-3 relative  cursor-pointer">
-                                          <input  type="radio" id='history'  name="genres"  className="hidden peer" onChange={()=>handleGenre("History")} />
+                                        <label htmlFor={'his'} className="w-3 h-3 relative  cursor-pointer">
+                                          <input  type="radio" id='his'  name="genres"  className="hidden peer" onChange={()=>handleGenre("History")}  />
                                           <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "  />
                                         </label>
                                         <p className="text-sm">History</p>

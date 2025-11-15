@@ -42,7 +42,7 @@ function Category({category, books}:{category:string, books: Book[]}){
                         index <= 7 && <div key={book.name} className=" shadow-md shrink-0 w-[120px] h-[200px] ">
                             <div key={book.name} className="relative group shadow-md fancyorHover"  >
                                 <img
-                                    src={book.cover}
+                                    src={book.image}
                                     alt={book.name}
                                     className="w-full h-[184px] object-cover"
                                 />

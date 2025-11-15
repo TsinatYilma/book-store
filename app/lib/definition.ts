@@ -31,3 +31,76 @@ export type User = {
     createdAt: Date; // or Date if parsed
     updatedAt: Date; // or Date if parsed
   };
+
+  export interface Authors {
+    id: string;
+    name: string;
+  }
+  
+  export interface Genre {
+    id: string;
+    name: string;
+  }
+  
+  export interface Translator {
+    id: string;
+    name: string;
+  }
+  
+  export interface Publisher {
+    id: string;
+    name: string;
+  }
+  
+  export interface Language {
+    id: string;
+    name: string;
+  }
+  
+  export interface TOC {
+    id: string;
+    chapterName: string;
+    chapterNum: number;
+    sortOrder: number;
+  }
+  
+  export interface ReviewAndRating {
+    userId: string;
+    userName: string;
+    userRole?: string | null;
+    rateValue: number;
+    reviewText?: string | null;
+  }
+  export interface book {
+    id: string;
+    image: string;
+    name: string;
+    description: string;
+    summary?: string | null;
+    editionNumbers: number;
+    isbn?: string | null;
+    firstPublishedDate: string; // parse to Date if needed
+    statusId: string;
+  }
+
+
+export interface bookDetail {
+    id: string;
+    image: string;
+    name: string;
+    description: string;
+    summary?: string | null;
+    editionNumbers: number;
+    isbn?: string | null;
+    firstPublishedDate: string; // parse to Date if needed
+    statusId: string;
+  
+    authors: Authors[];
+    genres: Genre[];
+    translators: Translator[];
+    publishers: Publisher[];
+    languages: Language[];
+    toc: TOC[];
+    reviewsAndRatings: ReviewAndRating[];
+    averageRating: number;
+  }

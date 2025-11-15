@@ -7,7 +7,6 @@ export default function HeaderSession(){
    const { showLogin, showSignup } = useAuthOverlay();
     const { data: session, isPending, error } = authClient.useSession();
     const user = session?.user
-    console.log(user)
     
 
     return(
