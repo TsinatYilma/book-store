@@ -13,6 +13,16 @@ export type fetchBook = {
     category: string;
     published: number;
 };
+export interface topRatedbook {
+  id: string;
+  name: string;
+  author: string;
+  image: string;
+  rating: number;
+  category: string;
+  published: number;
+}
+
 
 export type User = {
     id: string;
@@ -76,7 +86,7 @@ export type User = {
   }
 
 
-export interface bookDetail {
+export interface bookDetailSchema {
     id: string;
     image: string;
     name: string;

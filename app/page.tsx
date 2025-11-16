@@ -27,7 +27,7 @@ export default function Home() {
       />
       <IntroText />
       <Search placeholder="Search..." />
-      <Providers><RecentlyPublishedBooks /></Providers>
+      <RecentlyPublishedBooks />
       
       <BookoftheMonth />
 

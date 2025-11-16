@@ -10,7 +10,9 @@ import Link from "next/link";
 import { Fullscreen, X } from "lucide-react";
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useQuery } from '@tanstack/react-query';
-import { Book } from "@/app/lib/definition";
+import { Book, bookDetail } from "@/app/lib/definition";
+import { fetchAllGenres } from "@/app/lib/fetching-data";
+
 
 
 const bookSchema = z.object({
@@ -34,7 +36,7 @@ const bookSchema = z.object({
   isbn: z.string().optional(),
   summary: z.string().optional(),
   firstPublishedDate: z.string().date(),
-  genres: z.array(z.string()),
+  genreIds: z.array(z.string().uuid("Invalid genre ID")),
   languages: z.preprocess(
     (val) => typeof val === "string" ? val.split(",").map(s => s.trim()) : val,
     z.array(z.string())
@@ -78,13 +80,34 @@ const handlePublicationStatus = (label: string) => {
   console.log("Status label:", label);
 };
   
-  const [genre, setGenre]=useState<string>('')
-  function handleGenre(genre:string){
-    
-    setGenre(genre);
-    console.log("this is from genre", genre)
-    form.setValue("genres", [genre]);
-  }
+//genre section  
+const [selectedGenreIds, setSelectedGenreIds] = useState<string[]>([]);
+
+
+const [selectedGenreNames, setSelectedGenreNames] = useState<string[]>([]);
+
+function handleGenre(genre: Genre, checked: boolean) {
+ 
+  setSelectedGenreIds((prev) =>
+    checked ? [...prev, genre.id] : prev.filter((id) => id !== genre.id)
+  );
+
+  
+  setSelectedGenreNames((prev) =>
+    checked ? [...prev, genre.name] : prev.filter((name) => name !== genre.name)
+  );
+
+  
+  form.setValue(
+    "genreIds",
+    checked
+      ? [...selectedGenreIds, genre.id]
+      : selectedGenreIds.filter((id) => id !== genre.id)
+  );
+
+  console.log("Selected genre object:", genre);
+}
+
   //published date
   const [date, setDate] = useState('');
   const [error, setError] = useState<boolean>(true);
@@ -135,7 +158,7 @@ const handlePublicationStatus = (label: string) => {
     async  function onSubmit(formData: z.infer<typeof bookSchema>) {
       console.log("i am here");
       
-        const { publishers, name, authors, translators, editionNumbers, description, isbn, summary, firstPublishedDate, genres, languages, statusName, chapterName, chapterNum, image } = formData;
+        const { publishers, name, authors, translators, editionNumbers, description, isbn, summary, firstPublishedDate, genreIds, languages, statusName, chapterName, chapterNum, image } = formData;
     
         const payload = new FormData();
         const imageFile = image instanceof FileList ? image[0] : image;
@@ -144,12 +167,18 @@ const handlePublicationStatus = (label: string) => {
           return;
         }
         payload.append("image", imageFile);
-        const bookDto = { publishers, name, authors, translators, editionNumbers, description, isbn, summary, firstPublishedDate, genres, languages, statusName, chapterName, chapterNum };
+        const bookDto = { publishers, name, authors, translators, editionNumbers, description, isbn, summary, firstPublishedDate, genreIds, languages, statusName, chapterName, chapterNum };
         // Append each field individually
         Object.entries(bookDto).forEach(([key, value]) => {
           if (Array.isArray(value)) {
-            payload.append(key, JSON.stringify(value));
-          } else {
+            if (key === "genreIds") {
+              // ✅ send UUIDs as repeated keys
+              value.forEach((v) => payload.append(key, v));
+            } else {
+              // ✅ send other arrays as JSON strings
+              payload.append(key, JSON.stringify(value));
+            }
+          }else {
             payload.append(key, String(value));
           }
         });
@@ -179,18 +208,14 @@ const handlePublicationStatus = (label: string) => {
         }
       };
 
-      //fetching the genres
-      const { data: genres } = useQuery({
-        
-        queryKey: ['genres'],
-        queryFn: async () => {
-          console.log("i have started")
-          const res = await fetch('http://localhost:3000/api/genres/allgenres');
-          const json = await res.json();
-          return json.genres; 
-        },
-        
-      });
+      //fetching the genreIds
+     const { data: genreIds, isLoading, } = useQuery({
+             queryKey: ['genreIds'],
+             queryFn: fetchAllGenres,
+             
+           });
+
+           console.log("genre from upload", genreIds)
     
     return(
        <div className="flex flex-col h-full px-3 py-8">
@@ -240,7 +265,7 @@ const handlePublicationStatus = (label: string) => {
           <h1 className="font-semibold text-[20px]">Catagorization & Metadata</h1>
           <div className="flex gap-10 mt-8  h-fit">
                 <div >
-                        <div className="grid grid-cols-2 gap-2">
+                      <div className="grid grid-cols-2 gap-2">
                             <input {...form.register("publishers")} type="text" id="publishers" placeholder="Publicher"  className="w-[285px] h-[30px] border-1 border-white rounded pl-3 "/>
                             <input {...form.register("isbn")} type="text" id="isbn" placeholder="isbn(optional)" className="w-[285px] h-[30px] border-1 border-white rounded pl-3 "/>
                             <div className="relative">
@@ -248,25 +273,25 @@ const handlePublicationStatus = (label: string) => {
                                <CalendarDateRangeIcon  className="absolute right-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500"  />
                             </div>
                             <div className="relative DropGenre"> 
-                              <input {...form.register("genres")} type="text" id="genres" placeholder="Genres" value={genre} readOnly className="w-[285px] peer h-[30px] text-sm border-1 border-white rounded pl-3 "/>
+                              <input {...form.register("genreIds")} type="text" id="genreIds" placeholder="Genres" value={selectedGenreNames.map((g)=>(g))} readOnly className="w-[285px] peer h-[30px] text-sm border-1 border-white rounded pl-3 "/>
                               <ChevronDownIcon  className="absolute right-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
                               <div className="GenreDropdown absolute top-[120%] border w-[285px] hidden peer-focus:flex flex-col bg-black z-100 p-3 gap-2 rounded shadow-lg">
-                                 { genres?.map((genre: Genre )=>{
+                                 { genreIds?.map((genre: Genre )=>(
                                      <div key={genre.id} className="flex items-center gap-2">
-                                      <label htmlFor={genre.name} className="w-3 h-3 relative  cursor-pointer">
-                                        <input  type="radio" id={`${genre.name}`}  name="genres"  className="hidden peer" onChange={()=>handleGenre(`${genre.name}`)}  />
-                                        <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "  />
-                                      </label>
-                                      <p className="text-sm">{genre.name}</p>
-                                    </div>
-                                 })  
+                                        <label htmlFor={genre.name} className="w-3 h-3 relative  cursor-pointer">
+                                          <input  type="checkbox" id={`${genre.name}`}  name="genreIds"  className="hidden peer" onChange={(e)=>handleGenre(genre, e.target.checked)}  />
+                                          <span className="absolute top-1/2 -translate-y-1/2  w-full h-full  border-[0.15px] border-white peer-checked:bg-cyan-500 "  />
+                                        </label>
+                                        <p className="text-sm">{genre.name}</p>
+                                     </div>
+                                 ))  
                                     }
-                                </div>
+                              </div>
                             </div>
-                        </div>
+                      </div>
                     
                 </div>
-            </div>
+          </div>
        </div>
        <div className="flex flex-col h-full my-5">
           <h1 className="font-semibold text-[20px]">Additional Details</h1>

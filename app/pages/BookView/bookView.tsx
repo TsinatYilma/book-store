@@ -1,7 +1,7 @@
 "use client"
 import '@/app/globals.css'
 import { StarIcon, UserIcon } from '@heroicons/react/24/outline'
-import {bookDetail} from '@/app/lib/definition'
+import {bookDetailSchema} from '@/app/lib/definition'
 import Link from "next/dist/client/link"
 import Myshelf  from '../Myshelf/page'
 import { useShelfStore } from '@/store/shelfStore'
@@ -11,7 +11,7 @@ import Image from 'next/image'
 
 
 
-export default function BookView({bookDetail}: {bookDetail: bookDetail }){
+export default function BookView({bookDetail}: {bookDetail: bookDetailSchema }){
     const addToShelf = useShelfStore((state) => state.addToShelf);
     return (
          <div className="container ">
@@ -41,8 +41,8 @@ export default function BookView({bookDetail}: {bookDetail: bookDetail }){
                                             ))}
                                         </span> <span className="font-bold">{bookDetail.reviewsAndRatings.map((rate)=> rate.rateValue)}</span>
                                     <span className="flex sm:flex-col w-fit text-[7px] lg:text-[12px]">
-                                        <p className="text-gray-500">200 ratings</p>
-                                        <p className="text-gray-500">120 reviews</p>
+                                        <p className="text-gray-500">{bookDetail.reviewsAndRatings?.[0]?.rateValue ?? 0} ratings</p>
+                                        <p className="text-gray-500">{bookDetail.reviewsAndRatings?.[0]?.reviewText ?? 0} reviews</p>
                                     </span>
                                 </span>
                             </div>
@@ -54,7 +54,7 @@ export default function BookView({bookDetail}: {bookDetail: bookDetail }){
                                 <div className="flex flex-col gap-4">
                                     <p className="text-[16px] flex gap-3"><span className="text-gray-600">First Published</span><span className="font-bold">{bookDetail.publishers.map((pub)=> pub.name)}</span></p>
                                     <p className="text-[16px] flex gap-3"><span className="text-gray-600">Publisher</span><span className="font-bold">Penguin Classics</span></p>
-                                    <p className="text-[16px] flex gap-3"><span className="text-gray-600">Genre</span><span className="font-bold ">{bookDetail.genres.map((genre)=> genre.name)}</span></p>
+                                    <p className="text-[16px] flex gap-3"><span className="text-gray-600">Genre</span>{bookDetail.genres.map((genre)=> (<span className="font-bold ">{genre.name}</span>))}</p>
              
                                 </div>
                             </div>

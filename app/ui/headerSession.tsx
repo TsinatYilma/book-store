@@ -1,3 +1,4 @@
+"use client"
 import { authClient } from "../lib/auth-client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -7,7 +8,7 @@ export default function HeaderSession(){
    const { showLogin, showSignup } = useAuthOverlay();
     const { data: session, isPending, error } = authClient.useSession();
     const user = session?.user
-    
+    console.log("user:", user)
 
     return(
            <div className="">

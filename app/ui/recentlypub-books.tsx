@@ -1,6 +1,6 @@
 'use client';
 import { useQuery } from '@tanstack/react-query';
-import {Book, fetchBook} from '../lib/definition';
+import {Book, fetchBook, topRatedbook} from '../lib/definition';
 import '../globals.css';
 import { fetchBooks } from '@/app/lib/fetching-data';
 
@@ -51,7 +51,7 @@ export default  function RecentlyPublishedBooks() {
         <h2 className="text-2xl font-bold mb-4 text-[#238E8E] ">Top Rated</h2>
         <div className="flex  overflow-hidden overflow-x-auto no-scrollbar gap-3 p-5  ">
             {
-                TopRatedbooks.map((book: Book) => (
+                TopRatedbooks.map((book: topRatedbook) => (
                     <div key={book.id} className=" shadow-md shrink-0 w-[120px] h-[248px] sm:w-[160px] sm:h-[300px] md:w-[220px] md:h-[400px] ">
                         <div key={book.id} className="relative group shadow-md fancyBorderForHover"  >
                             <img

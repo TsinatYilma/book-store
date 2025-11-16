@@ -7,11 +7,11 @@ import { Genre } from './definition';
 export async function fetchBooks() {
     // Artificially delay a response for demo purposes.
     // Don't do this in production :)
-    console.log('am i trying to fetch the book detail')
+    
+      console.log('am i trying to fetch the book detail')
     
       const res = await fetch('http://localhost:3000/api/books', {
-        method: "GET",
-        cache: 'no-store', // always get fresh data
+        method: "GET", // always get fresh data
         
       });
     
@@ -20,7 +20,7 @@ export async function fetchBooks() {
         return [];
       }
     
-      const data =  res.json();
+      const data = await res.json();
       console.log("✅ Books fetched:", data);
       return data;
    
@@ -49,13 +49,13 @@ export async function fetchBookDetail({bookId}: { bookId: string } ) {
       return [];
     }
   
-    const data =  res.json();
-    console.log("✅ Books fetched:", data);
+    const data = await  res.json();
+    console.log("✅ Books Detail fetched:", data);
     return data;
  
 }
 
-export async function fetchAllGenres({genres}: { genres: Genre } ) {
+export async function fetchAllGenres( ) {
   // Artificially delay a response for demo purposes.
   // Don't do this in production :)
   console.log('am i trying to fetch the genres')
@@ -65,12 +65,12 @@ export async function fetchAllGenres({genres}: { genres: Genre } ) {
     });
   
     if (!res.ok) {
-      console.error("Failed to fetch books", res.status, res.statusText);
+      console.error("Failed to fetch genres", res.status, res.statusText);
       return [];
     }
   
     const data = await res.json();
-    console.log("✅ Books fetched:", data);
+    console.log("✅ Genres fetched:", data);
     return data.genres;
  
 }

@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form"
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useQuery } from '@tanstack/react-query';
 import { Book } from '@/app/lib/definition';
+import { fetchAllGenres } from '@/app/lib/fetching-data';
 
 
 
@@ -55,17 +56,8 @@ export default function Page() {
       }
       const { data: genres, isLoading, error } = useQuery({
         queryKey: ['genres'],
-        queryFn: async () => {
-          const res = await fetch('http://localhost:3000/api/genres/allgenres');
-          if (!res.ok) throw new Error('Failed to fetch genres');
-          const json = await res.json()
-          console.log("the genres", json.genres)
-          return json.genres;
-        },
+        queryFn: fetchAllGenres,
       });
-
-    
-      if (isLoading) return <p>Loading genres...</p>;
       if (error) return <p>Error loading genres</p>;
       const deleteGenreMutation = useMutation({
         mutationFn: async (id: string) => {
@@ -88,7 +80,7 @@ export default function Page() {
         <div className="flex flex-col px-3">
             <div className='flex flex-wrap gap-2 justify-start'>
                 {
-                    genres.map((genre :{ id: string; name: string; description?: string }) => (
+                    genres?.map((genre :{ id: string; name: string; description?: string }) => (
                         <div key={genre.id} className="border-[0.25px] border-gray-400 p-2 rounded-[8px] flex items-center justify-between w-[217px]">
                             <p className="text-[16px]">{genre.name}</p>
                             <div className="flex gap-1">
