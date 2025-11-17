@@ -15,17 +15,17 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { data: sessionData } = await authClient.getSession();
-  console.log("the `session` from layout:", sessionData)
   return (
     <html lang="en">
       <body className='min-h-screen flex flex-col'>
         <AuthOverlayProvider>
+        <Providers>
           <Header   />
           <AuthOverlay /> 
           <main className="flex-grow">
-            <Providers>{children}</Providers>
+            {children}
           </main>
+        </Providers>
           <footer className="mt-18 bg-black flex flex-col sm:flex-row sm:justify-around justify-center gap-8 py-10 px-5 w-full">
             <div className="flex justify-center  sm:order-2 ">
               <img src="/favicon.ico" alt="Logo" className="w-20 h-20"/>
