@@ -13,6 +13,7 @@ export function useSessionQuery() {
     staleTime: 5 * 60 * 1000, // 5 minutes
     refetchOnWindowFocus: true, // or false if you don’t want it
     refetchOnReconnect: true,
+    refetchOnMount: false,
     retry: false,
   });
 }
