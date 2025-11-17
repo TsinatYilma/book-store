@@ -14,7 +14,9 @@ import "@/app/globals.css"
 import Script from 'next/script';
 import Providers from './queryProvider'
 
-export default function Home() {
+
+export default async function Home() {
+ 
   return (
     <div className="flex min-h-screen flex-col justify-center items-center bg-black/20 pt-30 ">
        <Script

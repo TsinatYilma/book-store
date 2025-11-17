@@ -21,7 +21,6 @@ export async function fetchBooks() {
       }
     
       const data = await res.json();
-      console.log("✅ Books fetched:", data);
       return data;
    
 }
@@ -50,7 +49,6 @@ export async function fetchBookDetail({bookId}: { bookId: string } ) {
     }
   
     const data = await  res.json();
-    console.log("✅ Books Detail fetched:", data);
     return data;
  
 }
@@ -70,7 +68,6 @@ export async function fetchAllGenres( ) {
     }
   
     const data = await res.json();
-    console.log("✅ Genres fetched:", data);
     return data.genres;
  
 }

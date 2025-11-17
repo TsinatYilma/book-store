@@ -1,14 +1,54 @@
+"use client"
 import "@/app/globals.css"
 import Link from "next/link"
 import { UserIcon, StarIcon, } from "lucide-react"
 import { useState } from "react"
+import { TrashIcon, PencilIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query';
+import { Book } from '@/app/lib/definition';
+import { fetchAllGenres } from '@/app/lib/fetching-data';
 
 type Section = "description" | "author" | "reviews";
 
+const reviewSchema = z.object({
+    reviewText: z.string().min(1, "Book review is required"),
+});
 
-export default function BookViewCatagory(){
+export default function BookViewCatagory({bookID}:{bookID : string}){
+    const queryClient = useQueryClient()
     const [activeDetail, setActiveDetail ] = useState<Section>("description")
     console.log(activeDetail)
+    const form = useForm<z.infer<typeof reviewSchema>>({
+            resolver: zodResolver(reviewSchema),
+          });
+          const mutation = useMutation({
+                  mutationFn: async (payload: { reviewText: string }) => {
+                    const res = await fetch(`http://localhost:3000/api/reviews/books/${bookID}`, {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' }, // ✅ tell Nest it's JSON
+                      body: JSON.stringify(payload),                  // ✅ send JSON
+                      credentials: 'include',
+                    });
+                    if (!res.ok) throw new Error('Failed to upload genre');
+                    return res.json();
+                  },
+                  onSuccess: (data) => {
+                    console.log('✅ Review uploaded successfully:', data);
+                    queryClient.invalidateQueries({ queryKey: ['reviewsText'] });
+                  },
+                  onError: (error) => console.error('❌ Upload failed:', error),
+                });
+                
+                async function onSubmit(formData: z.infer<typeof reviewSchema>) {
+                    console.log("am i not getting called")
+                  const { reviewText } = formData;
+                  mutation.mutate({reviewText}); // ✅ send plain object
+                }
+
     return (
         <div className="px-3 md:px-20">
             <div className="flex gap-2 xs:gap-5 py-10 border-b border-gray-600 mb-10 max-w-[600px]">
@@ -101,11 +141,18 @@ export default function BookViewCatagory(){
                     </div>
                     <div className="flex flex-col gap-5 ">
                     <h1 className="font-bold text-3xl text-[#0AA0A1]">Rating & Reviews</h1>
-                    <form action="post" className='flex flex-col gap-4'>
+                    
+                       <form
+                        className='flex flex-col gap-4'
+                        onSubmit={(e) => {
+                        e.preventDefault();
+                        form.handleSubmit(onSubmit)(e); // <-- this executes the handler
+                        }}
+                    >
                          <h1 className="">My Review</h1>
-                         <textarea name="" id="" className='max-w-[300px] h-[110px] outline-[0.25] focus:outline-cyan-500 rounded-lg p-2' placeholder='your review'></textarea>
+                         <textarea {...form.register("reviewText")}   className='max-w-[300px] h-[110px] outline-[0.25] focus:outline-cyan-500 rounded-lg p-2' placeholder='your review'></textarea>
                          <button type='submit' className="fancyBorder w-fit px-6">Add review</button>
-                    </form>
+                       </form>
                 </div>
 
                     </div>

@@ -24,7 +24,7 @@ export interface topRatedbook {
 }
 
 
-export type User = {
+export type UserType = {
     id: string;
     name: string;
     email: string;

@@ -1,42 +1,54 @@
-"use client"
-import { authClient } from "../lib/auth-client";
-import { useEffect, useState } from "react";
+'use client'
+
+import { authClient, useSession } from "../lib/auth-client";
+import { useEffect, useState , useCallback } from "react";
 import Link from "next/link";
-import { useAuthOverlay } from '@/app/LayoutContext/OverlayContext';
+import { useAuthOverlay } from "@/app/LayoutContext/OverlayContext";
 
-export default function HeaderSession(){
+export default function HeaderSession() {
    const { showLogin, showSignup } = useAuthOverlay();
-    const { data: session, isPending, error } = authClient.useSession();
-    const user = session?.user
-    console.log("user:", user)
-
-    return(
-           <div className="">
-               {isPending ? 
-                 <div className="hidden md:flex gap-3 md:gap-6  items-center font-gantari text-lg">
-                  <div className="animate-pulse bg-gray-300 rounded border w-full blur-sm" >My shelf</div>
-                    <p className="font-bold text-3xl flex items-center">|</p>
-                  <div className="animate-pulse bg-gray-300 rounded border w-full blur-sm" >My shelf</div>
-                 </div>
-                    :
-               user ? (
-                    <div className="hidden md:flex gap-3 md:gap-6  items-center font-gantari text-lg">
-                      <Link href="/pages/Myshelf">My shelf</Link>
-                      <p className="font-bold text-3xl flex items-center">|</p>
-                      <Link className="text-cyan-400" href="/pages/Profile">
-                        {user.name}
-                      </Link>
-                    </div>
-                  ) : (
-                    <div className="hidden md:flex gap-3 md:gap-6  items-center font-gantari text-lg">
-                      <button onClick={showLogin}>Login</button>
-                      <p className="font-bold text-3xl flex items-center">|</p>
-                      <button className="text-cyan-400" onClick={showSignup}>
-                        Register
-                      </button>
-                    </div>
-                  )
-                  }
-           </div>
-    )
+   const [ user , setUser] = useState<any>()
+   const { data: session, isPending, error } =  useSession()
+   useEffect(()=>{
+    if(session){
+      setUser(session?.user)
+    }
+   },[])   
+  if (isPending) {
+    return (
+      <div className="hidden md:flex gap-3 md:gap-6  items-center font-gantari text-lg">
+        <div className="animate-pulse bg-gray-300 rounded border w-full blur-sm">
+          My shelf
+        </div>
+        <p className="font-bold text-3xl flex items-center">|</p>
+        <div className="animate-pulse bg-gray-300 rounded border w-full blur-sm">
+          My shelf
+        </div>
+      </div>
+    );
+  }
+  if (error) {
+    return <></>;
+  } 
+  return (
+    <div className="">
+      {user ? (
+        <div className="hidden md:flex gap-3 md:gap-6  items-center font-gantari text-lg">
+          <Link href="/pages/Myshelf">My shelf</Link>
+          <p className="font-bold text-3xl flex items-center">|</p>
+          <Link className="text-cyan-400" href="/pages/Profile">
+            {user.name}
+          </Link>
+        </div>
+      ) : (
+        <div className="hidden md:flex gap-3 md:gap-6  items-center font-gantari text-lg">
+          <button onClick={showLogin}>Login</button>
+          <p className="font-bold text-3xl flex items-center">|</p>
+          <button className="text-cyan-400" onClick={showSignup}>
+            Register
+          </button>
+        </div>
+      )}
+    </div>
+  );
 }
