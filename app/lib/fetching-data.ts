@@ -49,6 +49,7 @@ export async function fetchBookDetail({bookId}: { bookId: string } ) {
     }
   
     const data = await  res.json();
+    console.log("bookDetail:", data)
     return data;
  
 }
@@ -69,5 +70,24 @@ export async function fetchAllGenres( ) {
   
     const data = await res.json();
     return data.genres;
+ 
+}
+export async function fetchAllReviews({bookID}:{bookID: string}) {
+  // Artificially delay a response for demo purposes.
+  // Don't do this in production :)
+  console.log('am i trying to fetch the reviews')
+  
+    const res = await fetch(`http://localhost:3000/api/reviews/${bookID}`, {
+      method: "GET",
+    });
+  
+    if (!res.ok) {
+      console.error("Failed to fetch reviews", res.status, res.statusText);
+      return [];
+    }
+  
+    const data = await res.json();
+
+    return data;
  
 }

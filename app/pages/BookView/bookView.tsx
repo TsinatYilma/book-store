@@ -20,7 +20,7 @@ export default function BookView({bookDetail}: {bookDetail: bookDetailSchema }){
                     <img src={bookDetail.image} alt="" width={120} height={200} className="w-[120px] h-[200px] md:w-[220px] md:h-[320px] " />
                     <div className="flex flex-col gap-2 min-h-full md:items-center">
                         <span className="flex order-2">
-                          <StarRating bookID={bookDetail.id} />
+                          <StarRating bookId={bookDetail.id} />
                         </span>
                         <p className="text-[12px] order-3 typeWritterEffect  ">Rate the Book</p>
                         <div className="gap-4 w-fit order-1">
@@ -41,8 +41,8 @@ export default function BookView({bookDetail}: {bookDetail: bookDetailSchema }){
                                             ))}
                                         </span> <span className="font-bold">{bookDetail.reviewsAndRatings.map((rate)=> rate.rateValue)}</span>
                                     <span className="flex sm:flex-col w-fit text-[7px] lg:text-[12px]">
-                                        <p className="text-gray-500">{bookDetail.reviewsAndRatings?.[0]?.rateValue ?? 0} ratings</p>
-                                        <p className="text-gray-500">{bookDetail.reviewsAndRatings?.[0]?.reviewText ?? 0} reviews</p>
+                                        <p className="text-gray-500">{bookDetail.reviewsAndRatings?.length ?? 0} ratings</p>
+                                        <p className="text-gray-500">{bookDetail.reviewsAndRatings?.length ?? 0} reviews</p>
                                     </span>
                                 </span>
                             </div>
@@ -62,7 +62,7 @@ export default function BookView({bookDetail}: {bookDetail: bookDetailSchema }){
              
                 </div>
              </div>
-             <BookViewCatagory bookID={bookDetail.id}/>
+             <BookViewCatagory bookId={bookDetail}/>
          </div>
     )
 }

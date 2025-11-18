@@ -93,6 +93,7 @@ export type UserType = {
     userRole?: string | null;
     rateValue: number;
     reviewText?: string | null;
+    reviewTextCreatedTime: string;
   }
   export interface book {
     id: string;
@@ -154,4 +155,14 @@ export interface Genre {
   name: string;              
   description?: string;      
   books: Book[];             
+}
+
+export interface Review {
+  id: string;          // UUID of the review
+  bookId: string;      // UUID of the book being reviewed
+  userId: string;      // ID of the user who wrote the review
+  reviewText: string;  // The actual review content
+  createdAt: string;   // ISO date string
+  updatedAt: string;   // ISO date string
+
 }

@@ -2,17 +2,46 @@
 import {useState} from 'react'
 import { StarIcon, UserIcon } from '@heroicons/react/24/outline'
 import { authClient } from "@/app/lib/auth-client"
+import { useMutation } from "@tanstack/react-query";
 
-const StarRating = ({bookID}:{bookID: string}) => {
+
+const StarRating = ({bookId}:{bookId: string}) => {
     const [rating, setRating] = useState(0)
     const [hover, setHover] = useState(0)
     const { data: session, isPending, error } = authClient.useSession();
 
     function handleRating(value:number){
         setRating(()=>(value))
-        submitRating(value);
+        console.log("rate value:", value)
+        mutation.mutate(value);
 
     }
+    const mutation = useMutation({
+      mutationFn: async (value: number) => {
+        const session = await authClient.getSession();
+        const userId = session?.data?.user?.id;
+  
+        if (!userId) throw new Error("User not authenticated");
+  
+        const res = await fetch(`http://localhost:3000/api/ratings/books/${bookId}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            rateValue: value,
+          }),
+          credentials: "include",
+        });
+  
+        if (!res.ok) throw new Error("Failed to submit rating");
+        return res.json();
+      },
+      onSuccess: (data) => {
+        console.log("Rating submitted:", data);
+      },
+      onError: (err) => {
+        console.error("Error submitting rating:", err);
+      },
+    });
     async function submitRating(value: number) {
       const session = await authClient.getSession();
       const userId = session?.data?.user?.id;
@@ -22,13 +51,11 @@ const StarRating = ({bookID}:{bookID: string}) => {
         return;
       }
     
-      await fetch(`http://localhost:3000/api/ratings/books/:${bookID}`, {
+      await fetch(`http://localhost:3000/api/ratings/books/${bookId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           rateValue: value,
-          bookID: bookID,
-          userId: userId
         }),
         credentials: 'include',
       });

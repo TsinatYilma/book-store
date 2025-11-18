@@ -9,8 +9,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useQuery } from '@tanstack/react-query';
-import { Book } from '@/app/lib/definition';
-import { fetchAllGenres } from '@/app/lib/fetching-data';
+import { Book, Review } from '@/app/lib/definition';
+import {bookDetailSchema} from '@/app/lib/definition'
+import { fetchAllReviews, fetchBookDetail } from '@/app/lib/fetching-data';
 
 type Section = "description" | "author" | "reviews";
 
@@ -18,7 +19,7 @@ const reviewSchema = z.object({
     reviewText: z.string().min(1, "Book review is required"),
 });
 
-export default function BookViewCatagory({bookID}:{bookID : string}){
+export default function BookViewCatagory({bookId}:{bookId : bookDetailSchema}){
     const queryClient = useQueryClient()
     const [activeDetail, setActiveDetail ] = useState<Section>("description")
     console.log(activeDetail)
@@ -27,7 +28,7 @@ export default function BookViewCatagory({bookID}:{bookID : string}){
           });
           const mutation = useMutation({
                   mutationFn: async (payload: { reviewText: string }) => {
-                    const res = await fetch(`http://localhost:3000/api/reviews/books/${bookID}`, {
+                    const res = await fetch(`http://localhost:3000/api/reviews/books/${bookId.id}`, {
                       method: 'POST',
                       headers: { 'Content-Type': 'application/json' }, // ✅ tell Nest it's JSON
                       body: JSON.stringify(payload),                  // ✅ send JSON
@@ -38,7 +39,7 @@ export default function BookViewCatagory({bookID}:{bookID : string}){
                   },
                   onSuccess: (data) => {
                     console.log('✅ Review uploaded successfully:', data);
-                    queryClient.invalidateQueries({ queryKey: ['reviewsText'] });
+                    queryClient.invalidateQueries({ queryKey: ['bookDetail'] });
                   },
                   onError: (error) => console.error('❌ Upload failed:', error),
                 });
@@ -64,76 +65,44 @@ export default function BookViewCatagory({bookID}:{bookID : string}){
                     <h1 className="text-[20px] ">Comminuty Review</h1>
                     <p className="text-gray-600">Displaying 1&#8211;10 of 150 reviews</p>
                     <div className="flex flex-col gap-5  rounded-lg ">
-                                <div className="flex flex-col gap-5 border-[0.5] rounded-lg md:max-w-[1000px]">
-                                   <div className="flex p-3 gap-2  w-full xs:gap-6 ">
-                                        <UserIcon className="w-[40px] h-[40px] bg-blue-500/15 text-[#0AA0A1]" />
-                                        <div className="flex justify-between items-center min-h-full w-full">
-                                            <div className="flex flex-col justify-start">
-                                                <h1 className="text-[14px]">Jane Eyre</h1>
-                                                <span className="flex">{
-                                                    [...Array(5)].map((_, i) =>(
-                                                        <StarIcon key={i} className="w-[20px] h-[20px]" />
-                                                    ))} 
-                                                </span>
-                                            </div>
-                                            <p className="text-[10px] ">February 4, 2025</p>
-                                        </div>
-                                    </div>
-                                            <div className="p-3"><p className="text-[14px]">
-                                                    &ldquo;&lsquo;Jane, be still; don&#39;t struggle so like a wild, frantic bird, that is rending its own plumage in its desperation.<br /><br />
-                                                    I am no bird; and no net ensnares me; I am a free human being, with an independent will; which I now exert to leave you.<br /><br />
-                                                    &rdquo;I am glad that in 1847 Charlotte Bront&euml; made the decision to publish her novel under a male pseudonym. Currer Bell had a much better chance of being published than Charlotte Bront&euml;, and, with reviewers and readers assuming that she was in fact a male writer, allowed the novel a chance to be weighed properly without prejudice. <em>Jane Eyre</em> became a bestseller.
-                                                    </p>
-                                            </div>
+                       {bookId.reviewsAndRatings?.map((review, index) => (
+                            <div
+                            key={index}
+                            className="flex flex-col gap-5 border-[0.5px] rounded-lg md:max-w-[1000px]"
+                            >
+                            {/* Header */}
+                            <div className="flex p-3 gap-2 w-full xs:gap-6">
+                                <UserIcon className="w-[40px] h-[40px] bg-blue-500/15 text-[#0AA0A1]" />
+                                <div className="flex justify-between items-center min-h-full w-full">
+                                <div className="flex flex-col justify-start">
+                                    {/* Replace with actual book title or user name if available */}
+                                    <h1 className="text-[14px]">{review.userName}</h1>
+                                    <span className="flex">
+                                    {[...Array(5)].map((_, i) => (
+                                        <StarIcon key={i} className="w-[20px] h-[20px]" />
+                                    ))}
+                                    </span>
+                                </div>
+                                <p className="text-[10px]">
+                                    {new Date(review.reviewTextCreatedTime).toLocaleDateString("en-US", {
+                                    month: "long",
+                                    day: "numeric",
+                                    year: "numeric",
+                                    hour: "numeric",
+                                    minute: "numeric",
+                                    })}
+                                </p>
+                                </div>
                             </div>
-                            <div className="flex flex-col gap-5 border-[0.5] rounded-lg md:max-w-[1000px]">
-                                <div className="flex p-3 gap-2  w-full xs:gap-6 ">
-                                        <UserIcon className="w-[40px] h-[40px] bg-blue-500/15 text-[#0AA0A1]" />
-                                        <div className="flex justify-between items-center min-h-full w-full">
-                                            <div className="flex flex-col justify-start">
-                                                <h1 className="text-[14px]">Jane Eyre</h1>
-                                                <span className="flex">{
-                                                    [...Array(Math.round(5))].map((_, i) =>(
-                                                        <StarIcon key={i} className="w-[20px] h-[20px]" />
-                                                    ))} 
-                                                </span>
-                                            </div>
-                                            <p className="text-[10px] ">February 4, 2025</p>
-                                        </div>
-                                </div>
-                                <div className="p-3">
-                                                <p className="text-[14px]">
-                                                    &ldquo;&lsquo;Jane, be still; don&#39;t struggle so like a wild, frantic bird, that is rending its own plumage in its desperation.<br /><br />
-                                                    I am no bird; and no net ensnares me; I am a free human being, with an independent will; which I now exert to leave you.<br /><br />
-                                                    &rdquo;I am glad that in 1847 Charlotte Bront&euml; made the decision to publish her novel under a male pseudonym. Currer Bell had a much better chance of being published than Charlotte Bront&euml;, and, with reviewers and readers assuming that she was in fact a male writer, allowed the novel a chance to be weighed properly without prejudice. <em>Jane Eyre</em> became a bestseller.
-                                                </p>
-                                </div>
-                                
+
+                            {/* Review Text */}
+                            <div className="p-3">
+                                <p className="text-[14px]">{review.reviewText}</p>
                             </div>
-                            <div className="flex flex-col gap-5 border-[0.5] rounded-lg md:max-w-[1000px]">
-                                <div className="flex p-3 gap-2  w-full xs:gap-6 ">
-                                        <UserIcon className="w-[40px] h-[40px] bg-blue-500/15 text-[#0AA0A1]" />
-                                        <div className="flex justify-between items-center min-h-full w-full">
-                                            <div className="flex flex-col justify-start">
-                                                <h1 className="text-[14px]">Jane Eyre</h1>
-                                                <span className="flex">{
-                                                    [...Array(Math.round(5))].map((_, i) =>(
-                                                        <StarIcon key={i} className="w-[20px] h-[20px]" />
-                                                    ))} 
-                                                </span>
-                                            </div>
-                                            <p className="text-[10px] ">February 4, 2025</p>
-                                        </div>
-                                </div>
-                                <div className="p-3">
-                                                <p className="text-[14px]">
-                                                    &ldquo;&lsquo;Jane, be still; don&#39;t struggle so like a wild, frantic bird, that is rending its own plumage in its desperation.<br /><br />
-                                                    I am no bird; and no net ensnares me; I am a free human being, with an independent will; which I now exert to leave you.<br /><br />
-                                                    &rdquo;I am glad that in 1847 Charlotte Bront&euml; made the decision to publish her novel under a male pseudonym. Currer Bell had a much better chance of being published than Charlotte Bront&euml;, and, with reviewers and readers assuming that she was in fact a male writer, allowed the novel a chance to be weighed properly without prejudice. <em>Jane Eyre</em> became a bestseller.
-                                                </p>
-                                </div>
-                                
                             </div>
+                        ))}
+                                                
+                           
                     <div className="text-center font-gabarito">
                         <Link href="/" className="text-[14px] text-cyan-400">
                                 More reviews & rating
