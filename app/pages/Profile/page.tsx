@@ -3,8 +3,10 @@ import { useEffect, useState } from "react"
 import { UserIcon, PencilSquareIcon, PlusCircleIcon } from "@heroicons/react/24/outline" 
 import { authClient } from "@/app/lib/auth-client"
 import { useRouter } from "next/navigation"
+import { useQueryClient } from "@tanstack/react-query";
 
 export default  function Profile(){
+    const queryClient = useQueryClient()
     const router = useRouter()
     const [name, setUserName] = useState("");
     const { data: session, isPending, error } = authClient.useSession();
@@ -12,6 +14,7 @@ export default  function Profile(){
      
     const  signOut = async() => {
       await authClient.signOut()
+      queryClient.invalidateQueries({ queryKey: ["session"] });
       router.push('/')
     }
     return (

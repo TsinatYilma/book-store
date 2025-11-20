@@ -13,6 +13,7 @@ import {Loader2} from 'lucide-react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { useAuthOverlay } from '@/app/LayoutContext/OverlayContext';
+import { useQueryClient } from "@tanstack/react-query";
 
  
 const formSchema = z.object({
@@ -20,6 +21,7 @@ const formSchema = z.object({
   password: z.string().min(8)
 })
 export default function Login(){
+  const queryClient = useQueryClient()
   const { isVisible, hide, mode } = useAuthOverlay();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -47,6 +49,7 @@ export default function Login(){
     const result = await authClient.signIn.email({email: values.email, password: values.password})
     if (result.data) {
       router.refresh()
+      queryClient.invalidateQueries({ queryKey: ["session"] });
       router.push("/")
       hide()
     }else{

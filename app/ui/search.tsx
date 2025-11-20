@@ -15,14 +15,16 @@ export default function Search({ placeholder }: { placeholder: string }) {
     const params = new URLSearchParams(searchParams);
     params.set('page', '1');
     if (term) {
-      params.set('query', term);
+      params.set('q', term);
     } else {
-      params.delete('query');
+      params.delete('q');
     }
     replace(`${pathname}?${params.toString()}`);
   }, 3000)
+  
+
   return (
-    <div className=" flex gap-4 w-full justify-center ">
+    <div className=" flex gap-4 w-full justify-center border">
       <div className=" relative ">
         <label htmlFor="search" className="sr-only">
         Search

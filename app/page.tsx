@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import IntroText from "@/app/ui/introText";
 import Search from "@/app/ui/search";
@@ -13,26 +14,32 @@ import SignUp from '@/app/ui/signUp'
 import "@/app/globals.css"
 import Script from 'next/script';
 import Providers from './queryProvider'
+import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchBooks } from "@/app/hooks/useSearchBooks";
+import SearchResults  from "./ui/searchResult"
 
+export default function Home() {
 
-export default async function Home() {
- 
+  const searchParams = useSearchParams();
+  const q = searchParams.get("q") || "";
+
+  
+
   return (
-    <div className="flex min-h-screen flex-col justify-center items-center bg-black/20 pt-30 ">
-       <Script
-        src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"
-        strategy="beforeInteractive"
-      />
-      <Script
-        src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"
-        strategy="beforeInteractive"
-      />
+    <div className="flex flex-col min-h-screen bg-black/20">
       <IntroText />
-      <Search placeholder="Search..." />
-      <RecentlyPublishedBooks />
-      
-      <BookoftheMonth />
+      <Search placeholder="Search..."  />
 
+      <main className="flex-grow">
+        {q ? (
+          <SearchResults query={q} />
+        ) : (
+          <>
+            <RecentlyPublishedBooks />
+            <BookoftheMonth />
+          </>
+        )}
+      </main>
     </div>
   );
 }

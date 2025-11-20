@@ -9,6 +9,7 @@ import Link from "next/dist/client/link";
 
 export default function MyShelf(){
     const shelf = useShelfStore((state) => state.shelf);
+    console.log("shelf value:", shelf)
     const removeFromShelf = useShelfStore((state) => state.removeFromShelf);
 
     useEffect(() => {
@@ -22,14 +23,14 @@ export default function MyShelf(){
                 {shelf.map((book) =>(
                     <div key={book.name} className="flex flex-col md:flex-row gap-8 max-w-[280px] px-5 py-3  md:min-w-[480px] bg-black/100 border-[0.15] border-gray-700">
                         <div className="">
-                            <img src={book.cover} alt="" className="w-[90px] h-[135px] "/>
+                            <img src={book.image} alt="" className="w-[90px] h-[135px] "/>
                         </div>
                         <div className="flex flex-col flex-grow-0 gap-1 w-fit">
                             <p className=""><span className="text-gray-500 mr-3">title: </span>{book.name}</p>
-                            <p className=""><span className="text-gray-500 mr-3">author: </span>{book.author}</p>
-                            <p className=""><span className="text-gray-500 mr-3">published: </span>{book.published}</p>
+                            <p className=""><span className="text-gray-500 mr-3">author: </span>{book?.authors?.map((author: {id: string; name: string}) => (<span key={author.id}>{author.name}</span>))}</p>
+                            <p className=""><span className="text-gray-500 mr-3">published: </span>{book?.publishers?.map((pub: {id: string; name: string}) => (<span key={pub.id}>{pub.name}</span>))}</p>
                             <span className="flex"><span className="text-gray-500 mr-3">rating: </span>{
-                            [...Array(Math.round(book.rating))].map((_, i) =>(
+                            [...Array(Math.round(5))].map((_, i) =>(
                                 <StarIcon key={i} className="w-[24px] h-[24px]" />
                             ))}</span>
                             <button className="fancyBorder rounded-lg flex-grow-0 sm:px-6 mt-3" onClick={() => removeFromShelf(book)}>Mark as read</button>
