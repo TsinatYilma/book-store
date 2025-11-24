@@ -17,7 +17,8 @@ export const useSearchBooks = (query: string) => {
       if (!res.ok) {
         throw new Error('Failed to fetch books');
       }
-
+       
+       console.log("searched book:")
       return res.json(); // parse JSON response
     },
     enabled: !!query, // only run when query is not empty

@@ -23,16 +23,19 @@ export default function Home() {
   const searchParams = useSearchParams();
   const q = searchParams.get("q") || "";
 
+  const { data: books, isLoading, error } = useSearchBooks(q);
+
   
 
   return (
     <div className="flex flex-col min-h-screen bg-black/20">
       <IntroText />
-      <Search placeholder="Search..."  />
+      <Search placeholder="Search..." isLoading={isLoading}  />
+      
 
       <main className="flex-grow">
         {q ? (
-          <SearchResults query={q} />
+          <SearchResults  books={books} />
         ) : (
           <>
             <RecentlyPublishedBooks />

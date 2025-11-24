@@ -8,23 +8,43 @@ import { useShelfStore } from '@/store/shelfStore'
 import BookViewCatagory from "./bookViewCatagory"
 import StarRating from './starRating'
 import Image from 'next/image'
+import {addtoShelf} from "@/app/lib/fetching-data"
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query';
+
 
 
 
 export default function BookView({bookDetail}: {bookDetail: bookDetailSchema }){
     const addToShelf = useShelfStore((state) => state.addToShelf);
+    const queryClient = useQueryClient()
+
+
+    const mutation = useMutation({
+        mutationFn: (payload: { bookId: string }) => {
+          return addtoShelf( payload.bookId);
+        },
+        onSuccess: (data) => {
+          console.log("✅ Book added to shelf:", data);
+          queryClient.invalidateQueries({ queryKey: ["shelf"] }); // maybe invalidate shelf instead of genres
+        },
+        onError: (error) => console.error("❌ Upload failed:", error),
+      });
+      function handleAddtoShelf(){
+        mutation.mutate({bookId: bookDetail.id}); 
+      }
     return (
          <div className="container ">
              <div className="flex flex-col md:flex-row mt-10  xs:max-w-[500px] xs:mx-auto sm:max-w-[650px] md:max-w-full  md:mx-5  ">
-                <div className="flex p-3 gap-2 w-full xs:gap-6 md:flex-col md:max-w-[500px]  md:items-center md:left-10  ">
-                    <img src={bookDetail.image} alt="" width={120} height={200} className="w-[120px] h-[200px] md:w-[220px] md:h-[320px] " />
-                    <div className="flex flex-col gap-2 min-h-full md:items-center">
+                <div className="flex p-3 gap-2 w-full xs:gap-6 md:flex-col md:max-w-[500px]   md:items-center md:left-10  ">
+                    <img src={bookDetail.image} alt="" width={120} height={200} className="w-[120px] h-[200px] md:w-[220px] md:h-[300px] " />
+                    <div className="flex flex-col gap-2  md:items-center ">
                         <span className="flex order-2">
                           <StarRating bookId={bookDetail.id} />
                         </span>
                         <p className="text-[12px] order-3 typeWritterEffect  ">Rate the Book</p>
                         <div className="gap-4 w-fit order-1">
-                            <button className="fancyBorder w-full mb-4 py-1" onClick={() =>{ console.log('Adding bookDetail:', bookDetail); addToShelf(bookDetail) }}>Add to shelf</button>
+                            <button className="fancyBorder w-full mb-4 py-1" onClick={() =>{ console.log('Adding bookDetail:', bookDetail); addToShelf(bookDetail); handleAddtoShelf(); }}>Add to shelf</button>
                             <button className="fancyBorder w-full py-1">Mark as read</button>
                         </div>
                 </div>
