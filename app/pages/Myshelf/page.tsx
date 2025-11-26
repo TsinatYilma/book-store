@@ -14,6 +14,11 @@ export default function MyShelf(){
     const { data: shelf, isLoading, error } = useQuery({
         queryKey: ['shelf'],
         queryFn: fetchShelfBooks,
+        staleTime: 5 * 60 * 1000, // 5 minutes
+        refetchOnWindowFocus: true, // or false if you don’t want it
+        refetchOnReconnect: true,
+        refetchOnMount: false,
+        retry: false,
     });
 
     return(

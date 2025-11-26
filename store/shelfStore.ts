@@ -1,12 +1,12 @@
 // store/shelfStore.ts
 import { create } from 'zustand';
-import {bookDetail} from '@/app/lib/definition';  
+import {bookDetailSchema} from '@/app/lib/definition';  
 import {persist} from 'zustand/middleware';
 import { get } from 'http';
 type ShelfState = {
-  shelf: bookDetail[];
-  addToShelf: (book: bookDetail) => void;
-  removeFromShelf: (book: bookDetail) => void;
+  shelf: bookDetailSchema[];
+  addToShelf: (book: bookDetailSchema) => void;
+  removeFromShelf: (book: bookDetailSchema) => void;
 };
 console.log("Shelf store created");
 

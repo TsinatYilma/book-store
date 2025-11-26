@@ -94,7 +94,7 @@ export async function fetchAllReviews({bookID}:{bookID: string}) {
 }
 
 export async function addtoShelf(bookId: string) {
-  const res = await fetch("http://localhost:3000/api/books/addtoShelf", {
+  const res = await fetch("http://localhost:3000/api/users/addtoShelf", {
     method: "POST",
     credentials: "include",
     headers: {
@@ -112,8 +112,9 @@ export async function fetchShelfBooks( ) {
   // Don't do this in production :)
   console.log('am i trying to fetch the genres')
   
-    const res = await fetch(`http://localhost:3000/api/books/getShelf`, {
+    const res = await fetch(`http://localhost:3000/api/users/getShelf`, {
       method: "GET",
+      credentials: "include"
     });
   
     if (!res.ok) {
