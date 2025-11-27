@@ -21,24 +21,28 @@ ChartJS.register(
   Legend
 );
 
+
+export default function VisitorGraph() {
+
+  
 const { data: users, isLoading, error } = useQuery<User[], Error>({
   queryKey: ["users"],
   queryFn: fetchAllUsers,
 });
+console.log("user data<", users)
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", 
   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 const visitorData = monthNames.map((month, index) => {
 const visitors = users?.filter(user => {
-const date = new Date(user.created_at);
+const date = new Date(user.createdAt);
 return date.getMonth() === index; // match month index
 }).length;
 
 return { date: month.toLowerCase(), visitors };
 });
 
-console.log(visitorData);
-const data = {
+const graphdata = {
   labels: visitorData.map(d => d.date),
   datasets: [
     {
@@ -49,8 +53,6 @@ const data = {
     },
   ],
 };
-
-export default function VisitorGraph() {
   
-  return <Line data={data} />;
+  return <Line data={graphdata} />;
 }

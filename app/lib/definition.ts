@@ -174,6 +174,6 @@ export type User = {
   email: string;
   email_verified: boolean;
   image: string | null;
-  created_at: string; // ISO 8601 date-time
+  createdAt: string; // ISO 8601 date-time
   updated_at: string; // ISO 8601 date-time
 };
