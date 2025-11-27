@@ -126,3 +126,41 @@ export async function fetchShelfBooks( ) {
     return data.genres;
  
 }
+export async function fetchDashboardCounts( ) {
+  // Artificially delay a response for demo purposes.
+  // Don't do this in production :)
+  console.log('am i trying to fetch the genres')
+  
+    const res = await fetch(`http://localhost:3000/api/users/count`, {
+      method: "GET",
+      credentials: "include"
+    });
+  
+    if (!res.ok) {
+      console.error("Failed to fetch counts", res.status, res.statusText);
+      return [];
+    }
+  
+    const data = await res.json();
+    return data;
+ 
+}
+export async function fetchAllUsers( ) {
+  // Artificially delay a response for demo purposes.
+  // Don't do this in production :)
+  console.log('am i trying to fetch the genres')
+  
+    const res = await fetch(`http://localhost:3000/api/users/allUsers`, {
+      method: "GET",
+      credentials: "include"
+    });
+  
+    if (!res.ok) {
+      console.error("Failed to fetch counts", res.status, res.statusText);
+      return [];
+    }
+  
+    const data = await res.json();
+    return data;
+ 
+}

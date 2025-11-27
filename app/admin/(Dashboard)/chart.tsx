@@ -8,6 +8,9 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import { useQuery } from '@tanstack/react-query';
+import {fetchAllUsers} from "@/app/lib/fetching-data"
+import {User} from "@/app/lib/definition"
 
 ChartJS.register(
   CategoryScale,
@@ -17,13 +20,24 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-const visitorData = [
-  { date: 'jan', visitors: 120 },
-  { date: 'feb', visitors: 150 },
-  { date: 'mar', visitors: 90 },
-  { date: 'Aor', visitors: 200 },
-  { date: 'May', visitors: 170 },
-];
+
+const { data: users, isLoading, error } = useQuery<User[], Error>({
+  queryKey: ["users"],
+  queryFn: fetchAllUsers,
+});
+const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+const visitorData = monthNames.map((month, index) => {
+const visitors = users?.filter(user => {
+const date = new Date(user.created_at);
+return date.getMonth() === index; // match month index
+}).length;
+
+return { date: month.toLowerCase(), visitors };
+});
+
+console.log(visitorData);
 const data = {
   labels: visitorData.map(d => d.date),
   datasets: [
@@ -37,5 +51,6 @@ const data = {
 };
 
 export default function VisitorGraph() {
+  
   return <Line data={data} />;
 }

@@ -3,7 +3,15 @@ import '@/app/globals.css';
 import Link from "next/dist/client/link";
 import { UserIcon, BookOpenIcon, UserGroupIcon, ChatBubbleLeftIcon, IdentificationIcon, FaceSmileIcon, SparklesIcon, UserPlusIcon } from '@heroicons/react/24/outline';
 import VisitorGraph from './chart';
+import { useQuery } from '@tanstack/react-query';
+import {fetchDashboardCounts} from "@/app/lib/fetching-data"
 export default function AdminPage() {
+
+  const { data: counts, isLoading, error } = useQuery({
+    queryKey: ['counts'],
+    queryFn: fetchDashboardCounts ,
+  });
+
   return (
     <div className="">
         <div className="flex justify-between items-center p-2 font-gantari">
@@ -25,7 +33,7 @@ export default function AdminPage() {
               <div className="bg-black/20 p-4 rounded-lg flex flex-col gap-2 items-center ">
                     <div className="flex gap-2 items-center">
                       <BookOpenIcon className='h-[20px] w-[20px] text-gray-200'/>
-                    <p className="text-3xl font-gantari">10,267</p>
+                    <p className="text-3xl font-gantari">{counts?.count.books}</p>
                     </div>
                     <h1 className="text-[16px] text-gray-600">Total Books</h1>
                     
@@ -33,7 +41,7 @@ export default function AdminPage() {
                 <div className="bg-black/20 p-4 rounded-lg flex flex-col gap-2 items-center ">
                       <div className="flex gap-2 items-center">
                           <UserGroupIcon className='h-[20px] w-[20px] text-gray-200'/>
-                        <p className="text-3xl font-gantari">10</p>
+                        <p className="text-3xl font-gantari">{counts?.count.users}</p>
                         </div>
                       <h1 className="text-[16px] text-gray-600">Total Users</h1>
                 </div>
@@ -79,7 +87,7 @@ export default function AdminPage() {
                                           <IdentificationIcon className='h-[24px] w-[24px] text-cyan-600 '/>
                                       </div>
                                       <div className="">
-                                          <h1 className="font-bold text-lg text-transparent bg-clip-text bg-gradient-to-b from-cyan-200 to-white">2 Authors</h1>
+                                          <h1 className="font-bold text-lg text-transparent bg-clip-text bg-gradient-to-b from-cyan-200 to-white">{counts?.count.author} Authors</h1>
                                           <p className="text-gray-500 text-[11px]">2 Authors are waiting approval</p>
                                       </div>
                           </div>
@@ -89,7 +97,7 @@ export default function AdminPage() {
                         <div className="flex flex-col gap-10 h-fit p-5 border-[0.05px] border-gray-700 max-w-full">
                           <h1 className="text-[20px] ">Total Visitors</h1>
                           <div className="">
-                            <VisitorGraph />
+                            <VisitorGraph  />
                           </div>
                           <div className="text-sm text-gray-300 font-handlee">
                             <p className="">Trending up by 5.3% this month</p>

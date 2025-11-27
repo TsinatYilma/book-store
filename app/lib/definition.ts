@@ -166,3 +166,14 @@ export interface Review {
   updatedAt: string;   // ISO date string
 
 }
+
+export type User = {
+  idx: number;
+  id: string;
+  name: string;
+  email: string;
+  email_verified: boolean;
+  image: string | null;
+  created_at: string; // ISO 8601 date-time
+  updated_at: string; // ISO 8601 date-time
+};
