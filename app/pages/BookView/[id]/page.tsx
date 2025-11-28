@@ -4,7 +4,7 @@ import {use } from "react"
 import BookView from "../bookView";
 import { fetchBookDetail } from "@/app/lib/fetching-data";
 import { useQuery } from "@tanstack/react-query";
-import type { Book } from "@/app/lib/definition"; // adjust type import
+import type { bookDetailSchema } from "@/app/lib/definition"; // adjust type import
 
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
@@ -14,7 +14,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     data: bookDetail,
     isLoading,
     error,
-  } = useQuery<Book>({
+  } = useQuery<bookDetailSchema>({
     queryKey: ["bookDetail", id],
     queryFn: () => fetchBookDetail({ bookId: id }),
   });

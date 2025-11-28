@@ -79,7 +79,10 @@ export type UserType = {
     id: string;
     name: string;
   }
-  
+  export interface Status{
+    id: string;
+    name: string;
+  }
   export interface TOC {
     id: string;
     chapterName: string;
@@ -124,6 +127,7 @@ export interface bookDetailSchema {
     translators: Translator[];
     publishers: Publisher[];
     languages: Language[];
+    status: Status[];
     toc: TOC[];
     reviewsAndRatings: ReviewAndRating[];
     averageRating: number;

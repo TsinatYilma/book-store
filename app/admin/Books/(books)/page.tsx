@@ -1,9 +1,17 @@
 "use client"
 import Image from 'next/image'
 import { TrashIcon, EyeIcon, StarIcon, UserIcon, PencilIcon } from '@heroicons/react/24/outline';
-
+import { useQuery } from '@tanstack/react-query';
+import {fetchBooks} from "@/app/lib/fetching-data"
+import { bookDetailSchema } from '@/app/lib/definition';
 
 export default function Page({ placeholder }: { placeholder: string }) {
+
+  const { data: books, isLoading, error } = useQuery<bookDetailSchema[], Error>({
+      queryKey: ["books"],
+      queryFn: fetchBooks,
+    });
+
   return (
   <div className=" h-full">
     <table className="table-auto text-lg text-gray-300  w-full">
@@ -20,26 +28,25 @@ export default function Page({ placeholder }: { placeholder: string }) {
       
       <tbody >
         {
-          [...Array(13)].map((index)=>(
+          books?.map((book)=>(
             
-            <tr key={index} className='text-sm text-gray-400'>
+            <tr key={book.id} className='text-sm text-gray-400'>
               <td className="px-4 py-2 text-center">
-                <p className="">Jenna Fischer</p>
+                <p className="">{book.name}</p>
               </td>
               <td className=" px-4 py-2 text-center ">
-                <p className="">Charlotte Brontë</p>
-                <p className="">(Writter)</p>
+                <p className="flex flex-wrap justify-center gap-1">{book.authors.map((a, i)=><p key={i}>{a.name}{i < book.authors.length  - 1 ? ",": ""}</p>)}</p>
+              </td>
+              <td className="px-4 py-2  text-center">
+                <p className="flex flex-wrap justify-center gap-1">{book.genres.map((g, i)=><p key={i} className='' >{g.name}{i < book.genres.length - 1 ? "," : ""}</p>)}</p>
               </td>
               <td className=" px-4 py-2 text-center">
-                <p className="|">Fiction</p>
-              </td>
-              <td className=" px-4 py-2 text-center">
-                <p className="|">Published</p>
+                <p className="|">{book.status.map(s=>s.name)}</p>
               </td>
               <td className="px-4 py-2 ">
                 <div className="flex whitespace-nowrap gap-2 justify-center ">
                     <StarIcon className='w-[20px] h-[20px] text-cyan-600' />
-                    <p className="text-[16px]">4.3</p>
+                    <p className="text-[16px]">{book.averageRating}</p>
                 </div>
               </td>
               <td className="px-4 py-2 ">

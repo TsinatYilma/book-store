@@ -10,7 +10,6 @@ export default function HeaderSession() {
    const { showLogin, showSignup } = useAuthOverlay();
    const { data: session, isPending, error } =  useSessionQuery()
   const user = session?.user
-  console.log("user:", user)
   if (isPending) {
     return (
       <div className="hidden md:flex gap-3 md:gap-6  items-center font-gantari text-lg">
