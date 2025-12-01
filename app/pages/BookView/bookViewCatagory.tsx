@@ -11,7 +11,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useQuery } from '@tanstack/react-query';
 import { Book, Review } from '@/app/lib/definition';
 import {bookDetailSchema} from '@/app/lib/definition'
-import { fetchAllReviews, fetchBookDetail } from '@/app/lib/fetching-data';
+import { fetchReview, fetchBookDetail } from '@/app/lib/fetching-data';
 
 type Section = "description" | "author" | "reviews";
 

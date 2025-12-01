@@ -2,15 +2,33 @@
 import Image from 'next/image'
 import { TrashIcon, EyeIcon, StarIcon, UserIcon, PencilIcon } from '@heroicons/react/24/outline';
 import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import {fetchBooks} from "@/app/lib/fetching-data"
 import { bookDetailSchema } from '@/app/lib/definition';
 
 export default function Page({ placeholder }: { placeholder: string }) {
+  const queryClient = useQueryClient()
 
   const { data: books, isLoading, error } = useQuery<bookDetailSchema[], Error>({
       queryKey: ["books"],
       queryFn: fetchBooks,
     });
+    const deleteBookMutation = useMutation({
+      mutationFn: async (id: string) => {
+        const res = await fetch(`http://localhost:3000/api/books/${id}`, {
+          method: 'DELETE',
+        });
+        if (!res.ok) throw new Error('Failed to delete book');
+        return res.json();
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['books'] });
+      },
+    });
+  
+    function handleBookDelete(id: string) {
+      deleteBookMutation.mutate(id);
+    }
 
   return (
   <div className=" h-full">
@@ -52,7 +70,7 @@ export default function Page({ placeholder }: { placeholder: string }) {
               <td className="px-4 py-2 ">
                 <div className="flex gap-2 h-full my-auto justify-center items-center">
                     <PencilIcon className='w-[20px] h-[20px]' />
-                    <TrashIcon className='w-[20px] h-[20px]' />
+                    <TrashIcon className='w-[20px] h-[20px]' onClick={()=>handleBookDelete(book.id)} />
                     <EyeIcon className='w-[20px] h-[20px]' />
                 </div>
               </td>

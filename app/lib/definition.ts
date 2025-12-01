@@ -97,6 +97,7 @@ export type UserType = {
     rateValue: number;
     reviewText?: string | null;
     reviewTextCreatedTime: string;
+    bookName: string;
   }
   export interface book {
     id: string;

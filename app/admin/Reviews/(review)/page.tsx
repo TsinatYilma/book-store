@@ -3,14 +3,23 @@ import {useState, useEffect, useRef} from 'react'
 import "@/app/globals.css"
 import Image from 'next/image'
 import { MagnifyingGlassIcon, ChevronRightIcon, UserIcon, PlusCircleIcon, FunnelIcon } from '@heroicons/react/24/outline';
-
-
+import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { ReviewAndRating } from '@/app/lib/definition';
+import { fetchAllReviews } from '@/app/lib/fetching-data';
 
 export default function Page(){
     const [action, setAction] = useState(false);
     function toggleAction() {
         setAction(!action);
     }
+    const { data: reviews, isLoading, error } = useQuery<ReviewAndRating[], Error>({
+      queryKey: ["reviews"],
+      queryFn: fetchAllReviews,
+    });
+    const mid = Math.ceil((reviews?.length ?? 0) / 2);
+    const review1 = reviews?.slice(0, mid) ?? [];
+    const review2 = reviews?.slice(mid) ?? [];
     return (
         <div className="flex mt-10 h-screen overflow-y-auto flex-col lg:flex-row">
     <table className="table-auto text-lg text-gray-300  w-full gap-10">
@@ -22,12 +31,12 @@ export default function Page(){
         </tr>
       </thead>
       
-      <tbody className='pt-8'>
+      <tbody className=''>
         {
-          [...Array(11)].map((index)=>(
+          review1?.map((review, index )=>(
             
             <>
-                  <TableRowWithDescription key={`row-${index}`} />
+                  <TableRowWithDescription key={`row-${index}`} review={review} />
             </>
           ))
         }
@@ -43,9 +52,9 @@ export default function Page(){
       </thead>
       
       <tbody>
-            {[...Array(11)].map((_, index) => (
+      { review2?.map((review, index) => (
                 <>
-                  <TableRowWithDescription key={`row-${index}`} />
+                  <TableRowWithDescription key={`row-${index}`} review={review} />
                 </>
             ))}
      </tbody>
@@ -83,7 +92,7 @@ function TableRow() {
     </td>
   )
 }
-function TableRowWithDescription() {
+function TableRowWithDescription({review}:{review: ReviewAndRating}) {
   const [showDescription, setShowDescription] = useState(false)
   
   useEffect(() => {
@@ -100,13 +109,13 @@ function TableRowWithDescription() {
 
   return (
     <>
-      <tr className="text-sm ">
+      <tr className="text-sm  ">
         <td className="px-4 py-2 flex items-center gap-2">
           <ChevronRightIcon className={`h-[15px]  w-[15px] text-white ${showDescription ? 'toggle-button rotate-90' : ''}`} onClick={() => setShowDescription(prev => !prev)}/>
           <UserIcon className="h-[25px] w-[25px] text-cyan-400" />
-          <p>Jenna Fischer</p>
+          <p>{review.userName}</p>
         </td>
-        <td className="px-4 py-2 text-center">The Great Gatsby</td>
+        <td className="px-4 max-py-2 text-center">{review.bookName}</td>
         <TableRow  />
 
       </tr>
@@ -115,7 +124,7 @@ function TableRowWithDescription() {
         <tr>
           <td  colSpan={3} className="p-4 pt-0 shadow-md">
             <p className="text-[14px] px-3 font-gantari text-gray-400">
-              Fiction is the telling of stories which are not real. More specifically, fiction is an imaginative form of narrative, one of the four basic rhetorical modes. Although the word fiction is derived from the Latin fingo, fingere, finxi, fictum, "to form, create", works of fiction need not be entirely imaginary and may include real people, places, and events. Fiction may be either written or oral. Although not all fiction is necessarily artistic, fiction is largely perceived as a form of art or entertainment. 
+             {review.reviewText}
             </p>
           </td>
         </tr>
