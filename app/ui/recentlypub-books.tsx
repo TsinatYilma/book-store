@@ -1,25 +1,32 @@
-import {Book} from '../lib/definition';
+'use client';
+import { useQuery } from '@tanstack/react-query';
+import {Book, fetchBook, topRatedbook} from '../lib/definition';
 import '../globals.css';
 import { fetchBooks } from '@/app/lib/fetching-data';
-import {handlee, gabarito} from "@/app/ui/fonts";
+
 import Link from "next/link";
-import {books, topRatedbooks} from "@/app/lib/fetching-data"
+import {topRatedbooks, books} from "@/app/lib/fetching-data"
+import { TopRatedbooks } from '@/app/lib/placeholder-data';
 
 
+  
+export default  function RecentlyPublishedBooks() {
 
-export default async function RecentlyPublishedBooks() {
+   
     
     return (
         <div className="flex flex-col w-full  mt-14 m-5 p-4 ">
-            <div className={gabarito.className +"flex flex-col w-full  mt-14  "}>
+            <div className={"font-gabarito flex flex-col w-full  mt-14  "}>
             <h2 className="text-2xl font-bold mb-4 text-[#238E8E] ">Recently Published</h2>
+            
             <div className="flex  overflow-hidden overflow-x-auto no-scrollbar gap-3 p-5  ">
                 {
-                    books.map((book: Book) => (
-                        <div key={book.name} className=" shadow-md shrink-0 w-[120px] h-[248px] sm:w-[160px] sm:h-[300px] md:w-[220px] md:h-[400px] ">
-                            <div key={book.name} className="relative group shadow-md fancyBorderForHover"  >
+                    (books ?? []).map((book: fetchBook) => (
+                        
+                        <div key={book.id} className=" shadow-md shrink-0 w-[120px] h-[248px] sm:w-[160px] sm:h-[300px] md:w-[220px] md:h-[400px] ">
+                            <div key={book.id} className="relative group shadow-md fancyBorderForHover"  >
                                 <img
-                                    src={book.cover}
+                                    src={book.image}
                                     alt={book.name}
                                     className="w-full h-[184px] sm:h-[234px] md:h-[350px] sm:w-full  object-cover"
                                 />
@@ -29,26 +36,26 @@ export default async function RecentlyPublishedBooks() {
                                     <span className="text-[12px] text-md pt-1 sm:pt-0 sm:text-md font-bold">{book.rating} / 5</span>
                                 </span>
                                 <p className="text-[14px] sm:text-lg font-bold mb-3">{book.category}</p>
-                                <Link href='./' className='rounded-lg'><button className='fancyBorder rounded-lg bg-black text-[12px] text-md py-0.5 px-2 sm:py-2 sm:px-10 '>View Detail</button></Link>
+                                <Link href={`/pages/BookView/${book.id}`} className='fancyBorder rounded-lg bg-black text-[12px] text-md p-0.5 pl-2 sm:py-2 sm:px-10 '>View Detail</Link>
                             </div>
                          </div>
                             
                             <h3 className="text-md font-bold ">{book.name}</h3>
-                            <p className="text-[13px] text-grey-300">by <span className={handlee.className + 'text-[#238E8E] '}>{book.author}</span> </p>
+                            <p className="text-[13px] text-grey-300">by <span className={'font-handlee text-[#238E8E] '}>{book.authors[0].name}</span> </p>
                         </div>
                     ))
                 }
             </div>
         </div>
-        <div className={gabarito.className +"flex flex-col w-full  mt-14"}>
+        <div className={"font-gabarito flex flex-col w-full  mt-14"}>
         <h2 className="text-2xl font-bold mb-4 text-[#238E8E] ">Top Rated</h2>
         <div className="flex  overflow-hidden overflow-x-auto no-scrollbar gap-3 p-5  ">
             {
-                topRatedbooks.map((book: Book) => (
-                    <div key={book.name} className=" shadow-md shrink-0 w-[120px] h-[248px] sm:w-[160px] sm:h-[300px] md:w-[220px] md:h-[400px] ">
-                        <div key={book.name} className="relative group shadow-md fancyBorderForHover"  >
+                TopRatedbooks.map((book: topRatedbook) => (
+                    <div key={book.id} className=" shadow-md shrink-0 w-[120px] h-[248px] sm:w-[160px] sm:h-[300px] md:w-[220px] md:h-[400px] ">
+                        <div key={book.id} className="relative group shadow-md fancyBorderForHover"  >
                             <img
-                                src={book.cover}
+                                src={book.image}
                                 alt={book.name}
                                 className="w-full h-[184px] sm:h-[234px] md:h-[350px] sm:w-full  object-cover"
                             />
@@ -58,12 +65,12 @@ export default async function RecentlyPublishedBooks() {
                                 <span className="text-[12px] text-md pt-1 sm:pt-0 sm:text-md font-bold">{book.rating} / 5</span>
                             </span>
                             <p className="text-[14px] sm:text-lg font-bold mb-3">{book.category}</p>
-                            <Link href='./' className='rounded-lg'><button className='fancyBorder rounded-lg bg-black text-[12px] text-md p-0.5 pl-2 sm:py-2 sm:px-10 '>View Detail</button></Link>
+                        <Link href={`/pages/BookView/${book.id}`} className='fancyBorder rounded-lg bg-black text-[12px] text-md p-0.5 pl-2 sm:py-2 sm:px-10 '>View Detail</Link>
                         </div>
                      </div>
                         
                         <h3 className="text-md font-bold ">{book.name}</h3>
-                        <p className="text-[13px] text-grey-300">by <span className={handlee.className + 'text-[#238E8E] '}>{book.author}</span> </p>
+                        <p className="text-[13px] text-grey-300">by <span className={'font-handlee text-[#238E8E] '}>{book.author}</span> </p>
                     </div>
                 ))
             }

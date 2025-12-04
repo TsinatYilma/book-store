@@ -11,7 +11,8 @@ async function seedBooks() {
       author TEXT NOT NULL,
       cover TEXT NOT NULL,
       rating FLOAT NOT NULL,
-      category TEXT NOT NULL
+      category TEXT NOT NULL,
+      published INTEGER NOT NULL
     );
   `;
 

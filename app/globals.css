@@ -1,16 +1,41 @@
+
+@font-face {
+  font-family: 'Gabarito';
+  src: url('/font/gabarito/Gabarito-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gantari';
+  src: url('/font/gantari/Gantari-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Handlee';
+  src: url('/font/handlee/Handlee-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+
+}
+
 @import "tailwindcss";
 
 @theme{
   --breakpoint-xs: 400px;
   --breakpoint-me: 900px;
-  --font-gabarito: var(--font-gabarito);
-  --font-gantari: var(--font-gantari);
-  --font-handlee: var(--font-handlee);
-  --color-Cyan: "#0AA0A1";
+  --color-Cyan: '#0AA0A1';
+  --font-gabarito: Gabarito;
+  --font-gantari: Gantari;
+  --font-handlee: Handlee, "sans-serif";
+  --font-display: 'Gabarito', 'Gantari', 'Handlee', sans-serif;
 }
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --color-Cyan: #0AA0A1;
 }
 
 :root inline {
@@ -24,7 +49,9 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+
   }
+
 @media(width >= 400px){
   .fontSize{
     font-size: 24px;
@@ -62,3 +89,54 @@ body {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+.typeWritterEffect{
+  overflow: hidden;
+  border-right: 0.15em solid;
+  white-space: nowrap;
+  margin-inline: auto;
+  letter-spacing: 0.15em;
+  animation: typing 3s steps(15) 4, blink 1s step-end infinite;
+}
+
+@keyframes typing {
+  0% { width: 0; }
+  50% { width: 16ch; }
+  100% { width: 0; }
+}
+@keyframes blink {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: currentColor; }
+}
+
+
+.DropStatus:hover .StatusDropdown,
+.DropGenre:hover .GenreDropdown,
+.Droplanguages:hover .languagesDropdown{
+  display: flex;
+}
+
+.shimmer {
+  border: 2px solid transparent;
+  background: linear-gradient(90deg, Cyan 25%, #f8f8f8 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+@keyframes shimmer {
+  0% {
+    opacity: 1;   /* fully visible */
+  }
+  50% {
+    opacity: 0.4; /* dimmed */
+  }
+  100% {
+    opacity: 1;   /* back to visible */
+  }
+}
+
+
+

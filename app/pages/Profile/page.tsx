@@ -1,6 +1,22 @@
+"use client"
+import { useEffect, useState } from "react"
 import { UserIcon, PencilSquareIcon, PlusCircleIcon } from "@heroicons/react/24/outline" 
+import { authClient } from "@/app/lib/auth-client"
+import { useRouter } from "next/navigation"
+import { useQueryClient } from "@tanstack/react-query";
 
-export default function Profile(){
+export default  function Profile(){
+    const queryClient = useQueryClient()
+    const router = useRouter()
+    const [name, setUserName] = useState("");
+    const { data: session, isPending, error } = authClient.useSession();
+    const user = session?.user
+     
+    const  signOut = async() => {
+      await authClient.signOut()
+      queryClient.invalidateQueries({ queryKey: ["session"] });
+      router.push('/')
+    }
     return (
         <div className="min-w-full xs:px-5">
             <div className="flex flex-col gap-5  max-w-[1000px] mx-auto">
@@ -25,7 +41,7 @@ export default function Profile(){
                         <div className="flex flex-col sm:flex-row sm:flex-wrap gap-5 ">
                             <div className="flex flex-col min-w-[280px] max-w-[320px] h-[54px] sm:h-[64px] justify-between ">
                                 <p className="text-gray-600 text-[14px]">First Name</p>
-                                <p className="text-[16px]">Medan</p>
+                                <p className="text-[16px]">{user?.name}</p>
                             </div>
                             <div className="flex flex-col min-w-[280px] max-w-[320px] h-[54px] sm:h-[64px]  justify-between ">
                                 <p className="text-gray-600 text-[14px]">Last Name</p>
@@ -33,7 +49,7 @@ export default function Profile(){
                             </div>
                             <div className="flex flex-col min-w-[280px] max-w-[320px] h-[54px] sm:h-[64px]  justify-between ">
                                 <p className="text-gray-600 text-[14px]">Email Address</p>
-                                <p className="text-[16px]">medan@example.com</p>
+                                <p className="text-[16px]">{user?.email}</p>
                             </div>
                             <div className="flex flex-col min-w-[280px] max-w-[320px] h-[54px] sm:h-[64px]  justify-between ">
                                 <p className="text-gray-600 text-[14px]">Phone Number</p>
@@ -98,13 +114,16 @@ export default function Profile(){
                                 <h1 className="font-bold text-cyan-500 text-[18px] ">Activities</h1>
                         </div>
                         <div className="flex flex-col px-4 py-6 gap-2 text-lg">
-                            <h1 className="text-cyan-600">Logout</h1>
+                            <button onClick={signOut} className="text-cyan-600 w-fit">Logout</button>
                             <h1 className="text-cyan-600">Change password</h1>
                             <h1 className="text-[#CD2C39]">Delete Account</h1>
                         </div>
+                        <div className="flex flex-col"></div>
                     </div>
+                    <div className="links"></div>
                 </div>
             </div>
+            
         </div>
     )
 }
