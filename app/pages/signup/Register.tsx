@@ -38,7 +38,7 @@ export default function SignUp(){
     },
   })
  
-  // 2. Define a submit handler.
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
   
@@ -51,14 +51,16 @@ export default function SignUp(){
       console.log('Signup result:', result);
 
       if (result?.data) {
-        router.refresh();
+        
         router.push('/');
+        router.refresh();
         hide();
       }
     } catch (error) {
       console.error('Signup failed:', error);
     } finally {
       setLoading(false);
+      router.refresh();
     }
   }
   

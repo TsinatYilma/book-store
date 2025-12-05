@@ -45,7 +45,7 @@ export default function BookView({bookDetail}: {bookDetail: bookDetailSchema }){
                         <p className="text-[12px] order-3 typeWritterEffect  ">Rate the Book</p>
                         <div className="gap-4 w-fit order-1">
                             <button className="fancyBorder w-full mb-4 py-1" onClick={() =>{ console.log('Adding bookDetail:', bookDetail); addToShelf(bookDetail); handleAddtoShelf(); }}>Add to shelf</button>
-                            <button className="fancyBorder w-full py-1">Mark as read</button>
+                            <button className="fancyBorder w-full py-1 text-2xl ">Mark as read</button>
                         </div>
                 </div>
                 </div>
