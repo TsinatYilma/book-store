@@ -13,7 +13,7 @@ export async function fetchBooks() {
     
       const res = await fetch('http://localhost:3000/api/books', {
         method: "GET", // always get fresh data
-        
+        credentials: "include"
       });
     
       if (!res.ok) {
@@ -41,7 +41,7 @@ export async function fetchBookDetail({bookId}: { bookId: string } ) {
   
     const res = await fetch(`http://localhost:3000/api/books/${bookId}`, {
       method: "GET",
-      
+      credentials: "include"
     });
   
     if (!res.ok) {
@@ -62,6 +62,8 @@ export async function fetchAllGenres( ) {
   
     const res = await fetch(`http://localhost:3000/api/genres/allgenres`, {
       method: "GET",
+      credentials: "include"
+      
     });
   
     if (!res.ok) {
@@ -80,6 +82,7 @@ export async function fetchReview({bookID}:{bookID: string}) {
   
     const res = await fetch(`http://localhost:3000/api/reviews/${bookID}`, {
       method: "GET",
+      credentials: "include"
     });
   
     if (!res.ok) {
@@ -99,6 +102,7 @@ export async function fetchAllReviews() {
   
     const res = await fetch(`http://localhost:3000/api/reviews`, {
       method: "GET",
+      credentials: "include"
     });
   
     if (!res.ok) {

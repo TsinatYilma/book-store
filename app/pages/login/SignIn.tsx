@@ -46,8 +46,10 @@ export default function Login(){
  
   async  function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true)
+    
     const result = await authClient.signIn.email({email: values.email, password: values.password})
     if (result.data) {
+      console.log("login result", result.data)
       router.refresh()
       queryClient.invalidateQueries({ queryKey: ["session"] });
       router.push("/")

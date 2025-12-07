@@ -11,7 +11,7 @@ export function useSessionQuery() {
       return data ?? null;
     },
     staleTime: 5 * 60 * 1000, // 5 minutes
-    refetchOnWindowFocus: true, // or false if you don’t want it
+    refetchOnWindowFocus: true, 
     refetchOnReconnect: true,
     refetchOnMount: false,
     retry: false,

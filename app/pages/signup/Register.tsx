@@ -41,27 +41,32 @@ export default function SignUp(){
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
-  
+    
     try {
       const result = await authClient.signUp.email({
         name: values.name,
         email: values.email,
         password: values.password,
       });
-      console.log('Signup result:', result);
-
+    
+      console.log('Signup result:');
+    
       if (result?.data) {
-        
+        console.log("signup user:", result.data);
         router.push('/');
         router.refresh();
         hide();
+      } else if (result?.error) {
+        console.error('Signup failed:', result.error.message);
       }
     } catch (error) {
-      console.error('Signup failed:', error);
+      console.error('Unexpected signup error:', error);
     } finally {
       setLoading(false);
       router.refresh();
     }
+    
+    
   }
   
     return(
