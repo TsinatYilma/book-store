@@ -117,7 +117,7 @@ export async function fetchAllReviews() {
 }
 
 export async function addtoShelf(bookId: string) {
-  const res = await fetch("http://localhost:3000/api/users/addtoShelf", {
+  const res = await fetch("http://localhost:3000/api/profiles/addtoShelf", {
     method: "POST",
     credentials: "include",
     headers: {
@@ -135,7 +135,7 @@ export async function fetchShelfBooks( ) {
   // Don't do this in production :)
   console.log('am i trying to fetch the genres')
   
-    const res = await fetch(`http://localhost:3000/api/users/getShelf`, {
+    const res = await fetch(`http://localhost:3000/api/profiles/getShelf`, {
       method: "GET",
       credentials: "include"
     });
@@ -154,7 +154,7 @@ export async function fetchDashboardCounts( ) {
   // Don't do this in production :)
   console.log('am i trying to fetch the genres')
   
-    const res = await fetch(`http://localhost:3000/api/users/count`, {
+    const res = await fetch(`http://localhost:3000/api/profiles/count`, {
       method: "GET",
       credentials: "include"
     });
@@ -173,7 +173,7 @@ export async function fetchAllUsers( ) {
   // Don't do this in production :)
   console.log('am i trying to fetch the genres')
   
-    const res = await fetch(`http://localhost:3000/api/users/allUsers`, {
+    const res = await fetch(`http://localhost:3000/api/profiles/allUsers`, {
       method: "GET",
       credentials: "include"
     });
