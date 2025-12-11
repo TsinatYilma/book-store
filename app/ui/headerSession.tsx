@@ -1,15 +1,15 @@
-'use client'
+"use client";
 
 import { authClient, useSession } from "../lib/auth-client";
-import { useEffect, useState , useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { useAuthOverlay } from "@/app/LayoutContext/OverlayContext";
-import {useSessionQuery} from "@/app/lib/useSessionQeury"
+import { useSessionQuery } from "@/app/lib/useSessionQeury";
 
 export default function HeaderSession() {
-   const { showLogin, showSignup } = useAuthOverlay();
-   const { data: session, isPending, error } =  useSessionQuery()
-  const user = session?.user
+  const { showLogin, showSignup } = useAuthOverlay();
+  const { data: session, isPending, error } = useSessionQuery();
+  const user = session?.user;
   if (isPending) {
     return (
       <div className="hidden md:flex gap-3 md:gap-6  items-center font-gantari text-lg">
@@ -25,11 +25,10 @@ export default function HeaderSession() {
   }
   if (error) {
     return <></>;
-  } 
+  }
   return (
     <div className="">
       {user ? (
-        
         <div className="hidden md:flex gap-3 md:gap-6  items-center font-gantari text-lg">
           <Link href="/pages/Myshelf">My shelf</Link>
           <p className="font-bold text-3xl flex items-center">|</p>
