@@ -13,7 +13,7 @@ const StarRating = ({bookId}:{bookId: string}) => {
     function handleRating(value:number){
         setRating(()=>(value))
         console.log("rate value:", value)
-        mutation.mutate(value);
+        mutation.mutate(value); 
 
     }
     const mutation = useMutation({
