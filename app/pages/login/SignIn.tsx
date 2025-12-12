@@ -42,7 +42,7 @@ export default function Login() {
     setLoadingGoogle(true);
     await authClient.signIn.social({
       provider: "google",
-      callbackURL: "http://localhost:3000/api/auth/callback/google",
+      callbackURL: "http://localhost:3001",
     });
     setLoadingGoogle(false);
   };
