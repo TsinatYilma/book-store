@@ -13,13 +13,9 @@ export default function BooksLayout({
   children: React.ReactNode;
 }>) {
   return (
-       <div className="flex h-full flex-col ">
-         <BookLayout/>
-        <div className="flex-grow ">
-            {children}
-        </div>
+    <div className="flex h-full flex-col ">
+      <BookLayout />
+      <div className="flex-grow ">{children}</div>
     </div>
-      
-    
   );
 }

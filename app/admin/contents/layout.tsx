@@ -13,13 +13,9 @@ export default function ContentsLayout({
   children: React.ReactNode;
 }>) {
   return (
-       <div className="flex h-full flex-col ">
-         <ContentLayout/>
-        <div className="flex-grow ">
-            {children}
-        </div>
+    <div className="flex h-full flex-col ">
+      <ContentLayout />
+      <div className="flex-grow ">{children}</div>
     </div>
-      
-    
   );
 }
