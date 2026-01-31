@@ -9,21 +9,20 @@ export async function fetchBooks() {
     // Artificially delay a response for demo purposes.
     // Don't do this in production :)
     
-      console.log('am i trying to fetch the book detail')
-    
-      const res = await fetch('http://localhost:3000/api/books', {
-        method: "GET", // always get fresh data
-        credentials: "include"
-      });
-    
-      if (!res.ok) {
-        console.error("Failed to fetch books", res.status, res.statusText);
-        return [];
-      }
-    
-      const data = await res.json();
-      return data;
-   
+  console.log('am i trying to fetch the book detail')
+  
+  const res = await fetch('http://localhost:3000/books', {
+    method: "GET", // always get fresh data
+    credentials: "include"
+  });
+
+  if (!res.ok) {
+    console.error("Failed to fetch books", res.status, res.statusText);
+    return [];
+  }
+
+  const data = await res.json();
+  return data; 
 }
 
 const book = await fetchBooks()
@@ -39,19 +38,19 @@ export async function fetchBookDetail({bookId}: { bookId: string } ) {
   // Don't do this in production :)
   console.log('am i trying to fetch the BookDetail')
   
-    const res = await fetch(`http://localhost:3000/api/books/${bookId}`, {
-      method: "GET",
-      credentials: "include"
-    });
-  
-    if (!res.ok) {
-      console.error("Failed to fetch books", res.status, res.statusText);
-      return [];
-    }
-  
-    const data = await  res.json();
-    console.log("bookDetail:", data)
-    return data;
+  const res = await fetch(`http://localhost:3000/books/${bookId}`, {
+    method: "GET",
+    credentials: "include"
+  });
+
+  if (!res.ok) {
+    console.error("Failed to fetch books", res.status, res.statusText);
+    return [];
+  }
+
+  const data = await  res.json();
+  console.log("bookDetail:", data)
+  return data;
  
 }
 
@@ -60,19 +59,19 @@ export async function fetchAllGenres( ) {
   // Don't do this in production :)
   console.log('am i trying to fetch the genres')
   
-    const res = await fetch(`http://localhost:3000/api/genres/allgenres`, {
-      method: "GET",
-      credentials: "include"
-      
-    });
-  
-    if (!res.ok) {
-      console.error("Failed to fetch genres", res.status, res.statusText);
-      return [];
-    }
-  
-    const data = await res.json();
-    return data.genres;
+  const res = await fetch(`http://localhost:3000/genres/all-genres`, {
+    method: "GET",
+    credentials: "include"
+    
+  });
+
+  if (!res.ok) {
+    console.error("Failed to fetch genres", res.status, res.statusText);
+    return [];
+  }
+
+  const data = await res.json();
+  return data.genres;
  
 }
 export async function fetchReview({bookID}:{bookID: string}) {
@@ -80,44 +79,45 @@ export async function fetchReview({bookID}:{bookID: string}) {
   // Don't do this in production :)
   console.log('am i trying to fetch the reviews')
   
-    const res = await fetch(`http://localhost:3000/api/reviews/${bookID}`, {
-      method: "GET",
-      credentials: "include"
-    });
-  
-    if (!res.ok) {
-      console.error("Failed to fetch reviews", res.status, res.statusText);
-      return [];
-    }
-  
-    const data = await res.json();
+  const res = await fetch(`http://localhost:3000/reviews/books/${bookID}`, {
+    method: "GET",
+    credentials: "include"
+  });
 
-    return data;
+  if (!res.ok) {
+    console.error("Failed to fetch reviews", res.status, res.statusText);
+    return [];
+  }
+
+  const data = await res.json();
+
+  return data;
  
 }
+
 export async function fetchAllReviews() {
   // Artificially delay a response for demo purposes.
   // Don't do this in production :)
   console.log('am i trying to fetch the reviews')
   
-    const res = await fetch(`http://localhost:3000/api/reviews`, {
-      method: "GET",
-      credentials: "include"
-    });
-  
-    if (!res.ok) {
-      console.error("Failed to fetch reviews", res.status, res.statusText);
-      return [];
-    }
-  
-    const data = await res.json();
+  const res = await fetch(`http://localhost:3000/reviews`, {
+    method: "GET",
+    credentials: "include"
+  });
 
-    return data;
+  if (!res.ok) {
+    console.error("Failed to fetch reviews", res.status, res.statusText);
+    return [];
+  }
+
+  const data = await res.json();
+
+  return data;
  
 }
 
 export async function addtoShelf(bookId: string) {
-  const res = await fetch("http://localhost:3000/api/profiles/addtoShelf", {
+  const res = await fetch("http://localhost:3000/profiles/add-to-Shelf", {
     method: "POST",
     credentials: "include",
     headers: {
@@ -135,37 +135,38 @@ export async function fetchShelfBooks( ) {
   // Don't do this in production :)
   console.log('am i trying to fetch the genres')
   
-    const res = await fetch(`http://localhost:3000/api/profiles/getShelf`, {
-      method: "GET",
-      credentials: "include"
-    });
-  
-    if (!res.ok) {
-      console.error("Failed to fetch genres", res.status, res.statusText);
-      return [];
-    }
-  
-    const data = await res.json();
-    return data.genres;
+  const res = await fetch(`http://localhost:3000/profiles/get-shelf`, {
+    method: "GET",
+    credentials: "include"
+  });
+
+  if (!res.ok) {
+    console.error("Failed to fetch genres", res.status, res.statusText);
+    return [];
+  }
+
+  const data = await res.json();
+  return data.genres;
  
 }
+
 export async function fetchDashboardCounts( ) {
   // Artificially delay a response for demo purposes.
   // Don't do this in production :)
   console.log('am i trying to fetch the genres')
   
-    const res = await fetch(`http://localhost:3000/api/profiles/count`, {
-      method: "GET",
-      credentials: "include"
-    });
-  
-    if (!res.ok) {
-      console.error("Failed to fetch counts", res.status, res.statusText);
-      return [];
-    }
-  
-    const data = await res.json();
-    return data;
+  const res = await fetch(`http://localhost:3000/profiles/count`, {
+    method: "GET",
+    credentials: "include"
+  });
+
+  if (!res.ok) {
+    console.error("Failed to fetch counts", res.status, res.statusText);
+    return [];
+  }
+
+  const data = await res.json();
+  return data;
  
 }
 export async function fetchAllUsers( ) {
@@ -173,17 +174,16 @@ export async function fetchAllUsers( ) {
   // Don't do this in production :)
   console.log('am i trying to fetch the genres')
   
-    const res = await fetch(`http://localhost:3000/api/profiles/allUsers`, {
-      method: "GET",
-      credentials: "include"
-    });
-  
-    if (!res.ok) {
-      console.error("Failed to fetch counts", res.status, res.statusText);
-      return [];
-    }
-  
-    const data = await res.json();
-    return data;
- 
+  const res = await fetch(`http://localhost:3000/profiles/all-users`, {
+    method: "GET",
+    credentials: "include"
+  });
+
+  if (!res.ok) {
+    console.error("Failed to fetch counts", res.status, res.statusText);
+    return [];
+  }
+
+  const data = await res.json();
+  return data;
 }
