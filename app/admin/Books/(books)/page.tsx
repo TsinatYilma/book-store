@@ -12,23 +12,24 @@ export default function Page({ placeholder }: { placeholder: string }) {
   const { data: books, isLoading, error } = useQuery<bookDetailSchema[], Error>({
       queryKey: ["books"],
       queryFn: fetchBooks,
-    });
-    const deleteBookMutation = useMutation({
-      mutationFn: async (id: string) => {
-        const res = await fetch(`http://localhost:3000/api/books/${id}`, {
-          method: 'DELETE',
-        });
-        if (!res.ok) throw new Error('Failed to delete book');
-        return res.json();
-      },
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['books'] });
-      },
-    });
+  });
+
+  const deleteBookMutation = useMutation({
+    mutationFn: async (id: string) => {
+      const res = await fetch(`http://localhost:3000/books/${id}`, {
+        method: 'DELETE',
+      });
+      if (!res.ok) throw new Error('Failed to delete book');
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['books'] });
+    },
+  });
   
-    function handleBookDelete(id: string) {
-      deleteBookMutation.mutate(id);
-    }
+  function handleBookDelete(id: string) {
+    deleteBookMutation.mutate(id);
+  }
 
   return (
   <div className=" h-full">
@@ -63,15 +64,15 @@ export default function Page({ placeholder }: { placeholder: string }) {
               </td>
               <td className="px-4 py-2 ">
                 <div className="flex whitespace-nowrap gap-2 justify-center ">
-                    <StarIcon className='w-[20px] h-[20px] text-cyan-600' />
+                    <StarIcon className='w-5 h-5 text-cyan-600' />
                     <p className="text-[16px]">{book.averageRating}</p>
                 </div>
               </td>
               <td className="px-4 py-2 ">
                 <div className="flex gap-2 h-full my-auto justify-center items-center">
-                    <PencilIcon className='w-[20px] h-[20px]' />
-                    <TrashIcon className='w-[20px] h-[20px]' onClick={()=>handleBookDelete(book.id)} />
-                    <EyeIcon className='w-[20px] h-[20px]' />
+                    <PencilIcon className='w-5 h-5' />
+                    <TrashIcon className='w-5 h-5' onClick={()=>handleBookDelete(book.id)} />
+                    <EyeIcon className='w-5 h-5' />
                 </div>
               </td>
               
