@@ -5,6 +5,10 @@ import '@/app/globals.css'
 import { useRouter } from "next/navigation"
 import { EnvelopeIcon , EyeSlashIcon, UserIcon, } from '@heroicons/react/24/outline'
 import Link from "next/dist/client/link"
+<<<<<<< HEAD
+=======
+import {signIn, signUp} from "@/server/users"
+>>>>>>> 528e1d9 (yeserashen yestesh)
 import { z } from "zod"
 import {useState} from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -70,14 +74,22 @@ export default function SignUp(){
   
     return(
         <div className="flex min-h-screen flex-col justify-center items-center bg-black/2">
+<<<<<<< HEAD
             <div className="relative font-gantari min-w-[280px] sm:min-w-[355px] flex flex-col items-center gap-5 bg-linear-to-tr from-black to-[#0AA0A1]/40 px-6 sm:px-8 py-10 rounded-lg border-[0.25]">
+=======
+            <div className="relative font-gantari min-w-[280px] sm:min-w-[355px] flex flex-col items-center gap-5 bg-gradient-to-tr from-black to-[#0AA0A1]/40 px-6 sm:px-8 py-10 rounded-lg border-[0.25]">
+>>>>>>> 528e1d9 (yeserashen yestesh)
                 <button onClick={hide} className="absolute top-2 right-4 text-2xl text-white hover:text-red-600">✕</button>
                 <h1 className="font-gabarito font-semibold text-[#0AA0A1] text-2xl ">Sign Up</h1>
                 <form onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col w-full gap-5 '>
 
                         <div className="relative">
                         <input
+<<<<<<< HEAD
                             className=" block w-full py-1.5 rounded-md border pl-10 text-sm outline-2 focus:outline-cyan-500 placeholder:text-gray-500 font-bold"
+=======
+                            className=" block w-full py-[6px] rounded-md border pl-10 text-sm outline-2 focus:outline-cyan-500 placeholder:text-gray-500 font-bold"
+>>>>>>> 528e1d9 (yeserashen yestesh)
                             id="name"
                             type="name"
                             placeholder="Enter Name"
@@ -89,7 +101,11 @@ export default function SignUp(){
                         </div>
                         <div className="relative">
                         <input
+<<<<<<< HEAD
                             className=" block w-full py-1.5 rounded-md pl-10 text-sm outline-2 focus:outline-cyan-500 placeholder:text-gray-500 font-bold"
+=======
+                            className=" block w-full py-[6px] rounded-md pl-10 text-sm outline-2 focus:outline-cyan-500 placeholder:text-gray-500 font-bold"
+>>>>>>> 528e1d9 (yeserashen yestesh)
                             id="email"
                             type="email"
                             placeholder="Enter email"
@@ -101,7 +117,11 @@ export default function SignUp(){
                         </div>
                         <div className="relative">
                         <input
+<<<<<<< HEAD
                             className=" block w-full py-1.5 rounded-md pl-10 text-sm outline-2 focus:outline-cyan-500 placeholder:text-gray-500 font-bold"
+=======
+                            className=" block w-full py-[6px] rounded-md pl-10 text-sm outline-2 focus:outline-cyan-500 placeholder:text-gray-500 font-bold"
+>>>>>>> 528e1d9 (yeserashen yestesh)
                             id="password"
                             type={showPassword ? "text" : "password"}
                             placeholder="Enter password"
@@ -115,7 +135,11 @@ export default function SignUp(){
                         </div>
                         <div className="relative">
                         <input
+<<<<<<< HEAD
                             className={`block w-full py-1.5 rounded-md pl-10 text-sm outline-2 focus:outline-cyan-500 ${form.formState.errors.confirmPassword && ('focus:outline-red-500')} placeholder:text-gray-500 font-bold`}
+=======
+                            className={`block w-full py-[6px] rounded-md pl-10 text-sm outline-2 focus:outline-cyan-500 ${form.formState.errors.confirmPassword && ('focus:outline-red-500')} placeholder:text-gray-500 font-bold`}
+>>>>>>> 528e1d9 (yeserashen yestesh)
                             id="confirmPassword"
                             type={showPassword ? "text" : "password"}
                             placeholder="Confirm password"

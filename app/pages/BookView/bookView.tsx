@@ -8,7 +8,11 @@ import { useShelfStore } from "@/store/shelfStore";
 import BookViewCatagory from "./bookViewCatagory";
 import StarRating from "./starRating";
 import Image from "next/image";
+<<<<<<< HEAD
 import { addtoShelf } from "@/app/lib/fetching-data";
+=======
+import { addtoShelf } from "@/app/lib/API_Calls/fetching-data";
+>>>>>>> 528e1d9 (yeserashen yestesh)
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
 

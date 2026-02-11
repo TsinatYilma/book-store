@@ -29,7 +29,7 @@ export default function Home() {
       <IntroText />
       <Search placeholder="Search..." isLoading={isLoading} />
 
-      <main className="grow">
+      <main className="flex-grow">
         {q ? (
           <SearchResults books={books} />
         ) : (

@@ -13,13 +13,13 @@ export default function ActivityLogLayout({
   children: React.ReactNode;
 }>) {
   return (
-       <div className="flex h-full flex-col  ">
-         <ActivityLayout/>
-        <div className="grow ">
-            {children}
-        </div>
+    <div className="flex h-full flex-col  ">
+      <ActivityLayout />
+      <div className="flex-grow ">
+        {children}
+      </div>
     </div>
-      
-    
+
+
   );
 }

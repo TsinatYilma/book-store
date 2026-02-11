@@ -1,5 +1,9 @@
 // app/pages/BookView/[id]/BookLoader.tsx
+<<<<<<< HEAD
 import { topRatedbooks } from "@/app/lib/fetching-data";
+=======
+import { topRatedbooks } from "@/app/lib/API_Calls/fetching-data";
+>>>>>>> 528e1d9 (yeserashen yestesh)
 import BookView from "./bookView";
 import { books } from "@/app/lib/placeholder-data";
 

@@ -2,10 +2,17 @@
 import { useQuery } from "@tanstack/react-query";
 import { bookDetailSchema, fetchBook, topRatedbook } from "../lib/definition";
 import "../globals.css";
+<<<<<<< HEAD
 import { fetchBooks } from "@/app/lib/fetching-data";
 
 import Link from "next/link";
 import { topRatedbooks, books } from "@/app/lib/fetching-data";
+=======
+import { fetchBooks } from "@/app/lib/API_Calls/fetching-data";
+
+import Link from "next/link";
+import { topRatedbooks, books } from "@/app/lib/API_Calls/fetching-data";
+>>>>>>> 528e1d9 (yeserashen yestesh)
 import { TopRatedbooks } from "@/app/lib/placeholder-data";
 
 export default function RecentlyPublishedBooks() {
