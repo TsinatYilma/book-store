@@ -15,7 +15,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
 import { Book, Review } from "@/app/lib/definition";
 import { bookDetailSchema } from "@/app/lib/definition";
-import { fetchReview, fetchBookDetail } from "@/app/lib/fetching-data";
+import { fetchReview, PostReview } from "@/app/lib/API_Calls/reviews";
 
 type Section = "description" | "author" | "reviews";
 
@@ -36,30 +36,22 @@ export default function BookViewCatagory({
     resolver: zodResolver(reviewSchema),
   });
   const mutation = useMutation({
-    mutationFn: async (payload: { reviewText: string }) => {
-      const res = await fetch(
-        `http://localhost:3000/api/reviews/books/${bookId.id}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" }, // ✅ tell Nest it's JSON
-          body: JSON.stringify(payload), // ✅ send JSON
-          credentials: "include",
-        }
-      );
-      if (!res.ok) throw new Error("Failed to upload genre");
-      return res.json();
-    },
+    mutationFn: (payload: { reviewText: string }) =>
+      PostReview(bookId.id, payload),
+
     onSuccess: (data) => {
-      console.log("✅ Review uploaded successfully:", data);
+      console.log("-> Review uploaded successfully:", data);
       queryClient.invalidateQueries({ queryKey: ["bookDetail"] });
     },
-    onError: (error) => console.error("❌ Upload failed:", error),
+
+    onError: (error) => {
+      console.error("=> Upload failed:", error);
+    },
   });
 
   async function onSubmit(formData: z.infer<typeof reviewSchema>) {
-    console.log("am i not getting called");
     const { reviewText } = formData;
-    mutation.mutate({ reviewText }); // ✅ send plain object
+    mutation.mutate({ reviewText });
   }
   function ReviewShown() {
     console.log("wth");
@@ -72,9 +64,8 @@ export default function BookViewCatagory({
         <div>
           <button
             onClick={() => setActiveDetail("description")}
-            className={`py-1 px-3 rounded  bg-black border ${
-              activeDetail == "description" ? "fancyBorder" : "border-gray-500 "
-            }`}
+            className={`py-1 px-3 rounded  bg-black border ${activeDetail == "description" ? "fancyBorder" : "border-gray-500 "
+              }`}
           >
             Description
           </button>
@@ -82,9 +73,8 @@ export default function BookViewCatagory({
         <div>
           <button
             onClick={() => setActiveDetail("reviews")}
-            className={`py-1 px-3 rounded  bg-black border ${
-              activeDetail == "reviews" ? "fancyBorder" : "border-gray-500 "
-            }`}
+            className={`py-1 px-3 rounded  bg-black border ${activeDetail == "reviews" ? "fancyBorder" : "border-gray-500 "
+              }`}
           >
             Reviews
           </button>
@@ -92,9 +82,8 @@ export default function BookViewCatagory({
       </div>
 
       <div
-        className={`flex-col gap-5 ${
-          activeDetail == "reviews" ? "flex" : "hidden"
-        }`}
+        className={`flex-col gap-5 ${activeDetail == "reviews" ? "flex" : "hidden"
+          }`}
       >
         <h1 className="text-[20px] ">Comminuty Review</h1>
         <p className="text-gray-600">Displaying 1&#8211;10 of 150 reviews</p>
@@ -174,9 +163,8 @@ export default function BookViewCatagory({
         </div>
       </div>
       <div
-        className={`flex-col gap-5 ${
-          activeDetail == "description" ? "flex" : "hidden"
-        }`}
+        className={`flex-col gap-5 ${activeDetail == "description" ? "flex" : "hidden"
+          }`}
       >
         <div className="">
           <p className="text-[16px] max-w-[800px] text-gray-500">

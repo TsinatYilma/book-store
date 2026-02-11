@@ -11,6 +11,7 @@ import {
 } from "@heroicons/react/24/outline";
 import Link from "next/dist/client/link";
 import { authClient } from "@/app/lib/auth-client";
+import { signIn, signUp } from "@/server/users";
 import { z } from "zod";
 import { Loader2 } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -86,7 +87,7 @@ export default function Login() {
             <h1 className="font-gabarito text-xl">Email</h1>
             <div className="relative">
               <input
-                className="block w-full py-1.5 rounded-md pl-10 text-sm outline-2 focus:outline-cyan-500 placeholder:text-gray-500 font-bold"
+                className="block w-full py-[6px] rounded-md pl-10 text-sm outline-2 focus:outline-cyan-500 placeholder:text-gray-500 font-bold"
                 id="email"
                 type="email"
                 placeholder="Enter email"
@@ -108,7 +109,7 @@ export default function Login() {
             </Link>
             <div className="relative">
               <input
-                className="peer block w-full py-1.5 rounded-md pl-10 text-sm outline-2 focus:outline-cyan-500 placeholder:text-gray-500 font-bold"
+                className="peer block w-full py-[6px] rounded-md pl-10 text-sm outline-2 focus:outline-cyan-500 placeholder:text-gray-500 font-bold"
                 id="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter password"

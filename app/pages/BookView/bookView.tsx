@@ -8,7 +8,7 @@ import { useShelfStore } from "@/store/shelfStore";
 import BookViewCatagory from "./bookViewCatagory";
 import StarRating from "./starRating";
 import Image from "next/image";
-import { addtoShelf } from "@/app/lib/fetching-data";
+import { addtoShelf } from "@/app/lib/API_Calls/fetching-data";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
 

@@ -1,5 +1,5 @@
 // app/pages/BookView/[id]/BookLoader.tsx
-import { topRatedbooks } from "@/app/lib/fetching-data";
+import { topRatedbooks } from "@/app/lib/API_Calls/fetching-data";
 import BookView from "./bookView";
 import { books } from "@/app/lib/placeholder-data";
 

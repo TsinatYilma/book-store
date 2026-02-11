@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
 import { Book } from "@/app/lib/definition";
-import { fetchAllGenres } from "@/app/lib/fetching-data";
+import { fetchAllGenres } from "@/app/lib/API_Calls/fetching-data";
 
 const genreSchema = z.object({
   genreName: z.string().min(1, "Book name is required"),

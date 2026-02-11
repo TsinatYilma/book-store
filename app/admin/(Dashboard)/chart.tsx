@@ -9,8 +9,8 @@ import {
   Legend,
 } from 'chart.js';
 import { useQuery } from '@tanstack/react-query';
-import {fetchAllUsers} from "@/app/lib/fetching-data"
-import {User} from "@/app/lib/definition"
+import { fetchAllUsers } from "@/app/lib/fetching-data"
+import { User } from "@/app/lib/definition"
 
 ChartJS.register(
   CategoryScale,
@@ -24,35 +24,35 @@ ChartJS.register(
 
 export default function VisitorGraph() {
 
-  
-const { data: users, isLoading, error } = useQuery<User[], Error>({
-  queryKey: ["users"],
-  queryFn: fetchAllUsers,
-});
-console.log("user data<", users)
-const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", 
-  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-const visitorData = monthNames.map((month, index) => {
-const visitors = users?.filter(user => {
-const date = new Date(user.createdAt);
-return date.getMonth() === index; // match month index
-}).length;
+  const { data: users, isLoading, error } = useQuery<User[], Error>({
+    queryKey: ["users"],
+    queryFn: fetchAllUsers,
+  });
+  console.log("user data<", users)
+  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-return { date: month.toLowerCase(), visitors };
-});
+  const visitorData = monthNames.map((month, index) => {
+    const visitors = users?.filter(user => {
+      const date = new Date(user.createdAt);
+      return date.getMonth() === index; // match month index
+    }).length;
 
-const graphdata = {
-  labels: visitorData.map(d => d.date),
-  datasets: [
-    {
-      label: 'Total Visitors',
-      data: visitorData.map(d => d.visitors),
-      borderColor: 'rgba(75,192,192,1)',
-      fill: false,
-    },
-  ],
-};
-  
+    return { date: month.toLowerCase(), visitors };
+  });
+
+  const graphdata = {
+    labels: visitorData.map(d => d.date),
+    datasets: [
+      {
+        label: 'Total Visitors',
+        data: visitorData.map(d => d.visitors),
+        borderColor: 'rgba(75,192,192,1)',
+        fill: false,
+      },
+    ],
+  };
+
   return <Line data={graphdata} />;
 }
