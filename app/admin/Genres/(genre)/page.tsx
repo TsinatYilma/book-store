@@ -11,6 +11,11 @@ import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
 import { Book } from "@/app/lib/definition";
+<<<<<<< HEAD
+import { fetchAllGenres } from "@/app/lib/fetching-data";
+=======
+import { fetchAllGenres } from "@/app/lib/API_Calls/fetching-data";
+>>>>>>> 528e1d9 (yeserashen yestesh)
 import { fetchAllGenres } from "@/app/lib/API_Calls/fetching-data";
 
 const genreSchema = z.object({

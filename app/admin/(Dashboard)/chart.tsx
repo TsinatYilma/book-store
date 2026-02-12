@@ -9,7 +9,7 @@ import {
   Legend,
 } from 'chart.js';
 import { useQuery } from '@tanstack/react-query';
-import { fetchAllUsers } from "@/app/lib/fetching-data"
+import { fetchAllUsers } from "@/app/lib/API_Calls/fetching-data"
 import { User } from "@/app/lib/definition"
 
 ChartJS.register(

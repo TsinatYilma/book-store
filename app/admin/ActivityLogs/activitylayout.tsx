@@ -31,7 +31,7 @@ export default function ActivityLayout() {
                             Search
                         </label>
                         <input
-                            className="block rounded-md py-1 sm:py-1.5 pl-8 text-sm  placeholder:text-gray-500 w-[392px] sm:h-[30px] sm:max-w-[350px]  md:w-[350px] outline-2 outline-gray-300   bg-transparent"
+                            className="block rounded-md py-[4px] sm:py-[6px] pl-8 text-sm  placeholder:text-gray-500 w-[392px] sm:h-[30px] sm:max-w-[350px]  md:w-[350px] outline-2 outline-gray-300   bg-transparent"
                             placeholder={"search uearch(e.target.value)"}
                         //defaultValue={searchParams.get('query')?.toString()}
                         />

@@ -15,7 +15,7 @@ export default function ActivityLogLayout({
   return (
     <div className="flex h-full flex-col  ">
       <ActivityLayout />
-      <div className="grow ">
+      <div className="flex-grow ">
         {children}
       </div>
     </div>
