@@ -137,16 +137,16 @@ export const TopRatedbooks = [
     category: "Fantasy",
     published: 2011
   },
- {
-  id: "educated-tara-westover",
-  name: "Educated",
-  author: "Tara Westover",
-  image: "https://images.penguinrandomhouse.com/image/9780399590504",
-  rating: 4.7,
-  category: "Memoir",
-  published: 2018
-}
-,
+  {
+    id: "educated-tara-westover",
+    name: "Educated",
+    author: "Tara Westover",
+    image: "https://images.penguinrandomhouse.com/image/9780399590504",
+    rating: 4.7,
+    category: "Memoir",
+    published: 2018
+  }
+  ,
   {
     id: "the-hate-u-give-angie-thomas",
     name: "The Hate U Give",

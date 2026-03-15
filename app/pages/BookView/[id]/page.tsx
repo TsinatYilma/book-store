@@ -5,6 +5,7 @@ import BookView from "../bookView";
 import { fetchBookDetail } from "@/app/lib/API_Calls/fetching-data";
 import { useQuery } from "@tanstack/react-query";
 import type { bookDetailSchema } from "@/app/lib/definition"; // adjust type import
+import { TopRatedbooks } from "@/app/lib/placeholder-data";
 
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
