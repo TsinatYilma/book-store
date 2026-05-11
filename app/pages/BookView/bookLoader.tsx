@@ -9,3 +9,4 @@ export default function BookLoader({ id }: { id: string }) {
 
   return <BookView book={book} />;
 }
+
