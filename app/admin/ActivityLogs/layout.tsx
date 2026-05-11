@@ -20,7 +20,6 @@ export default function ActivityLogLayout({
       </div>
     </div>
 
-
   );
 }
 import type { Metadata } from "next";
