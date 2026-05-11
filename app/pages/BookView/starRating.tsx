@@ -1,47 +1,70 @@
 "use client"
-import { useState } from 'react'
-import { StarIcon, UserIcon } from '@heroicons/react/24/outline'
-import { authClient } from "@/app/lib/auth-client"
-import { useMutation } from "@tanstack/react-query";
-import { postBookRating } from '@/app/lib/API_Calls/rating';
 
+import { useEffect, useState } from 'react'
+import { StarIcon } from '@heroicons/react/24/outline'
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { rateBook } from '@/app/lib/mutate-data';
+import { fetchRate } from '@/app/lib/fetching-data';
 
 const StarRating = ({ bookId }: { bookId: string }) => {
   const [rating, setRating] = useState(0)
   const [hover, setHover] = useState(0)
-  const { data: session, isPending, error } = authClient.useSession();
 
-  function handleRating(value: number) {
-    setRating(() => (value))
-    console.log("rate value:", value)
-    mutation.mutate(value);
+  const queryClient = useQueryClient();
 
-  }
-  const mutation = useMutation({
-    mutationFn: (value: number) =>
-      postBookRating(bookId, value),
-
-    onSuccess: (data) => {
-      console.log("Rating submitted:", data);
-    },
-
-    onError: (err) => {
-      console.error("Error submitting rating:", err);
-    },
+  const { data: rate } = useQuery({
+    queryKey: ['rate', bookId],
+    queryFn: () => fetchRate(bookId),
   });
 
+  useEffect(() => {
+    if (rate) {
+      setRating(rate);
+    }
+  }, [rate]);
+
+  function handleRating(rateNum: number) {
+    setRating(rateNum)
+    mutation.mutate({ rateNum, bookId });
+  }
+
+  const mutation = useMutation({
+    mutationFn: ({ rateNum, bookId }: { rateNum: number; bookId: string }) =>
+      rateBook(rateNum, bookId),
+
+    onMutate: async ({ rateNum, bookId }) => {
+      await queryClient.cancelQueries({ queryKey: ['rate', bookId] })
+
+      const previousRate = queryClient.getQueryData(['rate', bookId])
+
+      queryClient.setQueryData(['rate', bookId], rateNum)
+
+      return { previousRate, bookId }
+    },
+
+    onError: (err, variables, context) => {
+      if (context?.previousRate) {
+        queryClient.setQueryData(['rate', context.bookId], context.previousRate)
+      }
+      console.error("Error submitting rating:", err);
+    },
+
+    onSettled: (data, error, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['rate', variables.bookId] });
+      queryClient.invalidateQueries({ queryKey: ["shelf"] })
+      queryClient.invalidateQueries({ queryKey: ['bookDetail', variables.bookId] });
+    },
+  });
 
   return (
     <div className="flex">
       {[...Array(5)].map((star, i) => {
         const ratingValue = i + 1
         return (
-
           <label htmlFor="" key={i}>
             <input type="radio" className='hidden' name='starRating' value={ratingValue} />
             <StarIcon
-              key={i}
-              className={`w-[24px] h-[24px] hover:cursor-pointer `}
+              className={`w-6 h-6 hover:cursor-pointer `}
               style={{
                 fill: ratingValue <= (hover || rating) ? '#0AA0A1' : 'transparent',
                 stroke: '#0AA0A1',
@@ -51,10 +74,11 @@ const StarRating = ({ bookId }: { bookId: string }) => {
               onMouseLeave={() => (setHover(0))}
               onClick={() => handleRating(ratingValue)}
             />
-          </label>)
+          </label>
+        )
       })}
     </div>
   )
 }
 
-export default StarRating;
+export default StarRating

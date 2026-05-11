@@ -1,22 +1,12 @@
 
-
 type Author = {
   id: string;
   name: string;
-};
+}
 export type fetchBook = {
   id: string
   name: string;
   authors: Author[];
-  image: string;
-  rating: number;
-  category: string;
-  published: number;
-};
-export interface topRatedbook {
-  id: string;
-  name: string;
-  author: string;
   image: string;
   rating: number;
   category: string;
@@ -79,10 +69,7 @@ export interface Language {
   id: string;
   name: string;
 }
-export interface Status {
-  id: string;
-  name: string;
-}
+
 export interface TOC {
   id: string;
   chapterName: string;
@@ -91,14 +78,15 @@ export interface TOC {
 }
 
 export interface ReviewAndRating {
+  userImage: string
   userId: string;
   userName: string;
-  userRole?: string | null;
-  rateValue: number;
-  reviewText?: string | null;
+  userRole: string | null;
+  rateValue: number | null;
+  reviewText: string;
   reviewTextCreatedTime: string;
-  bookName: string;
 }
+
 export interface book {
   id: string;
   image: string;
@@ -111,7 +99,17 @@ export interface book {
   statusId: string;
 }
 
+export interface fullbooksResponse {
+  page: number
+  limit: number
+  total: number
+  data: bookDetailSchema[]
+}
 
+export type statusResult = {
+  id: string;
+  name: string | null;
+}
 export interface bookDetailSchema {
   id: string;
   image: string;
@@ -120,18 +118,19 @@ export interface bookDetailSchema {
   summary?: string | null;
   editionNumbers: number;
   isbn?: string | null;
-  firstPublishedDate: string; // parse to Date if needed
-  statusId: string;
+  firstPublishedDate: string;
 
   authors: Authors[];
   genres: Genre[];
+  status: statusResult
   translators: Translator[];
   publishers: Publisher[];
   languages: Language[];
-  status: Status[];
   toc: TOC[];
   reviewsAndRatings: ReviewAndRating[];
   averageRating: number;
+  reviewCount: number,
+  ratingCount: number,
 }
 
 
@@ -155,12 +154,6 @@ export type Book = {
   reviewsAndRatings: ReviewAndRating[];
   averageRating: number;
 }
-export interface Genre {
-  id: string;
-  name: string;
-  description?: string;
-  books: Book[];
-}
 
 export interface Review {
   id: string;
@@ -179,6 +172,69 @@ export type User = {
   email: string;
   email_verified: boolean;
   image: string | null;
-  createdAt: string;
-  updated_at: string;
+  createdAt: string; // ISO 8601 date-time
+  updated_at: string; // ISO 8601 date-time
 };
+
+export type partialBookSchema = {
+  id: string;
+  image: string;
+  name: string;
+
+  authors: Authors[];
+  genres: Genre[];
+  status: statusResult
+  averageRating: number;
+}
+
+export type generalSearchResults = {
+  query: string
+  page: number
+  limit: number
+  total: number
+  data: partialBookSchema[],
+}
+
+
+
+export type conditionedBooks = partialBookSchema[]
+
+export type genreInfo = {
+  genreId: string;
+  genreName: string;
+}
+
+export type genreDetails = genreInfo[]
+
+export type fullGenreRespnse = {
+  genreId: string;
+  genreName: string;
+  genreDescription: string | null;
+  pages: number;
+  bookLimits: number;
+  total: number;
+  books: partialBookSchema[]
+}
+
+export type genresWithbooks = {
+  genreId: string;
+  genreName: string;
+  books: partialBookSchema[]
+}
+
+export type allGenres = genresWithbooks[]
+
+export type genreList = Genre[]
+
+export type profile = {
+  id: string;
+  userId: string;
+  roleId: string;
+  dateOfBirth: string | null;
+  phoneNumber: string | null;
+  country: string | null;
+  city: string | null;
+  postalCode: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}

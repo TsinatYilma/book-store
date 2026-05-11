@@ -1,8 +1,8 @@
 "use client";
 import { useShelfStore } from "@/store/shelfStore";
-import { Book } from "@/app/lib/definition";
+import { bookDetailSchema } from "@/app/lib/definition";
 
-export default function BookCard({ book }: { book: Book }) {
+export default function BookCardForView({ book }: { book: bookDetailSchema }) {
   const addToShelf = useShelfStore((state) => state.addToShelf);
   return (
     <button
